@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Gensler - Wedges</title>
+
+	<!-- CSS libraries -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!-- Custom CSS code -->
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+	<div class="visContainers">
+
+		<div class="row">
+			<div class="col-md-12">
+				<!-- <h1><span class="h1-sub">Wedges Prototype</span> </h1>
+				<h2>Defining the Wedges</h2> -->
+				<div id="wedge" style="width:70%; display:inline-flex" ></div>
+				<div id = "panel" style="width:29%; display:inline-flex"></div>
+				<!-- <div class="time-period">
+					<span class="time-period-value" id="time-period-min"></span>
+					<span class="time-period-divider">–</span>
+					<span class="time-period-value" id="time-period-max"></span>
+					<button class="btn btn-sm btn-primary" id="reset-zoom">Reset Zoom</button>
+				</div> -->
+			</div>
+		</div>
+
+
+
+		
+		<div class="row">
+			<div class="col-md-5">
+				<div id="linkedHighlighting">
+				</div>
+			</div>
+			<div class="col-md-7">
+				<div id="linkedHighlighting_bar"></div>
+			</div>
+		</div>
+
+		
+
+
+
+
+
+	</div>
+
+	<!-- Load JS libraries -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+	<!-- d3 -->
+	<script src="https://d3js.org/d3.v6.min.js"></script>
+	<script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+
+
+	<!-- Visualization objects -->
+	<script src="js/barChart.js"></script>
+	<script src="js/scatterPlot.js"></script>
+	<script src="js/wedge.js"></script>
+	<script src="js/animation.js"></script>
+	<script src="js/stagedAnimation.js"></script>
+	<script src="js/interpolatedAnimation.js"></script>
+	<script src="js/hardSwitch.js"></script>
+	<script src="js/linkedHighlighting.js"></script>
+	<!-- <script src="js/seedRandom.js"></script> -->
+
+
+
+
+	<!-- Load data, create visualizations -->
+	<script src="js/main.js"></script>
+</body>
+</html>
