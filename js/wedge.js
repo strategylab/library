@@ -50,30 +50,78 @@ class Wedge {
 
             let self = this;
             let clickColor = '#64c4ae'
-            d3.selectAll('.cls-27').filter(function(d){return d3.select(this).attr('width')<12})
-            .style('fill', '#333132')
-            .on('click', function(){
+
+            let circleElements   = d3.selectAll('.cls-40');
+            let circleState = [];
+            
+            circleElements.each(function(c,i){circleState.push({id:i,checked:i == 0 || i == 3})});
+
+            circleElements.data(circleState)
+            circleElements
+            .style('fill', (d)=> d.checked ? clickColor : '#333132')
+            .on('click', function(event,d){
+                self.animateTransition();
+                d.checked = !d.checked; 
+                d3.select(this).style('fill',d.checked ? clickColor : '#333132')
+            })
+
+            let checkBoxElements = d3.selectAll('.cls-27').filter(function(){return d3.select(this).attr('x')=='47.35'});
+
+            let state = [];
+            
+            checkBoxElements.each(function(c,i){state.push({id:i,checked:false})});
+
+            let checkBoxes = checkBoxElements.data(state);
+
+            checkBoxes
+            .style('fill',function(d){return '#333132' } );
+
+            checkBoxes
+            .on('click', function(event, d){
+                // console.log(e)
                 self.animateTransition()
-                d3.select(this).style('fill',clickColor)})
+                d.checked = !d.checked; 
+                d3.select(this).style('fill',d.checked ? clickColor : '#333132')
+              
+            })
+               
 
             d3.selectAll('.cls-27').filter(function(d){return d3.select(this).attr('width')>12})
-            .style('fill', '#333132')
-            .style('opacity',.2)
+            .style('fill', d=>{return '#333132'})
+            .style('opacity',.2);
+
+            d3.selectAll('.cls-27').filter(function(d){return d3.select(this).attr('x')==45.13})
             .on('click', function(){
-                d3.selectAll('.cls-27').filter(function(d){return d3.select(this).attr('width')<12})
+
+                checkBoxes.each(function(c){c.checked = false})
+                checkBoxes
                 .style('fill', '#333132')
                 self.animateTransition()
             })
 
-
-            d3.selectAll('.cls-40')
-            .style('fill', '#333132')
+            d3.selectAll('.cls-27').filter(function(d){return d3.select(this).attr('x')>100})
             .on('click', function(){
-                self.animateTransition();
-                d3.select(this).style('fill',clickColor)})
+                download('Capture','this is the content')
+                self.animateTransition()
+            })
 
+
+            
 
         })
+
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+          
+            element.style.display = 'none';
+            document.body.appendChild(element);
+          
+            element.click();
+          
+            document.body.removeChild(element);
+          }
         
 
         d3.xml("baseLayer_v5.svg")
@@ -130,7 +178,9 @@ class Wedge {
 
 
                     let outer = d3.select('#Lines').selectAll(".upperPoly")
-                        .data([lowerData.concat(upperData)]);
+                        // .data([lowerData.concat(upperData)]);
+                        .data([upperData]);
+
 
                     let outerEnter = outer.enter().append("polygon");
 
@@ -154,27 +204,27 @@ class Wedge {
 
 
 
-                    // let inner = d3.select('#Lines').selectAll(".lowerPoly")
-                    //     .data([lowerData]);
+                    let inner = d3.select('#Lines').selectAll(".lowerPoly")
+                        .data([lowerData]);
 
-                    // let innerEnter = inner.enter().append("polygon")
+                    let innerEnter = inner.enter().append("polygon")
 
-                    // inner.exit().remove();
+                    inner.exit().remove();
 
-                    // inner = innerEnter.merge(inner);
+                    inner = innerEnter.merge(inner);
 
 
-                    // inner.attr('class', 'lowerPoly')
-                    //     .attr("points", function (d) {
-                    //         return d.map(function (d) {
-                    //             return [d.startingPoint.x, d.startingPoint.y].join(",");
-                    //         }).join(" ");
-                    //     })
-                    //     .attr("fill", 'none')
-                    //     .attr("stroke", lower)
-                    //     .attr("stroke-width", 1.5)
-                    //     .attr('stroke-dasharray', 3)
-                    //     .style('opacity', .2)
+                    inner.attr('class', 'lowerPoly')
+                        .attr("points", function (d) {
+                            return d.map(function (d) {
+                                return [d.startingPoint.x, d.startingPoint.y].join(",");
+                            }).join(" ");
+                        })
+                        .attr("fill", lower)
+                        .attr("stroke", lower)
+                        .attr("stroke-width", 1.5)
+                        .attr('stroke-dasharray', 3)
+                        .style('opacity', .2)
 
                     
 
@@ -183,7 +233,6 @@ class Wedge {
                         //create dictionary of random values, one for each id. 
                         let randomDict = {}
                         upperData.concat(lowerData).map(d => randomDict[d.id] = Math.random())
-                        console.log(randomDict)
                         circles
                             .transition()
                             .duration(transitionDuration)
@@ -215,24 +264,24 @@ class Wedge {
                                 }).join(" ");
                             })
 
-                        // inner.transition()
-                        //     .duration(transitionDuration)
-                        //     .ease(d3.easeLinear)
+                        inner.transition()
+                            .duration(transitionDuration)
+                            .ease(d3.easeLinear)
 
-                        //     // .delay(function (d, i) { return i * 10; })
+                            // .delay(function (d, i) { return i * 10; })
 
-                        //     // .attr("points", function (d) {
-                        //     //     return d.map(function (d) {
-                        //     //         return [d.point.x, d.point.y].join(",");
-                        //     //     }).join(" ");
-                        //     // })
+                            // .attr("points", function (d) {
+                            //     return d.map(function (d) {
+                            //         return [d.point.x, d.point.y].join(",");
+                            //     }).join(" ");
+                            // })
 
-                        //     .attr("points", d => {
-                        //         return d.map(d => {
-                        //             let point = this.createRandomPoint(d, randomDict[d.id]);
-                        //             return [point.x, point.y].join(",");
-                        //         }).join(" ");
-                        //     })
+                            .attr("points", d => {
+                                return d.map(d => {
+                                    let point = this.createRandomPoint(d, randomDict[d.id]);
+                                    return [point.x, point.y].join(",");
+                                }).join(" ");
+                            })
 
 
                     }
