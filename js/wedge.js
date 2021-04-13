@@ -61,7 +61,8 @@ class Wedge {
             let clickColor = '#64c4ae'
 
             //remove grey circles
-            d3.selectAll('.st135').remove()
+            d3.selectAll('.st135').remove();
+            d3.select('#SVGID_151_').remove();
             
             let lineNode = d3.select('#Response_Filter_Text').select('line').node()
 
@@ -71,9 +72,18 @@ class Wedge {
           
             let xRange = [lineNode.getPointAtLength(0).x, lineNode.getPointAtLength(totalLength).x]
            
-            let lineScale = d3.scaleLinear()
+            let range = [];
+            for (var i = 0; i <= 20; i++) {
+                range.push(i*5);
+              }
+            let lineScale = d3.scaleQuantize()
             .domain(xRange)
-            .range([0, 100])
+            .range(range)
+
+        
+            var quantizeScale = d3.scaleQuantize()
+            .domain([0, 100])
+                .range(['lightblue', 'orange', 'lightgreen', 'pink']);
 
 
             let lineAxis = [];
@@ -121,16 +131,19 @@ class Wedge {
             })
             .call(d3.drag().on("drag",function (event,d){
                 // console.log(event,d)
-                d3.select(this).attr('cx',event.x)
+                
 
                 let y = Number(d3.select(this).attr('cy'))+ 15
-                d.label.attr('x',event.x)
+                let range = lineScale.domain();
+                let x = event.x > range[1] ? range[1] : (event.x < range[0] ? range[0] : event.x)
+                d3.select(this).attr('cx',x)
+
+                d.label.attr('x',x)
                 d.label.attr('y',y)
                 d.label.attr('transform', '')
-                d.label.text(Math.round(lineScale(event.x)) + 'th percentile')
+                d.label.text(Math.round(lineScale(x)) + 'th percentile')
                 d.label.style('text-anchor', 'middle')
                 
-                // d3.select(this).attr('cy',event.y)
 
             })
             .on("end",()=>{self.animateTransition()}))
