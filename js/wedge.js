@@ -60,7 +60,7 @@ class Wedge {
 
             let clickColor = '#64c4ae'
 
-            let circleElements   = d3.selectAll('.st140');
+            let circleElements   = d3.selectAll('.st136');
             let circleState = [];
             
             circleElements.each(function(c,i){circleState.push({id:i,checked:i == 0 || i == 3})});
@@ -89,17 +89,17 @@ class Wedge {
 
             allGroups.map(g=>{
                 let block = d3.select('#'+g.id)
-                .attr('transform', g.group == 1 ? 'translate(55,0)' : '')
+                // .attr('transform', g.group == 1 ? 'translate(55,0)' : '')
 
                 let bars = block.selectAll('.st134')
                 // bars.style('fill', '#9a999c');
 
-                bars.each(function(){
-                    let bar = d3.select(this);
-                    let width = bar.attr('width')
-                    let x = bar.attr('x');
-                    bar.attr('x', x - width - 20)
-                })
+                // bars.each(function(){
+                //     let bar = d3.select(this);
+                //     let width = bar.attr('width')
+                //     let x = bar.attr('x');
+                //     bar.attr('x', x - width - 20)
+                // })
 
                 let allLabels = block.selectAll('text');
                 allLabels.each(function(l){
@@ -110,7 +110,7 @@ class Wedge {
                     tspans.remove();
                     d3.select(this).html(text.join(''))
                     // .attr('class', g.group == '1' ? 'st114 st135 st123' : 'st114 st129 st130')
-                                        .attr('class','st114 st135 st123')
+                                        .attr('class','st113 st122 st123')
 
                    
 
@@ -129,7 +129,7 @@ class Wedge {
                 }
 
 
-                let checkBoxElements = block.selectAll('.st117');
+                let checkBoxElements = block.selectAll('.st116');
 
                 let state = [];
                 
@@ -206,10 +206,12 @@ class Wedge {
           }
         
 
-        d3.xml("baseLayerLatest.svg")
+        d3.xml("Wellness_SVG_final.svg")
             .then(data => {
                 d3.select("#wedge")
                     .node().append(data.documentElement)
+
+                   
 
                 // d3.csv('data.csv').then(d => {
 
