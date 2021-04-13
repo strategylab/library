@@ -132,8 +132,8 @@ class Wedge {
                 
                 // d3.select(this).attr('cy',event.y)
 
-            }))
-            .on("end",()=>self.animateTransition())
+            })
+            .on("end",()=>{self.animateTransition()}))
 
             let groups1 = [{id:'Tenure',label:'Tenure'},{id:'Role',label:'Role'},{id:'Dept',label: 'Department'}].map(g=>{g.group = '1'; return g})
             let groups2 =  [{id:'User_Filter',label: 'User Filter'}, {id:'Response_Filter_Text',label: 'Response Filter'}].map(g=>{g.group = '2'; return g});
@@ -144,17 +144,9 @@ class Wedge {
 
             allGroups.map(g=>{
                 let block = d3.select('#'+g.id)
-                // .attr('transform', g.group == 1 ? 'translate(55,0)' : '')
 
                 let bars = block.selectAll('.st134')
-                // bars.style('fill', '#9a999c');
-
-                // bars.each(function(){
-                //     let bar = d3.select(this);
-                //     let width = bar.attr('width')
-                //     let x = bar.attr('x');
-                //     bar.attr('x', x - width - 20)
-                // })
+        
 
                 let allLabels = block.selectAll('text');
                 allLabels.each(function(l){
@@ -397,7 +389,7 @@ class Wedge {
 
                     let set = setInterval(this.animateTransition, transitionDuration);
 
-                    setTimeout(function () { console.log('done'); clearInterval(set) },transitionDuration);
+                    setTimeout(function () { clearInterval(set) },transitionDuration);
 
 
 
