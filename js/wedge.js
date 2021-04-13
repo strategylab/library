@@ -29,7 +29,7 @@ class Wedge {
     initVis() {
 
 
-        var vis = this;
+        let vis = this;
         // SVG drawing area
         // vis.svg = d3.select("#" + vis.parentElement).append("svg")
         //     .attr("width", vis.width + vis.margin.left + vis.margin.right)
@@ -40,15 +40,24 @@ class Wedge {
         console.log('vis.g', vis.g)
 
 
-        d3.xml("userFilter_v5.svg")
-        .then(data => {
-            d3.select('#panel')
-                .node().append(data.documentElement) //.attr('class','panel');
+        // d3.xml("userFilter_v5.svg")
+        // .then(data => {
+        //     d3.select('#panel')
+        //         .node().append(data.documentElement) //.attr('class','panel');
 
-            d3.select('#panel').select('svg').style('width', '500px')
-            d3.select('#panel').select('svg').style('height', '700px')
+        //     d3.select('#panel').select('svg').style('width', '500px')
+        //     d3.select('#panel').select('svg').style('height', '700px')
 
-            let self = this;
+       
+
+
+            
+
+        // })
+
+        let self = this;
+        function activatePanel(){
+
             let clickColor = '#64c4ae'
 
             let circleElements   = d3.selectAll('.cls-40');
@@ -65,25 +74,45 @@ class Wedge {
                 d3.select(this).style('fill',d.checked ? clickColor : '#333132')
             })
 
-            let checkBoxElements = d3.selectAll('.cls-27').filter(function(){return d3.select(this).attr('x')=='47.35'});
+            let groups = ['Tenure','Role','Dept'];
 
-            let state = [];
-            
-            checkBoxElements.each(function(c,i){state.push({id:i,checked:false})});
+            groups.map(g=>{
+                let block = d3.select('#'+g)
+                let label = block.select('text') //assumes the label is the first text in the group; 
 
-            let checkBoxes = checkBoxElements.data(state);
+                label.data([{checked:false}])
+                label.style('cursor', 'pointer')
 
-            checkBoxes
-            .style('fill',function(d){return '#333132' } );
 
-            checkBoxes
-            .on('click', function(event, d){
-                // console.log(e)
-                self.animateTransition()
-                d.checked = !d.checked; 
-                d3.select(this).style('fill',d.checked ? clickColor : '#333132')
-              
+                let checkBoxElements = block.selectAll('.st117');
+
+                let state = [];
+                
+                checkBoxElements.each(function(c,i){state.push({id:i,checked:false})});
+
+                let checkBoxes = checkBoxElements.data(state);
+
+                checkBoxes
+                .on('click', function(event, d){
+                    console.log(d)
+                    self.animateTransition()
+                    d.checked = !d.checked; 
+                    d3.select(this).style('fill',d.checked ? clickColor : '#333132')
+                
+                })
+
+                label.on('click',function (event,d){
+                    console.log('event', 'clicked on label')
+                    d.checked = !d.checked; 
+                    checkBoxes.each(function(c){c.checked = d.checked})
+                    checkBoxes.style('fill', d.checked ? clickColor : '#333132')
+                    self.animateTransition()
+                })
+
+
             })
+
+            
                
 
             d3.selectAll('.cls-27').filter(function(d){return d3.select(this).attr('width')>12})
@@ -104,11 +133,7 @@ class Wedge {
                 download('Capture','this is the content')
                 self.animateTransition()
             })
-
-
-            
-
-        })
+        }
 
         function download(filename, text) {
             var element = document.createElement('a');
@@ -124,32 +149,21 @@ class Wedge {
           }
         
 
-        d3.xml("baseLayer_v5.svg")
+        d3.xml("baseLayerLatest.svg")
             .then(data => {
                 d3.select("#wedge")
                     .node().append(data.documentElement)
 
-                d3.select('svg').style('width', '1000px')
-                d3.select('svg').style('height', '700px')
-
                 // d3.csv('data.csv').then(d => {
 
-                    let pathNode = d3.select('#Lines').select('line').node()
+                    activatePanel()
+                    let pathNode = d3.select('#Diagram_Lines').select('line').node()
                     let totalLength = pathNode.getTotalLength()
                     console.log(totalLength)
 
                     this.scales = d3.scaleLinear()
                         .domain([5, 1])
                         .range([totalLength, 0])
-
-
-                    let q1 = [{ 'type': 'a', 'label': 'Q1.1_1' },
-                    { 'type': 'a', 'label': 'Q1.1_2' },
-                    { 'type': 'a', 'label': 'Q1.1_3' }]
-
-                    let q2 = [{ 'type': 'b', 'label': 'Q2.1_1' },
-                    { 'type': 'b', 'label': 'Q2.1_2' },
-                    { 'type': 'b', 'label': 'Q2.1_3' }]
 
                     let upperData = this.createData('upper');
                     let lowerData = this.createData('lower');
@@ -159,7 +173,7 @@ class Wedge {
                     let upper = '#36847e';
                     let lower = '#1d8582'
                     // console.log('afterSort', q1.map(a=>a.point.x))
-                    let circles = d3.select('#dots').selectAll('circle')
+                    let circles = d3.select('#DOTS').selectAll('circle')
                         // .data(q1.concat(q2));
                         .data(upperData.concat(lowerData))
 
@@ -177,7 +191,7 @@ class Wedge {
 
 
 
-                    let outer = d3.select('#Lines').selectAll(".upperPoly")
+                    let outer = d3.select('#Diagram_Lines').selectAll(".upperPoly")
                         // .data([lowerData.concat(upperData)]);
                         .data([upperData]);
 
@@ -204,7 +218,7 @@ class Wedge {
 
 
 
-                    let inner = d3.select('#Lines').selectAll(".lowerPoly")
+                    let inner = d3.select('#Diagram_Lines').selectAll(".lowerPoly")
                         .data([lowerData]);
 
                     let innerEnter = inner.enter().append("polygon")
@@ -312,7 +326,7 @@ class Wedge {
         // Math.seedrandom(element.id + iteration)
         // console.log(out)
 
-        let value = element.type == "upper" ? Math.ceil((randomNumber / 2 + 0.5) * 5) : Math.ceil((randomNumber / 2 + 0.1) * 5);
+        let value = 0 //element.type == "upper" ? Math.ceil((randomNumber / 2 + 0.5) * 5) : Math.ceil((randomNumber / 2 + 0.1) * 5);
         let pathNode = element.lineSVGElement.node()
 
         return pathNode.getPointAtLength(this.scales(value));
@@ -320,8 +334,7 @@ class Wedge {
 
     createData(type) {
         let allData = [];
-        // d3.select('#Lines')
-        let allLines = d3.select('#wedge').selectAll('line');
+        let allLines = d3.select('#Diagram_Lines').selectAll('line');
 
         let scales = this.scales
         allLines.each(function (d, i) {
@@ -331,7 +344,7 @@ class Wedge {
             // .style('stroke','red')
             // console.log(lineElement)
             dataElement.lineSVGElement = lineElement;
-            dataElement.value = type == "upper" ? Math.ceil((Math.random() / 2 + 0.55) * 5) : Math.ceil((Math.random() / 2 + 0.1) * 5);
+            dataElement.value = 0 //type == "upper" ? Math.ceil((Math.random() / 2 + 0.55) * 5) : Math.ceil((Math.random() / 2 + 0.1) * 5);
 
 
             // console.log ('value is ', dataElement.value)
