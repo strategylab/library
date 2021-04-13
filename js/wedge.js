@@ -69,19 +69,47 @@ class Wedge {
             circleElements
             .style('fill', (d)=> d.checked ? clickColor : '#333132')
             .on('click', function(event,d){
+                let checkbox = d3.select(this);
                 self.animateTransition();
                 d.checked = !d.checked; 
-                d3.select(this).style('fill',d.checked ? clickColor : '#333132')
+                checkbox.style('fill',d.checked ? clickColor : '#333132')
             })
 
-            let groups = ['Tenure','Role','Dept'];
+            let groups = [{id:'Tenure',label:'Tenure'},{id:'Role',label:'Role'},{id:'Dept',label: 'Department'}];
+
+          
 
             groups.map(g=>{
-                let block = d3.select('#'+g)
-                let label = block.select('text') //assumes the label is the first text in the group; 
+                let block = d3.select('#'+g.id)
+                .attr('transform', 'translate(55,0)')
+
+                let bars = block.selectAll('.st134')
+                bars.style('fill', '#9a999c');
+
+                bars.each(function(){
+                    let bar = d3.select(this);
+                    let width = bar.attr('width')
+                    let x = bar.attr('x');
+                    bar.attr('x', x - width - 20)
+                })
+
+                let allLabels = block.selectAll('text');
+                allLabels.each(function(l){
+                    // console.log(l)
+                    let tspans  = d3.select(this).selectAll('tspan');
+                    let text = [];
+                    tspans.each(function(){text.push(d3.select(this).html())})
+                    tspans.remove();
+                    d3.select(this).html(text.join(''))
+                    .attr('class','st114 st135 st123')
+
+                })
+
+                let label = block.selectAll('text').filter(function(){ return d3.select(this).html() == g.label}) //assumes the label is the first text in the group; 
 
                 label.data([{checked:false}])
                 label.style('cursor', 'pointer')
+                .style('font-weight', 'bold')
 
 
                 let checkBoxElements = block.selectAll('.st117');
@@ -94,18 +122,27 @@ class Wedge {
 
                 checkBoxes
                 .on('click', function(event, d){
-                    console.log(d)
+                    let checkbox = d3.select(this);
                     self.animateTransition()
                     d.checked = !d.checked; 
-                    d3.select(this).style('fill',d.checked ? clickColor : '#333132')
+                    checkbox.style('fill',d.checked ? clickColor : '#333132')
+
+                    console.log('checkbox y', checkbox.attr('y'))
+                    let bar = d3.selectAll('.st134').filter(function(){ 
+                        let barY = d3.select(this).attr('y'); 
+                        let  checkboxY = checkbox.attr('y') 
+                    
+                    return barY < checkboxY + 1 && barY > checkboxY -1})
+                bar.style('fill',d.checked ? clickColor : '#9a999c')
+
                 
                 })
 
                 label.on('click',function (event,d){
-                    console.log('event', 'clicked on label')
                     d.checked = !d.checked; 
                     checkBoxes.each(function(c){c.checked = d.checked})
                     checkBoxes.style('fill', d.checked ? clickColor : '#333132')
+                    bars.style('fill', d.checked ? clickColor : '#9a999c')
                     self.animateTransition()
                 })
 
