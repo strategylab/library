@@ -60,15 +60,55 @@ class Wedge {
 
             let clickColor = '#64c4ae'
 
+            //remove grey circles
+            d3.selectAll('.st135').remove()
+            
+            let lineNode = d3.select('#Response_Filter_Text').select('line').node()
+
+            let totalLength = lineNode.getTotalLength()
+
+
+          
+            let xRange = [lineNode.getPointAtLength(0).x, lineNode.getPointAtLength(totalLength).x]
+           
+            let lineScale = d3.scaleLinear()
+            .domain(xRange)
+            .range([0, 100])
+
+
+            let lineAxis = [];
+            let lineLabels = [];
+            
+            d3.select('#Response_Filter_Text').selectAll('line').each(function(d,i){
+                lineAxis.push({id:i,lineElement:d3.select(this)})
+            })
+
+            d3.select('#Response_Filter_Text').selectAll('text').filter(function(){return d3.select(this).text().includes('percentile')})
+            .each(function(d,i){
+                lineLabels.push(d3.select(this))
+            })
+
+
+
+
+        
             let circleElements   = d3.selectAll('.st136');
             let circleState = [];
             
-            circleElements.each(function(c,i){circleState.push({id:i,checked:i == 0 || i == 3})});
+            circleElements.each(function(c,i){
+                circleState.push({id:i,label:lineLabels[i], line:i<2? lineAxis[0] : lineAxis[1], checked:i == 0 || i == 3})});
 
             circleElements.data(circleState)
             circleElements
             .style('fill', (d)=> d.checked ? clickColor : '#333132')
             .on('click', function(event,d){
+                // console.log(event);
+                // console.log(lineScale(85))
+                // console.log(d.line.lineElement.node().getPointAtLength(lineScale(85)));
+
+                // d.label.style('fill','red')
+
+                // d.line.lineElement.style('stroke','red')
                 if (!d.checked){
                     d.checked = true; 
                     //unselect the other circle; 
@@ -79,6 +119,21 @@ class Wedge {
                     self.animateTransition();
                 }
             })
+            .call(d3.drag().on("drag",function (event,d){
+                // console.log(event,d)
+                d3.select(this).attr('cx',event.x)
+
+                let y = Number(d3.select(this).attr('cy'))+ 15
+                d.label.attr('x',event.x)
+                d.label.attr('y',y)
+                d.label.attr('transform', '')
+                d.label.text(Math.round(lineScale(event.x)) + 'th percentile')
+                d.label.style('text-anchor', 'middle')
+                
+                // d3.select(this).attr('cy',event.y)
+
+            }))
+            .on("end",()=>self.animateTransition())
 
             let groups1 = [{id:'Tenure',label:'Tenure'},{id:'Role',label:'Role'},{id:'Dept',label: 'Department'}].map(g=>{g.group = '1'; return g})
             let groups2 =  [{id:'User_Filter',label: 'User Filter'}, {id:'Response_Filter_Text',label: 'Response Filter'}].map(g=>{g.group = '2'; return g});
@@ -118,7 +173,7 @@ class Wedge {
 
                 let label = block.selectAll('text').filter(function(){ return d3.select(this).html() == g.label}) //assumes the label is the first text in the group; 
 
-                label.data([{checked:false}])
+                label.data([{checked:true}])
                 label.style('cursor', g.group == 1 ? 'pointer' : 'default')
                 .style('font-weight', 'bold')
                 .classed('st129 st130', g.group == 2  )
@@ -133,11 +188,13 @@ class Wedge {
 
                 let state = [];
                 
-                checkBoxElements.each(function(c,i){state.push({id:i,checked:false})});
+                checkBoxElements.each(function(c,i){state.push({id:i,checked:true})});
 
                 let checkBoxes = checkBoxElements.data(state);
 
                 checkBoxes
+                .style('fill', (d=>d.checked ? clickColor : '#333132'))
+
                 .on('click', function(event, d){
                     let checkbox = d3.select(this);
                     self.animateTransition()
@@ -169,27 +226,6 @@ class Wedge {
             .classed('st129 st130', true  )
             .on('click', ()=>download('Capture','this is the content'))
 
-            
-               
-
-            // d3.selectAll('.cls-27').filter(function(d){return d3.select(this).attr('width')>12})
-            // .style('fill', d=>{return '#333132'})
-            // .style('opacity',.2);
-
-            // d3.selectAll('.cls-27').filter(function(d){return d3.select(this).attr('x')==45.13})
-            // .on('click', function(){
-
-            //     checkBoxes.each(function(c){c.checked = false})
-            //     checkBoxes
-            //     .style('fill', '#333132')
-            //     self.animateTransition()
-            // })
-
-            // d3.selectAll('.cls-27').filter(function(d){return d3.select(this).attr('x')>100})
-            // .on('click', function(){
-            //     download('Capture','this is the content')
-            //     self.animateTransition()
-            // })
         }
 
         function download(filename, text) {
