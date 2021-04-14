@@ -162,7 +162,7 @@ class Wedge {
                 // console.log(event,d)
                 
 
-                let y = Number(d3.select(this).attr('cy'))+ 19
+                let y = Number(d3.select(this).attr('cy'))+ 21
                 let range = lineScale.domain();
                 let x = event.x > range[1] ? range[1] : (event.x < range[0] ? range[0] : event.x)
                 d3.select(this).attr('cx',x)
