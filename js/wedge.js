@@ -130,7 +130,7 @@ class Wedge {
                 circleState.push(
                     {id:i,
                     label:lineLabels[i], 
-                    line:i<2? lineAxis[0] : lineAxis[1], checked:i == 0 || i == 3
+                    line:i<2? lineAxis[0] : lineAxis[1], checked:i == 1 || i == 2
                 })});
 
             circleElements.data(circleState)
