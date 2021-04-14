@@ -119,6 +119,8 @@ class Wedge {
             circleElements.data(circleState)
             circleElements
             .style('fill', (d)=> d.checked ? (d.id == 1 || d.id == 3 ? upper : lower) : '#333132')
+            .attr('r', (d)=> d.checked ? 8:4.77)
+
             .on('click', function(event,d){
                 // console.log(event);
                 // console.log(lineScale(85))
@@ -162,6 +164,13 @@ class Wedge {
                 let oC  = circleElements.filter(function(c){return c.id == otherCircle});
                 oC.attr('r',4.77)
                 console.log(oC.size())
+
+                d.checked = true; 
+                //unselect the other circle; 
+                // let otherCircle = d.id >1 ? d.id -2 : d.id + 2;
+                circleElements.each(function(c){c.id == otherCircle ? c.checked = false : ''})
+                circleElements.style('fill', d=> d.checked ? (d.id == 1 || d.id == 3 ? upper : lower) : '#333132')
+
 
             d3.select(this).attr('r',8)
             
