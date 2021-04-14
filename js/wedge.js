@@ -67,11 +67,9 @@ class Wedge {
                     let text = [];
                     let classes;
                     tspans.each(function(){classes = d3.select(this).attr('class'); text.push(d3.select(this).html())})
-                    console.log(text.join(''))
                     if (text.join('') == 'WELL-BEING'){
                         tspans.remove();
-    
-                    console.log('classes', classes)
+
                     d3.select(this).html(text.join(''))
                     .attr('class',classes)
                     }
@@ -179,7 +177,6 @@ class Wedge {
             })
             .on("end",function(event,d){self.animateTransition()
                 let otherCircle = d.id >1 ? d.id -2 : d.id + 2;
-                console.log(otherCircle)
 
                 let oC  = circleElements.filter(function(c){return c.id == otherCircle});
                 oC.attr('r',4.77)
