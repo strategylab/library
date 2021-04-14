@@ -63,11 +63,6 @@ class Wedge {
             let upper = '#307980';
             let lower = '#C5D2DA' //'#f6f3ff';
 
-            let upperOpacity = .35;
-            let lowerOpacity = .45;
-
-            let legendCircle = '#C5D2DA'
-
             //remove grey circles
             d3.selectAll('.st135').remove();
             d3.select('#SVGID_151_').remove();
@@ -75,8 +70,6 @@ class Wedge {
             let lineNode = d3.select('#Response_Filter_Text').select('line').node()
 
             let totalLength = lineNode.getTotalLength()
-
-
           
             let xRange = [lineNode.getPointAtLength(0).x, lineNode.getPointAtLength(totalLength).x]
            
@@ -88,12 +81,6 @@ class Wedge {
             .domain(xRange)
             .range(range)
 
-        
-            var quantizeScale = d3.scaleQuantize()
-            .domain([0, 100])
-                .range(['lightblue', 'orange', 'lightgreen', 'pink']);
-
-
             let lineAxis = [];
             let lineLabels = [];
             
@@ -104,6 +91,8 @@ class Wedge {
             d3.select('#Response_Filter_Text').selectAll('text').filter(function(){return d3.select(this).text().includes('percentile')})
             .each(function(d,i){
                 lineLabels.push(d3.select(this))
+                d3.select(this).attr('y',function(){ return Number(d3.select(this).attr('y'))+ 5})
+
             })
 
 
@@ -114,12 +103,17 @@ class Wedge {
             let circleState = [];
             
             circleElements.each(function(c,i){
-                circleState.push({id:i,label:lineLabels[i], line:i<2? lineAxis[0] : lineAxis[1], checked:i == 0 || i == 3})});
+                circleState.push(
+                    {id:i,
+                    label:lineLabels[i], 
+                    line:i<2? lineAxis[0] : lineAxis[1], checked:i == 0 || i == 3
+                })});
 
             circleElements.data(circleState)
             circleElements
             .style('fill', (d)=> d.checked ? (d.id == 1 || d.id == 3 ? upper : lower) : '#333132')
             .attr('r', (d)=> d.checked ? 8:4.77)
+
 
             .on('click', function(event,d){
                 // console.log(event);
@@ -144,7 +138,7 @@ class Wedge {
                 // console.log(event,d)
                 
 
-                let y = Number(d3.select(this).attr('cy'))+ 15
+                let y = Number(d3.select(this).attr('cy'))+ 19
                 let range = lineScale.domain();
                 let x = event.x > range[1] ? range[1] : (event.x < range[0] ? range[0] : event.x)
                 d3.select(this).attr('cx',x)
@@ -163,7 +157,6 @@ class Wedge {
 
                 let oC  = circleElements.filter(function(c){return c.id == otherCircle});
                 oC.attr('r',4.77)
-                console.log(oC.size())
 
                 d.checked = true; 
                 //unselect the other circle; 
@@ -181,7 +174,6 @@ class Wedge {
 
             let allGroups= groups1.concat(groups2)
 
-            console.log(allGroups)
 
             allGroups.map(g=>{
                 let block = d3.select('#'+g.id)
@@ -274,11 +266,19 @@ class Wedge {
             document.body.removeChild(element);
           }
         
+        //   var image = SVG();
+        //   console.log(image)
 
         d3.xml("Wellness_SVG_final.svg")
+        // .mimeType("image/svg+xml")
             .then(data => {
-                d3.select("#wedge")
-                    .node().append(data.documentElement)
+                // d3.select("#wedge")
+                //     .node().append(data.documentElement)
+
+                    var svgNode = data
+                    .getElementsByTagName("svg")[0];
+    
+                    d3.select("#wedge").node().appendChild(svgNode);
 
                    
 
@@ -323,7 +323,7 @@ class Wedge {
 
                     circles
                         .attr('r', 4)
-                        .style('fill', d => d.type == 'upper' ? upper : lower)
+                        .style('fill', d => d.type == 'upper' ? upper : upper)
                         // .style('opacity', d => d.type == 'upper' ? upperOpacity : lowerOpacity)
 
 
