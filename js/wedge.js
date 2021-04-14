@@ -60,6 +60,14 @@ class Wedge {
 
             let clickColor = '#64c4ae'
 
+            let upper = '#307980';
+            let lower = '#C5D2DA' //'#f6f3ff';
+
+            let upperOpacity = .35;
+            let lowerOpacity = .45;
+
+            let legendCircle = '#C5D2DA'
+
             //remove grey circles
             d3.selectAll('.st135').remove();
             d3.select('#SVGID_151_').remove();
@@ -110,7 +118,7 @@ class Wedge {
 
             circleElements.data(circleState)
             circleElements
-            .style('fill', (d)=> d.checked ? clickColor : '#333132')
+            .style('fill', (d)=> d.checked ? (d.id == 1 || d.id == 3 ? upper : lower) : '#333132')
             .on('click', function(event,d){
                 // console.log(event);
                 // console.log(lineScale(85))
@@ -119,12 +127,13 @@ class Wedge {
                 // d.label.style('fill','red')
 
                 // d.line.lineElement.style('stroke','red')
+                d.checked ? (d.id == 1 || d.id == 3 ? upper : lower) : '#333132'
                 if (!d.checked){
                     d.checked = true; 
                     //unselect the other circle; 
                     let otherCircle = d.id >1 ? d.id -2 : d.id + 2;
                     circleElements.each(function(c){c.id == otherCircle ? c.checked = false : ''})
-                    circleElements.style('fill', d=> d.checked ? clickColor : '#333132')
+                    circleElements.style('fill', d=> d.checked ? (d.id == 1 || d.id == 3 ? upper : lower) : '#333132')
 
                     self.animateTransition();
                 }
@@ -146,7 +155,17 @@ class Wedge {
                 
 
             })
-            .on("end",()=>{self.animateTransition()}))
+            .on("end",function(event,d){self.animateTransition()
+                let otherCircle = d.id >1 ? d.id -2 : d.id + 2;
+                console.log(otherCircle)
+
+                let oC  = circleElements.filter(function(c){return c.id == otherCircle});
+                oC.attr('r',4.77)
+                console.log(oC.size())
+
+            d3.select(this).attr('r',8)
+            
+            }))
 
             let groups1 = [{id:'Tenure',label:'Tenure'},{id:'Role',label:'Role'},{id:'Dept',label: 'Department'}].map(g=>{g.group = '1'; return g})
             let groups2 =  [{id:'User_Filter',label: 'User Filter'}, {id:'Response_Filter_Text',label: 'Response Filter'}].map(g=>{g.group = '2'; return g});
@@ -270,8 +289,16 @@ class Wedge {
 
                     let transitionDuration = 1000;
 
-                    let upper = '#36847e';
-                    let lower = '#1d8582'
+                    let upper = '#307980';
+                    let lower = '#f6f3ff';
+
+                    let upperOpacity = .35;
+                    let lowerOpacity = .45;
+
+                    let legendCircle = '#C5D2DA'
+
+                    d3.select('.st112')
+                    .style('stroke','#60e6c6')
                     // console.log('afterSort', q1.map(a=>a.point.x))
                     let circles = d3.select('#DOTS').selectAll('circle')
                         // .data(q1.concat(q2));
@@ -288,6 +315,8 @@ class Wedge {
                     circles
                         .attr('r', 4)
                         .style('fill', d => d.type == 'upper' ? upper : lower)
+                        // .style('opacity', d => d.type == 'upper' ? upperOpacity : lowerOpacity)
+
 
 
 
@@ -313,7 +342,7 @@ class Wedge {
                         .attr("stroke", upper)
                         .attr("stroke-width", 2)
                         .attr('stroke-dasharray', 3)
-                        .style('opacity', .2)
+                        .style('opacity', upperOpacity)
 
 
 
@@ -338,7 +367,7 @@ class Wedge {
                         .attr("stroke", lower)
                         .attr("stroke-width", 1.5)
                         .attr('stroke-dasharray', 3)
-                        .style('opacity', .2)
+                        .style('opacity', lowerOpacity)
 
                     
 
