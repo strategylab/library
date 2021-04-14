@@ -58,6 +58,32 @@ class Wedge {
         let self = this;
         function activatePanel(){
 
+            let allText = d3.selectAll('text');
+
+            allText.each(function(){
+                let tspans  = d3.select(this).selectAll('tspan');
+
+                if (tspans.size()>0){
+                    let text = [];
+                    let classes;
+                    tspans.each(function(){classes = d3.select(this).attr('class'); text.push(d3.select(this).html())})
+                    console.log(text.join(''))
+                    if (text.join('') == 'WELL-BEING'){
+                        tspans.remove();
+    
+                    console.log('classes', classes)
+                    d3.select(this).html(text.join(''))
+                    .attr('class',classes)
+                    }
+                    
+
+                }
+               
+
+            })
+
+
+
             let clickColor = '#64c4ae'
 
             let upper = '#307980';
@@ -270,19 +296,12 @@ class Wedge {
         //   console.log(image)
 
         d3.xml("Wellness_SVG_final.svg")
-        // .mimeType("image/svg+xml")
             .then(data => {
-                // d3.select("#wedge")
-                //     .node().append(data.documentElement)
+                d3.select("#wedge")
+                    .node().append(data.documentElement)
 
-                    var svgNode = data
-                    .getElementsByTagName("svg")[0];
-    
-                    d3.select("#wedge").node().appendChild(svgNode);
-
-                   
-
-                // d3.csv('data.csv').then(d => {
+                    let svg = d3.select('#wedge').select('svg')
+                    console.log(d3.select(svg.style)) 
 
                     activatePanel()
                     let pathNode = d3.select('#Diagram_Lines').select('line').node()

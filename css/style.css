@@ -4,6 +4,10 @@ body {
 	font-family: 'Neuton', serif;
 }
 
+.st122, .st127, .st114 {
+	font-family:'Lato' !important
+}
+
 .visContainers{
 	margin-left: 100px;
 }
