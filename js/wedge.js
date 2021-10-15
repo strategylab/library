@@ -37,9 +37,6 @@ class Wedge {
         // vis.g = vis.svg.append("g")
         //     .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
 
-        console.log('vis.g', vis.g)
-
-
         // d3.xml("userFilter_v5.svg")
         // .then(data => {
         //     d3.select('#panel')
@@ -298,7 +295,6 @@ class Wedge {
                     .node().append(data.documentElement)
 
                     let svg = d3.select('#wedge').select('svg')
-                    console.log(d3.select(svg.style)) 
 
                     activatePanel()
                     let pathNode = d3.select('#Diagram_Lines').select('line').node()
@@ -311,6 +307,8 @@ class Wedge {
 
                     let upperData = this.createData('upper');
                     let lowerData = this.createData('lower');
+
+                    console.log('upperData',upperData)
 
                     let transitionDuration = 1000;
 
@@ -454,9 +452,9 @@ class Wedge {
 
                     }
 
-                    let set = setInterval(this.animateTransition, transitionDuration);
+                    // let set = setInterval(this.animateTransition, transitionDuration);
 
-                    setTimeout(function () { clearInterval(set) },transitionDuration);
+                    // setTimeout(function () { clearInterval(set) },transitionDuration);
 
 
 
@@ -492,11 +490,12 @@ class Wedge {
 
         let scales = this.scales
         allLines.each(function (d, i) {
+            // console.log(i)
 
             let lineElement = d3.select(this)
             let dataElement = { 'type': type, 'label': 'Q1.1_1', 'id': Math.random() * Date.now() };//q1[i];
             // .style('stroke','red')
-            // console.log(lineElement)
+            console.log(lineElement.attr('class'))
             dataElement.lineSVGElement = lineElement;
             dataElement.value = 0 //type == "upper" ? Math.ceil((Math.random() / 2 + 0.55) * 5) : Math.ceil((Math.random() / 2 + 0.1) * 5);
 

@@ -4,6 +4,29 @@ body {
 	font-family: 'Neuton', serif;
 }
 
+svg .rotate {
+	transform-box: fill-box;
+	transform-origin: center;
+	transform: rotate(-10deg);
+	/* -webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .4)); */
+	filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .2));
+  }
+
+
+  .wedge{
+	  /* fill:'black'; */
+	/* opacity:.7   */
+}
+.line{
+	fill:#f8f8f8;
+}
+
+	.centerArc{
+		fill:white;
+		stroke: black;
+		stroke-width: 2px;
+	  opacity:1  }
+
 .st122, .st127, .st114 {
 	font-family:'Lato' !important
 }
