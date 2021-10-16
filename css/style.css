@@ -6,32 +6,48 @@ body {
 
 svg .rotate {
 	transform-box: fill-box;
-	transform-origin:center;
+	transform-origin: center;
 	transform:  rotate(-8deg);
 	/* -webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .4)); */
-	filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .2));
+
   }
+
+.wedgeGroup{
+	filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .2));
+
+}
+
+
+
+
 
   .textPath{
 	  stroke:#949494;
   }
 
+  #markerArrow{
+	fill:rgb(193, 193, 193);
+	stroke:0px
+  }
 
-  .wedge{
-	  /* fill:'black'; */
-	/* opacity:.7   */
-}
+ .line{
+    stroke: white;
+    stroke-width:1px;
+    marker-start: url(#markerArrow);
+ }
+
 
 .label{
 	font-family: 'Lato' !important;
-	/* transform: scale(-1,1); */
-	/* transform-box: fill-box;
-	transform-origin:center; */
-	/* transform: rotate(-10deg); */
+	font-size: 14px;
+	font-weight: 600px;
 }
-.line{
-	fill:#f8f8f8;
+.question.label{
+	fill:rgb(171, 171, 171);
+	font-size: 11px;
 }
+
+
 
 	.centerArc{
 		fill:white;
