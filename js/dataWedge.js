@@ -365,13 +365,15 @@ class dataWedge {
 
         let numWedges = data.length
         let interval = 2*Math.PI/numWedges;
-        let step = 20;
+        let step = 15; //difference in pixels from left to right side of wedge;
+        let arrowPadding = 45; //buffer from edge of wedge to label arrow
        
-
         
         let innerRadius = 40
         let outerRadius = 200
         let radiusInterval = (outerRadius - innerRadius) / numLayers;
+       
+     
         // let step = radiusInterval/2;
         let radiusInterval2 = (outerRadius+step - innerRadius) / numLayers;
 
@@ -420,35 +422,33 @@ class dataWedge {
 
                 let path2= this.segmentPath(arc());
                 let splitA2 = path2[3].split(',')
-                // console.log(path2[3].split(','))
 
-                let A = splitA2.slice(0,5) + splitA1.slice(-2);
+                let A = splitA2.slice(0,5) + splitA1.slice(-2); //Make return path use the angle of path2 but the endpoint of path1
                 let arcPath = path1[0]+path2[1]+path2[2]+A+path1[4]
-                // console.log('path1', path1, 'path2', path2)
-                // console.log('arcPath',this.segmentPath(arcPath))
-                // console.log('path1',path1)
-                // console.log('path2',path2)
-                // let path = arc();
-                // console.log('path', path)
-                   
+                           
                 
                     wedgeGroup.wedges.push({arc:arcPath, layer:ii, parentLabel:id, endAngle})
                 
     
             });
 
+            
+               //scale for arrowPlacement
+            let arrowScale = d3.scaleLinear()
+            .range([outerRadius+arrowPadding,outerRadius+arrowPadding+step])
+            .domain([startAngle,endAngle])
+
             d.questions.map((q,ii)=>{
 
                 let startLine = startAngle+(ii+1)*lineInterval
                 let endLine = startLine
 
-                console.log('startAngle', startLine)
                 let quadrant = startLine >0 && startLine  <  Math.PI  ? 'right' : 'left'
 
 
                 var arc = d3.arc()
                     .innerRadius(innerRadius)
-                    .outerRadius(outerRadius+45) //+i*10
+                    .outerRadius(arrowScale(startLine)) //+i*10
                     .startAngle(startLine)
                     .endAngle(endLine)
                     // .padAngle(Math.PI/40)
