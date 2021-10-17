@@ -5,9 +5,9 @@ body {
 }
 
 svg .rotate {
-	transform-box: fill-box;
+	/* transform-box: fill-box;
 	transform-origin: center;
-	transform:  rotate(-8deg);
+	transform:  rotate(-8deg); */
 	/* -webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .4)); */
 
   }

@@ -14,6 +14,7 @@ class dataWedge {
         this.margin = { top: 20, right: 20, bottom: 200, left: 50 };
         this.width = 1000;//$("#" + this.parentElement).width()+100 - this.margin.left - this.margin.right;
         this.height = 1000 //500 - this.margin.top - this.margin.bottom;
+        this.numLayers = 5;
         setTimeout(() => { this.initVis(); }, 0);
 
     }
@@ -22,6 +23,11 @@ class dataWedge {
     /*
     * Initialize visualization (static content, e.g. SVG area or axes)
     */
+    segmentPath (pathData){
+        var pathSegmentPattern =  /[A-Z][^A-Z]*/g  ///[A-Z][^a-z]*/g;
+       
+        return pathData.match(pathSegmentPattern)
+    }
 
     initVis() {
 
@@ -63,6 +69,8 @@ class dataWedge {
             }
         
         ]
+
+       
         let vis = this;
         // SVG drawing area
         vis.svg = d3.select("#" + vis.parentElement).select('svg')//d3.select("#" + vis.parentElement).append("svg")
@@ -136,7 +144,7 @@ class dataWedge {
         .enter()
         .append("path")
         .attr("class", "wedge arc")
-        .attr("d", d=>d.arc())
+        .attr("d", d=>d.arc)
         // .style('opacity',d=>opacityScale(d.layer))
         .style('fill',d=>{return colorScale(d.layer)})
         .attr('id',d=>{
@@ -151,10 +159,8 @@ class dataWedge {
         .append("path")
         .attr("class", "line arc")
         .attr("d", d=>{
-            var pathSegmentPattern = /[a-z][^a-z]*/ig;
-            let pathData = d.arc();
-            
-            var pathSegments = pathData.match(pathSegmentPattern).filter(s=>s[0] != 'A' && s[0] != 'Z');
+             
+            let pathSegments = this.segmentPath(d.arc()).filter(s=>s[0] != 'A' && s[0] != 'Z');;
             let newPath =  pathSegments.join('')
 
             return newPath
@@ -163,16 +169,16 @@ class dataWedge {
         })
         .each(function(d,i){
 
-            console.log('data', d)
+            // console.log('data', d)
             let parentGroup = d3.select('#' + d.parentLabel+'Group');
             let path = d3.select(this).node();
             let endPoint = path.getPointAtLength(0)
             
             parentGroup.append('text')
             .attr('class', 'question label')
-            .attr('transform', 'translate('+ endPoint.x + ','+ endPoint.y + ') rotate(7)')
-            // .attr('x', endPoint.x)
-            // .attr('y', endPoint.y)
+            // .attr('transform', 'translate('+ endPoint.x + ','+ endPoint.y + ') rotate(7)')
+            .attr('x', endPoint.x)
+            .attr('y', endPoint.y)
             .text(d.question.label)
             .attr('text-anchor',d.quadrant == 'right' ? 'start': 'end')
          
@@ -210,7 +216,9 @@ class dataWedge {
 
         wedges
         .each(function(d,i) {
-            if (d.layer == 4){
+
+            //only for the top layer
+            if (d.layer == vis.numLayers-1){
         
             //append the text to the parentGroup
             let groupData = d3.select(this.parentNode).data()[0]    
@@ -353,15 +361,20 @@ class dataWedge {
 
     createWedges(data){
 
-        let numLayers = 5
+        let numLayers = this.numLayers
+
         let numWedges = data.length
         let interval = 2*Math.PI/numWedges;
+        let step = 20;
        
 
         
         let innerRadius = 40
         let outerRadius = 200
         let radiusInterval = (outerRadius - innerRadius) / numLayers;
+        // let step = radiusInterval/2;
+        let radiusInterval2 = (outerRadius+step - innerRadius) / numLayers;
+
 
         let wedgeArray = [];
         data.map((d,i)=>{
@@ -379,22 +392,47 @@ class dataWedge {
 
             [...Array(numLayers)].map((n,ii)=>{
             
-            
+                console.log('layer', ii)
                 let startRadius = innerRadius+ii*radiusInterval
                 let endRadius = innerRadius+((ii+1)*radiusInterval)
 
                 // let start = 0
                 // let end = interval
-                var arc = d3.arc()
+                let arc = d3.arc()
                     .innerRadius(startRadius)
                     .outerRadius(endRadius) //+i*10
                     .startAngle(startAngle)
                     .endAngle(endAngle)
                     // .padAngle(Math.PI/40)
                     // .cornerRadius(5)
+
+                let path1= this.segmentPath(arc());
+                let splitA1 = path1[3].split(',')
+
+                startRadius = innerRadius+ii*radiusInterval2
+                endRadius = innerRadius+((ii+1)*radiusInterval2)
+
+                arc = d3.arc()
+                .innerRadius(startRadius)
+                .outerRadius(endRadius) //+i*10
+                .startAngle(startAngle)
+                .endAngle(endAngle)
+
+                let path2= this.segmentPath(arc());
+                let splitA2 = path2[3].split(',')
+                // console.log(path2[3].split(','))
+
+                let A = splitA2.slice(0,5) + splitA1.slice(-2);
+                let arcPath = path1[0]+path2[1]+path2[2]+A+path1[4]
+                // console.log('path1', path1, 'path2', path2)
+                // console.log('arcPath',this.segmentPath(arcPath))
+                // console.log('path1',path1)
+                // console.log('path2',path2)
+                // let path = arc();
+                // console.log('path', path)
                    
                 
-                    wedgeGroup.wedges.push({arc, layer:ii, parentLabel:id, endAngle})
+                    wedgeGroup.wedges.push({arc:arcPath, layer:ii, parentLabel:id, endAngle})
                 
     
             });
