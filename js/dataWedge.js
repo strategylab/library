@@ -7,15 +7,18 @@
 
 class dataWedge {
 
-    constructor(_parentElement, _data,) {
+    constructor(_parentElement, surveyData,wedgeStructure) {
         this.parentElement = _parentElement;
-        this.data = _data;
-        this.filteredData = this.data;
+        this.surveyData = surveyData;
+        this.wedgeStructure = wedgeStructure;
+        // this.filteredData = this.data;
         this.margin = { top: 20, right: 20, bottom: 200, left: 50 };
-        this.width = 1000;//$("#" + this.parentElement).width()+100 - this.margin.left - this.margin.right;
-        this.height = 1000 //500 - this.margin.top - this.margin.bottom;
+        this.width = d3.select("#" + this.parentElement).node().clientWidth+100 - this.margin.left - this.margin.right;
+        this.height = 1000 - this.margin.top - this.margin.bottom;
         this.numLayers = 5;
-        setTimeout(() => { this.initVis(); }, 0);
+
+        setTimeout(() => { this.initVis();   // Update the visualization
+           }, 0);
 
     }
 
@@ -31,77 +34,15 @@ class dataWedge {
 
     initVis() {
 
+        let questionData = this.wedgeStructure
+        console.log(questionData)
 
-
-           let questionData = [
-            { label: 'Emotional', 
-            questions: [
-                { id: 'Q1', label: 'I feel it is safe for me to speak up at work.' }, 
-                { id: 'Q3', label: 'Someone at work seems to care about meas a person' }] 
-            },
-            { label: 'Physical', 
-            questions: [
-                { id: 'Q1', label: 'I am able to regularly find opportunities to decompress' }, 
-                { id: 'Q2', label: 'I am able to regularly find opportunities to be physically active' }, 
-                { id: 'Q3', label: 'I have food options that support my well being' }] 
-            },
-            { label: 'Environmental', 
-            questions: [
-                { id: 'Q1', label: 'Safe to Speak Up' }] 
-            },
-            { label: 'Purpose', 
-            questions: [
-                { id: 'Q1', label: 'Safe to Speak Up' }, 
-                { id: 'Q2', label: 'Sense of Being' }, 
-                { id: 'Q3', label: 'Community' }] 
-            },
-            { label: 'Org Culture', 
-            questions: [
-                { id: 'Q1', label: 'Safe to Speak Up' }, 
-                { id: 'Q2', label: 'Sense of Being' }, 
-                { id: 'Q3', label: 'Community' }] 
-            },
-            { label: 'Professional', 
-            questions: [
-                { id: 'Q1', label: 'Safe to Speak Up' }, 
-                { id: 'Q2', label: 'Sense of Being' }, 
-                { id: 'Q3', label: 'Community' }] 
-            }
-        
-        ]
-
-       
+      
         let vis = this;
         // SVG drawing area
         vis.svg = d3.select("#" + vis.parentElement).select('svg')//d3.select("#" + vis.parentElement).append("svg")
             .attr("width", vis.width + vis.margin.left + vis.margin.right)
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom);
-
-            //  create defs
-        //     <defs>
-        //     <marker id="triangle" viewBox="0 0 10 10"
-        //           refX="1" refY="5"
-        //           markerUnits="strokeWidth"
-        //           markerWidth="10" markerHeight="10"
-        //           orient="auto">
-        //       <path d="M 0 0 L 10 5 L 0 10 z" fill="#f00"/>
-        //     </marker>
-        //   </defs>
-
-        //  let marker =  vis.svg.append('def')
-        //   .append('marker')
-        //   .attr('id', 'triangle')
-        //   .attr('viewBox', '0 0 10 10')
-        //   .attr('refX',1)
-        //   .attr('refY', 5)
-        //   .attr('markerUnits','strokeWidth')
-        //   .attr('markerWidth', 10)
-        //   .attr('markerHeight', 10)
-        //   .attr('orient', 'auto')
-
-        //   marker.append('path')
-        //   .attr('d',"M 0 0 L 10 5 L 0 10 z")
-        //   .attr('fill', 'red');
 
  
         vis.g = vis.svg.append("g")
@@ -111,12 +52,7 @@ class dataWedge {
             .append("g")
             .attr("transform", "translate(" + this.width/2 + "," + this.height/2 + ")");
   
-        // Function is used
-        
-     
-
-
-        let data = this.createWedges(questionData)
+        let wedgeShapes = this.createWedges(questionData)
 
         let centerArc = d3.arc()
             .innerRadius(0)
@@ -129,15 +65,17 @@ class dataWedge {
         let colorScale = d3.scaleOrdinal().range(['#c5c5c9','#cdcdcf','#d4d4d5','#d9d9db','#e7e7e8']).domain([4,3,2,1,0])
 
 
-        let rotateGroups = svg.selectAll('.wedgeGroup').data(data)
+        let rotateGroups = svg.selectAll('.wedgeGroup').data(wedgeShapes)
         .enter().append('g')
         .attr('class', 'rotate')
         .attr('id',d=>d.id+'Group')
-
+        
         let groups = rotateGroups
         .append('g')
         .attr('class', 'wedgeGroup')
-        .on('click',(event,d)=>console.log(d));
+        // .on('click',(event,d)=>console.log(d))
+        .style('filter', d=>'drop-shadow( '+d.xshadow + 'px ' + d.yshadow + 'px 3px rgba(0, 0, 0, .2))');
+
 
         let wedges = groups.selectAll('.wedge')
         .data(d=>d.wedges)
@@ -153,14 +91,14 @@ class dataWedge {
             } });
 
             // console.log(data)
-        rotateGroups.selectAll('.line')
+        rotateGroups.selectAll('.labelLine')
         .data(d=>d.lines)
         .enter()
         .append("path")
-        .attr("class", "line arc")
+        .attr("class", "labelLine arc")
         .attr("d", d=>{
              
-            let pathSegments = this.segmentPath(d.arc()).filter(s=>s[0] != 'A' && s[0] != 'Z');;
+            let pathSegments = this.segmentPath(d.labelLine).filter(s=>s[0] != 'A' && s[0] != 'Z');;
             let newPath =  pathSegments.join('')
 
             return newPath
@@ -179,40 +117,35 @@ class dataWedge {
             // .attr('transform', 'translate('+ endPoint.x + ','+ endPoint.y + ') rotate(7)')
             .attr('x', endPoint.x)
             .attr('y', endPoint.y)
-            .text(d.question.label)
+            .text(d.label)
             .attr('text-anchor',d.quadrant == 'right' ? 'start': 'end')
-         
-            // console.log(d,'endPoint is',endPoint)
-
-            // let path = console.log(line)
-            // console.log(path,endPoint)
-            // let lines = d3.select(this).selectAll('.line');
-
-            //  lines.each(line=>{
-            //     let parentGroup = d3.select('#' + d.parentLabel+'Group');
-            //      let path = console.log(line)
-            //     //  let endPoint = path.getPointAtLength(20)
-
-            //     // console.log(endPoint)
-
-               
-            // })
-
-            // let path = d3.select(this).node();
-
-            // let endPoint = path.getPointAtLength(path.getTotalLength())
-            // d3.select(this).append('circle')
-            // .attr('cx',endPoint.x)
-            // .attr('cy', endPoint.y)
-            // .attr('r', 5)
-            // console.log(d,'endPoint is',endPoint)
-
-            // let lines = d3.select(this).selectAll('.line');
-
-           
-           
-
         })
+
+        rotateGroups.selectAll('.qAxis')
+        .data(d=>d.lines)
+        .enter()
+        .append("path")
+        .attr("class", "qAxis arc")
+        .attr("id", d=>d.id)
+        .attr("d", d=>{
+            let pathSegments = this.segmentPath(d.qAxis).filter(s=>s[0] != 'A' && s[0] != 'Z');;
+            let newPath =  pathSegments.join('')
+
+            return newPath
+
+            
+        })
+        //for each line, create a linear scale to position the dots;
+        .each(function(p){
+            let pathLength = d3.select(this).node().getTotalLength()
+    
+            p.scale = d3.scaleLinear()
+            .domain([5,1])
+            .range([pathLength*0.1,pathLength*0.9])
+            
+            // p.test = 'carolna';
+        })
+        // .on('click', (event,d)=>console.log('data for this line is ', d));
 
         wedges
         .each(function(d,i) {
@@ -273,85 +206,23 @@ class dataWedge {
                 // .attr('y',d=>d.position.y)
                 .text(d=>groupData.label)
 
-            //add question markers
-            let textPathNode = textPath.node()
-            let totalPathLength = textPathNode.getTotalLength() 
-            let parentData = d3.select('#' + d.parentLabel+'Group').data();
-            let numQuestions = parentData[0].questions.length;
-            let interval = totalPathLength/(numQuestions+1);
-
-            // parentData[0].questions.map((q,i)=>{
-
-            //     let position = textPathNode.getPointAtLength((i+1)*interval);
-            //     d3.select('#' + d.parentLabel+'Group')
-            //     .append('circle')
-            //     .attr('class','questionMarker')
-            //     .attr('cx',position.x)
-            //     .attr('cy',position.y)
-            //     .attr('r',5)
-            //     .attr("dy", (d,i)=>groupData.quadrant == 'lower' ?  40 : -40)
-            //     // // .attr('transform', 'scale(1,-1)')
-            //     // .append('textPath')
-            //     // .attr("startOffset",groupData.quadrant == 'lower' ? '70%': '30%')
-            //     // .style("text-anchor",groupData.quadrant == 'lower' ? 'end': 'start')
-            //     // .attr('xlink:href',d=>'#textPath' + groupData.id)
-            //     // // .attr('x',d=>d.position.x)
-            //     // // .attr('y',d=>d.position.y)
-            //     // .text('>')
-
-            // })
-
-              
-
-            // 
+            // //add question markers
+            // let textPathNode = textPath.node()
+            // let totalPathLength = textPathNode.getTotalLength() 
+            // let parentData = d3.select('#' + d.parentLabel+'Group').data();
+            // let numQuestions = parentData[0].questions.length;
+            // let interval = totalPathLength/(numQuestions+1);
         }
         });
            
-     
-    //     //get points for labels:
-    //     let labelData = [];
-    //    d3.selectAll('.wedge').each(function(s){
-    //     //    console.log(s, d3.select(this.parentNode).data())
-    //        if (s.layer == 4){
-    //         labelData.push({data:d3.select(this.parentNode).data()[0], position:d3.select(this).node().getPointAtLength(0)})
-    //        }
-           
-    //     })
-    //     console.log('labels', labelData)
-
-        // svg.selectAll('.labels')
-        // .data(labelData)
-        // .enter()
-        // .append('text')
-        // .attr('class','labels')
-        // .attr("dy", (d,i)=>d.data.quadrant == 'lower' ?  10 : -11)
-        // // .attr('transform', 'scale(1,-1)')
-        // .append('textPath')
-        // .attr("startOffset",(d,i)=>d.data.quadrant == 'lower' ? '100%': '0%')
-        // .style("text-anchor",(d,i)=>d.data.quadrant == 'lower' ? 'end': 'start')
-        // .attr('xlink:href',d=>'#textPath' + d.data.id)
-        // // .attr('x',d=>d.position.x)
-        // // .attr('y',d=>d.position.y)
-        // .text(d=>d.data.label)
-
-
-                // .style('opacity',d=>opacityScale(d.layer))
-                // .style('fill',d=>{console.log(d.layer,colorScale(d.layer)); return colorScale(d.layer)})
-         
-      
-             
-        // let pathData = groups.select('.line')
-        // .attr('d')   
-        // // var pathData = "M-84.1487,-15.8513 a22.4171,22.4171 0 1 0 0,31.7026 h168.2974 a22.4171,22.4171 0 1 0 0,-31.7026 Z";
-        // var pathSegmentPattern = /[a-z][^a-z]*/ig;
-        // var pathSegments = pathData.match(pathSegmentPattern);
-        // console.log(pathSegments)
-                // .style('fill',d=>{console.log(d.layer,colorScale(d.layer)); return colorScale(d.layer)})
-        
              
         svg.append('path')
         .attr("class", "centerArc")
         .attr("d", centerArc)
+
+
+        svg.append('g')
+        .attr("class", "dots")
 
 
 
@@ -368,6 +239,7 @@ class dataWedge {
         let step = 15; //difference in pixels from left to right side of wedge;
         let arrowPadding = 45; //buffer from edge of wedge to label arrow
        
+        // let shadowScale = d3.scaleSequential().range([-30,30,-30]).domain([0,Math.PI,2*Math.P]);
         
         let innerRadius = 40
         let outerRadius = 200
@@ -380,21 +252,33 @@ class dataWedge {
 
         let wedgeArray = [];
         data.map((d,i)=>{
-            let numLines = d.questions.length;
+            let questionArray = Object.values(d.axis);
+            let numLines = questionArray.length;
             let lineInterval = interval/(numLines+1);
         
 
             let id = d.label.replace(/\s/g, '')
             let startAngle = i*interval - Math.PI/2 //start the wedges on the left
             let endAngle = (i+1)*interval - Math.PI/2;
-            let quadrant = endAngle > 90 * Math.PI/180  ? 'lower':'upper'
-            let wedgeGroup = {label:d.label,id, questions:d.questions,startAngle,endAngle,quadrant, wedges:[],lines:[]};
+            let quadrant = startAngle > 80 * Math.PI/180  ? 'lower':'upper'
+            let wedgeGroup = 
+            {label:d.label,
+                id, 
+                questions:questionArray,
+                startAngle,
+                endAngle,
+                quadrant, 
+                wedges:[],
+                lines:[],
+                xshadow:quadrant == 'upper' ? '-4' : '4', 
+                yshadow:quadrant == 'upper' ? '4' : '-4' 
+            };
           
-            
+            // console.log(startAngle, shadowScale(startAngle));
+
 
             [...Array(numLayers)].map((n,ii)=>{
             
-                console.log('layer', ii)
                 let startRadius = innerRadius+ii*radiusInterval
                 let endRadius = innerRadius+((ii+1)*radiusInterval)
 
@@ -438,7 +322,11 @@ class dataWedge {
             .range([outerRadius+arrowPadding,outerRadius+arrowPadding+step])
             .domain([startAngle,endAngle])
 
-            d.questions.map((q,ii)=>{
+            let qAaxisScale = d3.scaleLinear()
+            .range([outerRadius,outerRadius+step])
+            .domain([startAngle,endAngle])
+
+            questionArray.map((q,ii)=>{
 
                 let startLine = startAngle+(ii+1)*lineInterval
                 let endLine = startLine
@@ -446,17 +334,33 @@ class dataWedge {
                 let quadrant = startLine >0 && startLine  <  Math.PI  ? 'right' : 'left'
 
 
-                var arc = d3.arc()
+                // line that extends beyond arc for arrow and label placement
+                var labelPlacementLine = d3.arc()
                     .innerRadius(innerRadius)
                     .outerRadius(arrowScale(startLine)) //+i*10
                     .startAngle(startLine)
                     .endAngle(endLine)
-                    // .padAngle(Math.PI/40)
-                    // .cornerRadius(5)
+
+                // line to be used as axis for dots 
+                var questionAxis = d3.arc()
+                    .innerRadius(innerRadius)
+                    .outerRadius(qAaxisScale(startLine)) //+i*10
+                    .startAngle(startLine)
+                    .endAngle(endLine)
                    
                   
     
-                    wedgeGroup.lines.push({arc,data:q, parentLabel:id, question:q, quadrant})
+                    wedgeGroup.lines.push(
+                    {
+                        id:q.id,
+                        label:q.label,
+                        qAxis:questionAxis(),
+                        labelLine:labelPlacementLine(),
+                        // data:q, 
+                        parentLabel:id, 
+                        // question:q, 
+                        quadrant
+                    })
             })
 
 
@@ -468,6 +372,13 @@ class dataWedge {
         return wedgeArray
     }
 
+    updateLines(surveyData){
+
+
+
+
+
+    }
     updateVis() {
         let vis = this;
 

@@ -7,7 +7,8 @@
 	<title>Gensler - Well-Being Gap Analysis</title>
 
 	<!-- CSS libraries -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 	
 
 	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700,700i" /> -->
@@ -21,74 +22,48 @@
 </head>
 <body>
 
-	<div class="visContainers">
-
-		<div class="row">
-			<div class="col-md-12">
-				<!-- <h1><span class="h1-sub">Wedges Prototype</span> </h1>
-				<h2>Defining the Wedges</h2> -->
-				<div id="wedge" style="width:100%" ></div>
-				<!-- <div class="time-period">
-					<span class="time-period-value" id="time-period-min"></span>
-					<span class="time-period-divider">–</span>
-					<span class="time-period-value" id="time-period-max"></span>
-					<button class="btn btn-sm btn-primary" id="reset-zoom">Reset Zoom</button>
-				</div> -->
+	<div class="container">
+	<div class="columns">
+		<div class="column is-9">
+			<div id="dataWedge">
+				<svg>
+					<defs>
+						<marker id="markerArrow" markerWidth="20" markerHeight="20" refX="2" refY="9" orient='auto'>
+						  <path  d="M20,2 L20,16 L13,9 L20,2" />
+						   <!-- //d="M2,2 L2,11 L10,6 L2,2" -->
+						  
+						</marker>
+					  </defs>
+				</svg>
 			</div>
 		</div>
+		<div class="column filterPanel">
+			<div class="column is-full" id="panelTitle"></div>
+				<svg>
+					<g transform="translate(35,5)">
+						<g transform="translate(15,20)" class= "panelTitle" id="wellBeing">	<text>WELL-BEING</text></g>
+						<g transform="translate(-25,30)" class= "panelTitle"  id ="gapAnalysis">
+							<path class="st112" d="M11.11,14.07c0,0,72.32-2.95,97.36,0s50.05-0.02,75.66-1.31c29.06-1.47,77.51,4.38,96.98,3.4"/>						</g>
+						<g transform="translate(0,55)" class= "panelTitle"  id ="gapAnalysis">
+						<text>GAP  ANALYSIS</text></g>
+					</g>
+	
+					
+				</svg>
+			<div class="column is-full" id="responseFilter"></div>
 
+			<div class="column is-full" id="userFilter"></div>
 
-		<div class = "row">
-
-			<div class="col-md-7">
-				<div id="dataWedge">
-					<svg>
-						<defs>
-							<marker id="markerArrow" markerWidth="20" markerHeight="20" refX="2" refY="6" orient='auto'>
-							  <path  d="M20,2 L20,16 L13,9 L20,2" />
-							   <!-- //d="M2,2 L2,11 L10,6 L2,2" -->
-							  
-							</marker>
-						  </defs>
-					</svg>
-				</div>
-			</div>
 		</div>
-		
-		<div class="row">
-			<div class="col-md-5">
-				<div id="linkedHighlighting">
-				</div>
-			</div>
-		
-			<div class="col-md-7">
-				
-				<div id="linkedHighlighting_bar"></div>
-			</div>
-		</div>
-
-
-
+	  </div>
 	</div>
-
-	<!-- Load JS libraries -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
 	<!-- d3 -->
 	<script src="https://d3js.org/d3.v6.min.js"></script>
 	<script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
-
-	<!-- <script>src ="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js"</script> -->
-	<script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
-
 	
 	<!-- Visualization objects -->
-	<script src="js/wedge.js"></script>
 	<script src="js/dataWedge.js"></script>
-
-	<!-- <script src="js/seedRandom.js"></script> -->
 
 	<!-- Load data, create visualizations -->
 	<script src="js/main.js"></script>

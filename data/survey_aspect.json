@@ -1,0 +1,60 @@
+[
+    { "label": "Opinions", 
+    "axis": [{
+        "id":1,
+        "questions":[{ "id": "Q34_1", " type":"experience", "label": "I feel my opinions are valued at work." }, 
+        { "id": "35_1", " type":"matters","label": "Having your opinions valued at work." }],
+        "label":"My opinions are valued.",
+       " longLabel":""
+    }] 
+    },
+    { "label": "Expertise", 
+    "axis": [{
+        "questions":[{ "id": "Q34_2", " type":"experience","label": "At work, I have the opportunity to do what I do best every day." }, 
+        { "id": "35_2", " type":"matters","label": "At work, having the opportunity to do what I do best every day." }],
+        "label":"I have the opportunity to do what I do best.",
+       " longLabel":""
+    }] 
+    },
+    { "label": "Belonging", 
+    "axis": [{
+        "questions":[{ "id": "Q34_3", " type":"experience","label": "I feel a strong sense of community and belonging at work." }, 
+        { "id": "35_3", " type":"matters", "label": "Feeling a strong sense of community and belonging at work." }],
+        "label":"I feel a strong sense of community.",
+       " longLabel":""
+    }] 
+    },
+    { "label": "Pride", 
+    "axis": [{
+        "questions":[{ "id": "Q34_4", " type":"experience","label": "I am proud to tell others I am part of NEOSM." }, 
+        { "id": "35_4", " type":"matters", "label": "Feeling proud to tell others I am part of NEOSM." }],
+        "label":"I am proud to be a part of NEOSM.",
+       " longLabel":""
+    }] 
+    },
+    { "label": "Rejuvenate", 
+    "axis": [{
+        "questions":[{ "id": "Q34_5", " type":"experience","label": "I am able to regularly access opportunities to decompress throughout the work day." }, 
+        { "id": "35_5", " type":"matters", "label": "Having regular opportunities to decompress throughout the work day." }],
+        "label":"I am able to regularly access opportunities to decompress.",
+       " longLabel":""
+    }] 
+    },
+    { "label": "Focus", 
+    "axis": [{
+        "questions":[{ "id": "Q34_6", " type":"experience","label": "During work, I am able to find space to focus and concentrate any time I need to." }, 
+        { "id": "35_6", " type":"matters", "label": "Finding a space to focus and concentrate any time I need." }],
+        "label":"I am able to find space to focus and concentrate.",
+       " longLabel":""
+    }] 
+    },
+    { "label": "Collaboration", 
+    "axis": [{
+        "questions":[{ "id": "Q34_7", " type":"experience","label": "I am able to seamlessly collaborate with teammates any time I need to." }, 
+        { "id": "35_7", " type":"matters", "label": "Seamless collaboration with teammates any time I need to. " }],
+        "label":"I am able to seamlessly collaborate with teammates.",
+       " longLabel":""
+    }] 
+    }
+
+]
