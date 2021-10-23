@@ -4,25 +4,12 @@ body {
 	font-family: 'Neuton', serif;
 }
 
-svg .rotate {
-	/* transform-box: fill-box;
-	transform-origin: center;
-	transform:  rotate(-8deg); */
-	/* -webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .4)); */
-
-  }
-
-.wedgeGroup{
-	/* filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .2)); */
-
-}
-
 .panelTitle{
 		font-family:'Lato' !important;
 		font-size: 32px;
 		letter-spacing:2px;
 }
-.st112{
+.titlePath{
 	stroke: rgb(96, 230, 198);
 	fill:none;
 	stroke-width:35px;
@@ -30,6 +17,7 @@ svg .rotate {
 
 #wellBeing{
 			fill:white;
+			font-weight:300;
 
 }
 
@@ -40,6 +28,35 @@ svg .rotate {
 	font-family:'Lato' !important;
 	font-size: 32.6627px
 } 
+
+.panelHeader{
+	fill:white;
+	font-family:'Lato' !important;
+	font-size: 20px;
+	font-weight:400
+} 
+
+.handleText{
+	text-anchor: middle;
+	fill:white;
+	font-family:'Lato' !important;
+	font-size: 14px;
+	font-weight:400
+
+}
+
+.axisLabel{
+	fill:white;
+	font-family:'Lato' !important;
+	font-size: 16px;
+	font-weight:500
+} 
+
+.filterHandle{
+	fill:rgb(96, 230, 198);
+	stroke:#333132;
+	stroke-width:4px;
+}
 
 
 
@@ -72,7 +89,7 @@ svg .rotate {
     font-size: 13px;
   }
 
-  .filterPanel{
+  #filterPanel{
 	  background-color: #333132;
   }
 .label{

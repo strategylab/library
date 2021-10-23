@@ -7,18 +7,20 @@
 
 class dataWedge {
 
-    constructor(_parentElement, surveyData,wedgeStructure) {
+    constructor(_parentElement, surveyQuestions,surveyResponses) {
         this.parentElement = _parentElement;
-        this.surveyData = surveyData;
-        this.wedgeStructure = wedgeStructure;
+        this.surveyQuestions = surveyQuestions;
+        this.surveyResponses = surveyResponses;
         // this.filteredData = this.data;
         this.margin = { top: 20, right: 20, bottom: 200, left: 50 };
         this.width = d3.select("#" + this.parentElement).node().clientWidth+100 - this.margin.left - this.margin.right;
         this.height = 1000 - this.margin.top - this.margin.bottom;
         this.numLayers = 5;
 
-        setTimeout(() => { this.initVis();   // Update the visualization
-           }, 0);
+        this.wrangleData();
+
+        // setTimeout(() => { this.initVis();   // Update the visualization
+        //    }, 0);
 
     }
 
@@ -32,10 +34,45 @@ class dataWedge {
         return pathData.match(pathSegmentPattern)
     }
 
+    wrangleData(){
+
+    //create array of JSON objects from csv. 
+    let wedgeHeader = 'Wedge';
+    let axisHeader = 'Topic'
+    let qualtricsHeader = 'Qualtrics Question ID'
+    let setHeader = 'Set'
+
+    let surveyQuestions = this.surveyQuestions.filter(d=>d[axisHeader] && d[setHeader]); //filter out questions without an assigned axis or set
+    // let surveyResponses =this.surveyResponses;
+ 
+    // surveyQuestions.map((d,i)=>d[qualtricsHeader]= i);
+
+    let wedges = new Set(surveyQuestions.map(d=>d[wedgeHeader]));
+
+    this.wedgeStructure = Array.from (wedges).map(wedge=>{
+        let wedgeObj = {label:wedge, id: wedge.replace(/\s/g, ''),axis:{}}
+
+        let wedgeQuestions = surveyQuestions.filter(d=>d[wedgeHeader] == wedge);
+        let axisNames = new Set(wedgeQuestions.map(d=>d[axisHeader]))
+
+        Array.from(axisNames).map(axis=>{
+            wedgeObj.axis[axis]={questions:[],label:axis, id:axis.replace(/\s/g, '')};
+        })
+
+        wedgeQuestions.map(q=>{
+            wedgeObj.axis[q[axisHeader]].questions.push(q) 
+        })
+
+        return wedgeObj
+    })
+
+    this.initVis()
+
+    }
+
     initVis() {
 
-        let questionData = this.wedgeStructure
-        console.log(questionData)
+        let wedgeStructure = this.wedgeStructure
 
       
         let vis = this;
@@ -52,7 +89,9 @@ class dataWedge {
             .append("g")
             .attr("transform", "translate(" + this.width/2 + "," + this.height/2 + ")");
   
-        let wedgeShapes = this.createWedges(questionData)
+        let wedgeShapes = this.createWedges(wedgeStructure)
+
+        console.log('wedgeShapes', wedgeShapes)
 
         let centerArc = d3.arc()
             .innerRadius(0)
@@ -60,14 +99,11 @@ class dataWedge {
             .startAngle(0)
             .endAngle(2*Math.PI)
 
-        // let opacityScale = d3.scaleLinear().range([.1,.7]).domain([0,numLayers])
-  
         let colorScale = d3.scaleOrdinal().range(['#c5c5c9','#cdcdcf','#d4d4d5','#d9d9db','#e7e7e8']).domain([4,3,2,1,0])
-
 
         let rotateGroups = svg.selectAll('.wedgeGroup').data(wedgeShapes)
         .enter().append('g')
-        .attr('class', 'rotate')
+        // .attr('class', 'rotate')
         .attr('id',d=>d.id+'Group')
         
         let groups = rotateGroups

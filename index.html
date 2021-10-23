@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="description" content="">
@@ -9,63 +10,49 @@
 	<!-- CSS libraries -->
 	<!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-	
+
 
 	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700,700i" /> -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">	
+	<link
+		href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+		rel="stylesheet">
 
-	
+
 
 	<!-- Custom CSS code -->
 	<link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
 	<div class="container">
-	<div class="columns">
-		<div class="column is-9">
-			<div id="dataWedge">
-				<svg>
-					<defs>
-						<marker id="markerArrow" markerWidth="20" markerHeight="20" refX="2" refY="9" orient='auto'>
-						  <path  d="M20,2 L20,16 L13,9 L20,2" />
-						   <!-- //d="M2,2 L2,11 L10,6 L2,2" -->
-						  
-						</marker>
-					  </defs>
-				</svg>
+		<div class="columns">
+			<div class="column is-9">
+				<div id="dataWedge">
+					<svg>
+						<defs>
+							<marker id="markerArrow" markerWidth="20" markerHeight="20" refX="2" refY="9" orient='auto'>
+								<path d="M20,2 L20,16 L13,9 L20,2" />
+							</marker>
+						</defs>
+					</svg>
+				</div>
 			</div>
+			<div class="column" id = "filterPanel"></div>
 		</div>
-		<div class="column filterPanel">
-			<div class="column is-full" id="panelTitle"></div>
-				<svg>
-					<g transform="translate(35,5)">
-						<g transform="translate(15,20)" class= "panelTitle" id="wellBeing">	<text>WELL-BEING</text></g>
-						<g transform="translate(-25,30)" class= "panelTitle"  id ="gapAnalysis">
-							<path class="st112" d="M11.11,14.07c0,0,72.32-2.95,97.36,0s50.05-0.02,75.66-1.31c29.06-1.47,77.51,4.38,96.98,3.4"/>						</g>
-						<g transform="translate(0,55)" class= "panelTitle"  id ="gapAnalysis">
-						<text>GAP  ANALYSIS</text></g>
-					</g>
-	
-					
-				</svg>
-			<div class="column is-full" id="responseFilter"></div>
-
-			<div class="column is-full" id="userFilter"></div>
-
-		</div>
-	  </div>
 	</div>
 
 	<!-- d3 -->
 	<script src="https://d3js.org/d3.v6.min.js"></script>
 	<script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
-	
+
 	<!-- Visualization objects -->
 	<script src="js/dataWedge.js"></script>
+	<script src="js/filterPanel.js"></script>
 
 	<!-- Load data, create visualizations -->
 	<script src="js/main.js"></script>
 </body>
+
 </html>
