@@ -12,7 +12,7 @@ class filterPanel {
         this.filterQuestions = filterQuestions.filter(d=>d.Include == 'TRUE'); //filter out questions that are flagged as not include;
         this.margin = { top: 40, right: 20, bottom: 200, left: 20 };
         this.width = d3.select("#" + this.parentElement).node().clientWidth - this.margin.left - this.margin.right;
-        this.height = 2000 - this.margin.top - this.margin.bottom;
+        this.height = 160 //2000 - this.margin.top - this.margin.bottom;
 
         this.wrangleData();
 
@@ -39,6 +39,7 @@ class filterPanel {
         
         // count how many people took the survey and answered each of the options; 
         vis.allRespondents = surveyData.length;
+    
         vis.updateCounts()
         vis.initVis()
     }
@@ -87,6 +88,12 @@ class filterPanel {
                 vis.createUserFilter(optionGroup,f)
              
             })
+
+        vis.selectedRespondents = surveyData.filter(d=>d.selected).length;
+
+        d3.select('#numParticipants')
+        .text('(' + vis.selectedRespondents + ' participants)')
+
         // console.log('filter Questions', vis.filterQuestions)
         // console.log('surveyData',surveyData)
 
@@ -177,16 +184,28 @@ class filterPanel {
             .text('User Filter')
             // .attr("transform", "translate(0,220)")
 
+            userFilter
+            .append('text')
+            .attr('class', 'checkboxLabel')
+            .text('(' + vis.selectedRespondents + ' participants)')
+            .attr('id', 'numParticipants')
+            .attr("x", 100)
+
             let yTranslate = 40;
             vis.filterQuestions.map((f,i)=>{
 
-                
-                let roleFilter = userFilter.append('g')
-                .attr("transform", "translate(0," + yTranslate+ ")")
+                let numOptions  = f.Options.length;
+                let svgHeight = numOptions * 25 + 30;
+
+                let roleFilter = d3.select('#filterPanel').append('div').attr('class', 'column is-full optionPanel')
+                .append('svg').attr('height',svgHeight)
+                .append('g')
+                // let roleFilter = userFilter.append('g')
+                // .attr("transform", "translate(0," + yTranslate+ ")")
 
                 // console.log('f', f[qualtricsHeader].replace(/\./g,''))
                 let optionGroup = roleFilter.append('g')
-                .attr("transform", "translate(" + 70 + ",0)")
+                .attr("transform", "translate(" + 70 + ",20)")
                 .attr('id',f[qualtricsHeader].replace(/\./g,''))
         
                 optionGroup.append("text")
@@ -195,8 +214,7 @@ class filterPanel {
 
                 vis.createUserFilter(optionGroup,f)
 
-                let numOptions  = f.Options.length;
-                yTranslate = yTranslate + numOptions * 25 + 40;
+               
              
             })
           

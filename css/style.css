@@ -75,6 +75,11 @@ body {
 	cursor:pointer
 } 
 
+.optionPanel{
+	padding-top:0px;
+	/* padding-bottom:0px; */
+}
+
 .filterHandle{
 	fill:rgb(96, 230, 198);
 	stroke:#333132;
@@ -90,6 +95,7 @@ body {
 }
 
 .barLabel{
+	fill:white;
 	text-anchor: end;
 	font-family:'Lato' !important;
 	font-size: 14px;
