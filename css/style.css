@@ -29,7 +29,7 @@ body {
 	font-size: 32.6627px
 } 
 
-.panelHeader{
+.filter{
 	fill:white;
 	font-family:'Lato' !important;
 	font-size: 20px;
@@ -52,10 +52,49 @@ body {
 	font-weight:500
 } 
 
+
+.filterLabel{
+	fill:white;
+	font-family:'Lato' !important;
+	font-size: 18px;
+	font-weight:bolder;
+	cursor:pointer
+} 
+
+.optionBars{
+	cursor:pointer;
+	fill:#333132;
+	stroke:white;
+}
+
+.checkboxLabel{
+	fill:white;
+	font-family:'Lato' !important;
+	font-size: 14px;
+	font-weight:500;
+	cursor:pointer
+} 
+
 .filterHandle{
 	fill:rgb(96, 230, 198);
 	stroke:#333132;
 	stroke-width:4px;
+}
+
+.clicked .optionBars{
+	fill:rgb(96, 230, 198)
+}
+
+.selectedBars{
+	fill:rgb(96, 230, 198)
+}
+
+.barLabel{
+	text-anchor: end;
+	font-family:'Lato' !important;
+	font-size: 14px;
+	font-weight:500;
+	/* fill:rgb(96, 230, 198); */
 }
 
 

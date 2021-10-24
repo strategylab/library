@@ -7,10 +7,9 @@
 
 class dataWedge {
 
-    constructor(_parentElement, surveyQuestions,surveyResponses) {
+    constructor(_parentElement, surveyQuestions) {
         this.parentElement = _parentElement;
         this.surveyQuestions = surveyQuestions;
-        this.surveyResponses = surveyResponses;
         // this.filteredData = this.data;
         this.margin = { top: 20, right: 20, bottom: 200, left: 50 };
         this.width = d3.select("#" + this.parentElement).node().clientWidth+100 - this.margin.left - this.margin.right;
@@ -18,6 +17,8 @@ class dataWedge {
         this.numLayers = 5;
 
         this.wrangleData();
+
+        console.log('survey data is ', surveyData)
 
         // setTimeout(() => { this.initVis();   // Update the visualization
         //    }, 0);
@@ -38,8 +39,7 @@ class dataWedge {
 
     //create array of JSON objects from csv. 
     let wedgeHeader = 'Wedge';
-    let axisHeader = 'Topic'
-    let qualtricsHeader = 'Qualtrics Question ID'
+    let axisHeader = 'Axis'
     let setHeader = 'Set'
 
     let surveyQuestions = this.surveyQuestions.filter(d=>d[axisHeader] && d[setHeader]); //filter out questions without an assigned axis or set

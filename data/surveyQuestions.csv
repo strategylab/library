@@ -1,36 +1,36 @@
 Qualtrics Question ID,Wedge,Topic,Set,Question
-0,Roots,History of Tuskegee,Experience,"The history of Tuskegee, the beginning of gynecology, Henrietta Lacks, among others are top of mind for my Black patients when they receive medical care."
-1,Roots,Micro aggression,Experience,Many of my Black patients experience micro aggressions when they receive medical care.
-2,Roots,History of Tuskegee,Relevance,"Addressing the history of Tuskegee, the beginning of gynecology, Henrietta Lacks, among others is a core driver in establishing trust between Black patients and healthcare providers"
-3,Roots,Micro aggression,Relevance,"Eliminating micro aggressions, is a core driver in establishing trust between Black patients and healthcare providers."
-4,Generations,Generational Variation,Experience,As a care provider I acknowledge that different generations have different points of view around medical care
-5,Generations,Different forms of medicine,Experience,As a care provider I acknowledge and honor different forms of medicine
-6,Generations,Generational Variation,Relevance,Acknowledging generational variations of trust in healthcare is a core driver in establishing trust between Black patients and healthcare providers.
-7,Generations,Different forms of medicine,Relevance,Honoring and acknowledging different forms of medicine is a core driver in establishing trust between Black patients and healthcare providers.
-8,Relationships,Patient Trust in the Medical System,Experience,I feel most of my Black patients trust the medical system as a whole.
-9,Relationships,,Experience,I trust the medical system as a whole.
-10,Relationships,Provider Trust,Experience,I feel that being a Black provider helps establish trust with my Black patients.
-11,Relationships,Patient Trust in the Provider,Experience,"When caring for my own health or that of my family, I often seek Black providers"
-12,Relationships,Patient Trust in the Medical System,Relevance,Patient trust in the Health system as a whole is a core driver in creating better health outcomes.
-13,Relationships,,Relevance,Provider trust in the Health system as a whole is a core driver in creating better health outcomes.
-14,Relationships,,Relevance,Race is a core driver in establishing Black patients' trust in the Health system as a whole
-15,Relationships,Provider Trust,Relevance,Being a Black provider is a core driver in establishing trust with Black patients.
-16,Relationships,Patient Trust in the Provider,Relevance,Patient trust in the health provider is a core driver in creating better health outcomes.
-17,Recognizing ourselves,Images of black people,Experience,There are images of Black people in the space where I provide care.
-18,Recognizing ourselves,Patients that look like them,Experience,"When my Black patients come to receive care, they see many other patients that look like them."
-19,Recognizing ourselves,Providers that look like them,Experience,"When my Black patients come to receive care, they see many providers that look like them"
-20,Recognizing ourselves,Images of black people,Relevance,Seeing images of Black people in the spaces we care for patients is a core driver in establishing trust between patients and healthcare providers.
-21,Recognizing ourselves,Patients that look like them,Relevance,For Black patients to see patients that look like them in the spaces they come to for care is a core driver in establishing trust between patients and healthcare providers.
-22,Recognizing ourselves,Providers that look like them,Relevance,For Black patients to see providers that look like them in the spaces they come to for care is a core driver in establishing trust between patients and healthcare providers.
-23,Spaces,Welcoming space,Experience,I feel that the space where I practice feels welcoming to my Black patients.
-24,Spaces,Location,Experience,I feel that the location of the place where I practice is welcoming to my Black patients.
-25,Spaces,Physical Space,Experience,I feel that the spaces where I practice instill a sense of confidence in my patients in the care I am providing
-26,Spaces,Welcoming space,Relevance,Places that feel welcoming are core drivers in establishing trust between patients and healthcare providers.
-27,Spaces,Location,Relevance,Where a care facility is located is a core driver in establishing trust between patients and healthcare providers.
-28,Spaces,Physical Space,Relevance,The physical space where care is provided is a core driver in establishing trust between patients and healthcare providers.
-29,Communities,Community Trust,Experience,The communities I provide care for trust the health-system as a whole.
-30,Communities,Community Engagement,Experience,I am engaged with the communities I provide care to beyond my practice.
-31,Communities,Partnering with communities,Experience,"I partner with other community institutions, leaders, and or members to promote health and wellness."
-32,Communities,Community Trust,Relevance,Community trust in the health-system is important in creating better health outcomes.
-33,Communities,Community Engagement,Relevance,Providers engaging with the communities they practice beyond their practice is a core driver in establishing trust between patients and providers.
-34,Communities,Partnering with communities,Relevance,"Provider partnerships with community institutions, leaders and members is a core driver in establishing trust between patients and providers."
+Q3.2_1,Roots,History of Tuskegee,Experience,"The history of Tuskegee, the beginning of gynecology, Henrietta Lacks, among others are top of mind for my Black patients when they receive medical care."
+Q3.2_2,Roots,Micro aggression,Experience,Many of my Black patients experience micro aggressions when they receive medical care.
+Q3.3_1,Roots,History of Tuskegee,Relevance,"Addressing the history of Tuskegee, the beginning of gynecology, Henrietta Lacks, among others is a core driver in establishing trust between Black patients and healthcare providers"
+Q3.3_2,Roots,Micro aggression,Relevance,"Eliminating micro aggressions, is a core driver in establishing trust between Black patients and healthcare providers."
+Q4.2_1,Generations,Generational Variation,Experience,As a care provider I acknowledge that different generations have different points of view around medical care
+Q4.2_2,Generations,Different forms of medicine,Experience,As a care provider I acknowledge and honor different forms of medicine
+Q4.3_1,Generations,Generational Variation,Relevance,Acknowledging generational variations of trust in healthcare is a core driver in establishing trust between Black patients and healthcare providers.
+Q4.3_2,Generations,Different forms of medicine,Relevance,Honoring and acknowledging different forms of medicine is a core driver in establishing trust between Black patients and healthcare providers.
+Q5.2_1,Relationships,Patient Trust in the Medical System,Experience,I feel most of my Black patients trust the medical system as a whole.
+Q5.2_2,Relationships,,Experience,I trust the medical system as a whole.
+Q5.2_3,Relationships,Provider Trust,Experience,I feel that being a Black provider helps establish trust with my Black patients.
+Q5.2_4,Relationships,Patient Trust in the Provider,Experience,"When caring for my own health or that of my family, I often seek Black providers"
+Q5.3_1,Relationships,Patient Trust in the Medical System,Relevance,Patient trust in the Health system as a whole is a core driver in creating better health outcomes.
+Q5.3_2,Relationships,,Relevance,Provider trust in the Health system as a whole is a core driver in creating better health outcomes.
+Q5.3_2,Relationships,,Relevance,Race is a core driver in establishing Black patients' trust in the Health system as a whole
+Q5.3_4,Relationships,Provider Trust,Relevance,Being a Black provider is a core driver in establishing trust with Black patients.
+Q5.3_5,Relationships,Patient Trust in the Provider,Relevance,Patient trust in the health provider is a core driver in creating better health outcomes.
+Q6.2_1,Recognizing ourselves,Images of black people,Experience,There are images of Black people in the space where I provide care.
+Q6.2_2,Recognizing ourselves,Patients that look like them,Experience,"When my Black patients come to receive care, they see many other patients that look like them."
+Q6.2_3,Recognizing ourselves,Providers that look like them,Experience,"When my Black patients come to receive care, they see many providers that look like them"
+Q6.3_1,Recognizing ourselves,Images of black people,Relevance,Seeing images of Black people in the spaces we care for patients is a core driver in establishing trust between patients and healthcare providers.
+Q6.3_2,Recognizing ourselves,Patients that look like them,Relevance,For Black patients to see patients that look like them in the spaces they come to for care is a core driver in establishing trust between patients and healthcare providers.
+Q6.3_3,Recognizing ourselves,Providers that look like them,Relevance,For Black patients to see providers that look like them in the spaces they come to for care is a core driver in establishing trust between patients and healthcare providers.
+Q7.2_1,Spaces,Welcoming space,Experience,I feel that the space where I practice feels welcoming to my Black patients.
+Q7.2_2,Spaces,Location,Experience,I feel that the location of the place where I practice is welcoming to my Black patients.
+Q7.2_3,Spaces,Physical Space,Experience,I feel that the spaces where I practice instill a sense of confidence in my patients in the care I am providing
+Q7.3_1,Spaces,Welcoming space,Relevance,Places that feel welcoming are core drivers in establishing trust between patients and healthcare providers.
+Q7.3_2,Spaces,Location,Relevance,Where a care facility is located is a core driver in establishing trust between patients and healthcare providers.
+Q7.3_3,Spaces,Physical Space,Relevance,The physical space where care is provided is a core driver in establishing trust between patients and healthcare providers.
+Q8.2_1,Communities,Community Trust,Experience,The communities I provide care for trust the health-system as a whole.
+Q8.2_2,Communities,Community Engagement,Experience,I am engaged with the communities I provide care to beyond my practice.
+Q8.2_3,Communities,Partnering with communities,Experience,"I partner with other community institutions, leaders, and or members to promote health and wellness."
+Q8.3_1,Communities,Community Trust,Relevance,Community trust in the health-system is important in creating better health outcomes.
+Q8.3_2,Communities,Community Engagement,Relevance,Providers engaging with the communities they practice beyond their practice is a core driver in establishing trust between patients and providers.
+Q8.3_3,Communities,Partnering with communities,Relevance,"Provider partnerships with community institutions, leaders and members is a core driver in establishing trust between patients and providers."

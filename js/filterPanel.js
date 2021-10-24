@@ -7,11 +7,9 @@
 
 class filterPanel {
 
-    constructor(_parentElement, filterQuestions, filterResponses) {
+    constructor(_parentElement, filterQuestions) {
         this.parentElement = _parentElement;
-        this.filterQuestions = filterQuestions;
-        this.filterResponses = filterResponses;
-        // this.filteredData = this.data;
+        this.filterQuestions = filterQuestions.filter(d=>d.Include == 'TRUE'); //filter out questions that are flagged as not include;
         this.margin = { top: 40, right: 20, bottom: 200, left: 20 };
         this.width = d3.select("#" + this.parentElement).node().clientWidth - this.margin.left - this.margin.right;
         this.height = 2000 - this.margin.top - this.margin.bottom;
@@ -25,7 +23,73 @@ class filterPanel {
 
 
     wrangleData() {
-        this.initVis()
+
+        let vis= this;
+
+        vis.filterQuestions.map(q=>{
+            q.Options = q.Options.map(o=>{
+                // surveyData
+                let count = surveyData.filter(d=>d[q[qualtricsHeader]]==o).length;
+                let selected = surveyData.filter(d=>d[q[qualtricsHeader]]==o && d.selected).length;
+                return {option:o,count, selected, clicked:true}
+
+            })
+
+        })
+        
+        // count how many people took the survey and answered each of the options; 
+        vis.allRespondents = surveyData.length;
+        vis.updateCounts()
+        vis.initVis()
+    }
+
+    filterData(questionId, option,include){
+
+        // console.log('filtering', questionId, option, include)
+        let vis = this;
+        vis.filterQuestions.map(q=>{
+            // console.log('q', q)
+            if (q[qualtricsHeader] == questionId){
+                q.Options.map(o=>{
+                    if (o.option == option){
+                        o.clicked = include;
+                    }
+                })
+            }
+            
+
+        })
+
+        surveyData.map(d=>{
+            if (d[questionId] == option){
+                d.selected = include;
+            }
+        })
+
+        vis.updateCounts();
+    }
+    
+    updateCounts(){
+        let vis = this;
+        // console.log(vis.filterQuestions)
+        vis.filterQuestions.map(q=>{
+            q.Options.map(o=>{
+                // surveyData
+                o.count = surveyData.filter(d=>d[q[qualtricsHeader]]==o.option).length;
+                o.selected = surveyData.filter(d=>d[q[qualtricsHeader]]==o.option && d.selected).length;
+            })
+
+        })
+
+         vis.filterQuestions.map((f,i)=>{
+            //  console.log(f);
+                let optionGroup = d3.select('#' + f[qualtricsHeader].replace(/\./g,''))
+                vis.createUserFilter(optionGroup,f)
+             
+            })
+        // console.log('filter Questions', vis.filterQuestions)
+        // console.log('surveyData',surveyData)
+
     }
 
 
@@ -44,6 +108,8 @@ class filterPanel {
 
 
     }
+
+
 
     createTitle() {
 
@@ -87,29 +153,59 @@ class filterPanel {
         let parentGroup = vis.svg.append("g")
             .attr("transform", "translate(" + vis.margin.left + "," + topOffset + ")")
 
-        let filterGroup = parentGroup.append('g')
+        let responseFilter = parentGroup.append('g')
             .attr("transform", "translate(0,20)")
-            .attr('class', 'panelHeader');
+            .attr('class', 'filter');
 
-            filterGroup
+            responseFilter
             .append('text')
             .text('Response Filter')
 
-            let currentExperience = filterGroup.append('g')
+            let currentExperience = responseFilter.append('g')
             // .attr("transform", "translate(0,10)")
 
-            let mattersMost = filterGroup.append('g')
+            let mattersMost = responseFilter.append('g')
             .attr("transform", "translate(0,80)")
 
-            filterGroup
+            
+            let userFilter = parentGroup.append('g')
+            .attr("transform", "translate(0,240)")
+            .attr('class', 'filter');
+
+            userFilter
             .append('text')
             .text('User Filter')
-            .attr("transform", "translate(0,220)")
+            // .attr("transform", "translate(0,220)")
+
+            let yTranslate = 40;
+            vis.filterQuestions.map((f,i)=>{
+
+                
+                let roleFilter = userFilter.append('g')
+                .attr("transform", "translate(0," + yTranslate+ ")")
+
+                // console.log('f', f[qualtricsHeader].replace(/\./g,''))
+                let optionGroup = roleFilter.append('g')
+                .attr("transform", "translate(" + 70 + ",0)")
+                .attr('id',f[qualtricsHeader].replace(/\./g,''))
+        
+                optionGroup.append("text")
+                .attr('class','filterLabel')
+                .text(f.Label)  
+
+                vis.createUserFilter(optionGroup,f)
+
+                let numOptions  = f.Options.length;
+                yTranslate = yTranslate + numOptions * 25 + 40;
+             
+            })
+          
 
 
 
         vis.createFilterAxis(currentExperience,'Current Experience','experience')
         vis.createFilterAxis(mattersMost,'What matters most','relevance')
+
 
     }
 
@@ -174,7 +270,7 @@ class filterPanel {
             let percentile = filterScale.invert(x)
             circleLabel.text(Math.round(percentile) + 'th percentile')
           
-            if (percentile > 18 && percentile <88){
+            if (percentile > 14 && percentile <85){
                 circleLabel.attr('x',x)
             } 
            
@@ -208,7 +304,97 @@ class filterPanel {
 
     }
 
-    createUserFilter(parentElement,label,userData){
+    createUserFilter(optionGroup,userData){
+
+        // console.log('calling createUserFilter')
+        let vis = this;
+
+        let checkBoxSize = 15;
+        let xOffset = 70
+        let numOptions = userData.Options.length;
+
+        let checkBoxScale = d3.scaleLinear().range([25,(numOptions+1)*25]).domain([0,numOptions])
+        let barScale = d3.scaleLinear().range([0,xOffset]).domain([0,20])
+        
+
+        let optionData = userData.Options.map(o=>{
+            return {id: userData[qualtricsHeader], label:o.option, count:o.count, selected:o.selected, clicked:o.clicked}
+        })
+
+        // console.log('optionData is ', optionData)
+
+        let options = optionGroup.selectAll('.options')
+        .data(optionData);
+
+        let enterSelection = options.enter()
+        .append('g')
+        .attr('class', 'options');
+
+        options = options.merge(enterSelection)
+        .attr("transform",(d,i)=>"translate(0," + checkBoxScale(i) + ")")
+        // .classed('clicked',d=>d.clicked)
+        .on('click',function(event,d){
+
+            let include = !d.clicked
+            // console.log('filtering ', d.label, include)
+            vis.filterData(d.id,d.label,include);
+        })
+            
+
+   
+
+        let optionsLabels = options.selectAll('.checkboxLabel')
+          .data(d=>[d])
+
+
+        enterSelection = optionsLabels.enter().append("text")
+        .attr('class','checkboxLabel')
+        .style('dominant-baseline','middle')
+        .attr('x', 5);
+
+        optionsLabels.merge(enterSelection)
+        .text(d=>d.label)  
+  
+
+
+        let bars = options.selectAll('.optionBars')
+        .data(d=>[d])
+
+       enterSelection = bars.enter().append("rect")
+        .attr('class','optionBars')
+        .attr('height',checkBoxSize)  
+
+        enterSelection.merge(bars)
+        .attr('x',d=>-barScale(d.count))
+        .attr('width',d=>barScale(d.count))
+        .attr('y',(d,i)=>-checkBoxSize/2)
+
+
+        let selectedBars = options.selectAll('.selectedBars')
+        .data(d=>[d])
+
+       enterSelection = selectedBars.enter().append("rect")
+        .attr('class','selectedBars')
+        .attr('height',checkBoxSize)  
+
+        selectedBars.merge(enterSelection)
+        .attr('x',d=>-barScale(d.selected))
+        .attr('width',d=> barScale(d.selected))
+        .attr('y',(d,i)=>-checkBoxSize/2)
+
+
+
+        let barLabel = options.selectAll('.barLabel')
+        .data(d=>[d])
+
+       enterSelection = barLabel.enter().append("text")
+        .attr('class','barLabel')
+
+        barLabel = enterSelection.merge(barLabel)
+
+        .attr('x',d=>-barScale(d.count)-5)
+        .text(d=>d.selected)
+        .attr('y',5)
 
 
     }

@@ -5,12 +5,24 @@ var dateFormatter = d3.timeFormat("%Y-%m-%d");
 var dateParser = d3.timeParse("%Y-%m-%d");
 
 
+
+let surveyData;
+let qualtricsHeader = 'Qualtrics Question ID'
 // (1) Load data with promises
+
+function updateDisplay(){
+    // console.log('updated data is ', surveyData)
+}
 
 // d3.json("data/survey.json").then(d=>console.log(d))
 let promises = [
-    d3.csv("data/surveyQuestions.csv"),
-    d3.csv("data/surveyResponses.csv"),
+    //survey questions sheet
+    d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRm3RRGXN2mFoFXIfZY5CsLgtmC8vawChFS7cWJEbIROojynou107krBVv_6CmtRqXaP53qpzLUbczh/pub?gid=0&single=true&output=csv"),
+   //survey responses sheet
+    d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTP_RG-pJHJWjk3QaT16f4Io7IlHUbsYF3eB5h8NorScEEN5xKF_AWv9RCQfCO_S-NrlRlwf3qe4XJa/pub?gid=1274511277&single=true&output=csv"),
+    //survey userQuestions sheet
+    d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSugTmsTRgVq3LDdIv1-suHzbU_0UPk--9c2UPQZoo2TQuXETAjO8C6XGmVesiCYSrC8wBNySXTGWl0/pub?gid=0&single=true&output=csv"),
+    // d3.csv("data/surveyUserQuestions.csv"),
     d3.csv("data/Aspect+Health+-+Care+Team+Member+Experience_DRAFT_September+23,+2021_09.07.csv")];
 
 Promise.all(promises)
@@ -44,14 +56,54 @@ function createVis(data){
 
     // })
     
-    console.log(data[0])
-    let randomData = Array.from({length: 10}, d3.randomNormal(4, 2));
-    let surveyResponses = data[1];
-    surveyResponses.map(r=>{
-        r.Answers = randomData;
-    })
-    console.log(surveyResponses)
+    // console.log(data[0])
 
-    new dataWedge('dataWedge',data[0],surveyResponses)
-    new filterPanel('filterPanel','','')
+    let qualtricsHeader = 'Qualtrics Question ID'
+
+    let surveyResponses = data[1];
+
+    let surveyUserQuestions = data[2];
+    surveyUserQuestions.map(q=>{
+        q['Options'] = q['Options'].split('\n')
+    })
+
+    let lookUpKey ={};
+    surveyUserQuestions.map(q=>{
+        lookUpKey[q[qualtricsHeader]] = q;
+    })
+
+
+    let sampleResponse = surveyResponses[2]
+    let keys = Object.keys(sampleResponse).filter(k=>k[0] == 'Q');
+
+     //create fake data following the structure of the surveyResponses; 
+     let fakeData = Array.from({length: 30},function(){
+        
+         let newResponse = JSON.parse(JSON.stringify(sampleResponse));
+
+         keys.map(k=>{
+             //is this a user key or a rating key? 
+             if (lookUpKey[k]){
+                 let options = lookUpKey[k].Options;
+                 if (options.length == 1){
+                    newResponse[k]= 'random role'
+                 } else {
+                     let randomOption = d3.randomInt(0,options.length)();
+                     newResponse[k] = options[randomOption]
+                 }
+
+             }else if (k[1]!== '9') {
+                newResponse[k] = Math.round(d3.randomNormal(4, 1)());
+             }
+            
+         })
+        return newResponse
+     });
+
+     fakeData.map(d=>d.selected = true)
+     surveyData = fakeData;
+     filteredDAta = surveyData;
+
+    new dataWedge('dataWedge',data[0])
+    new filterPanel('filterPanel',surveyUserQuestions)
 }
