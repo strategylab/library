@@ -4,9 +4,24 @@ body {
 	font-family: 'Neuton', serif;
 }
 
+.tooltip {
+    position: absolute;
+    text-align: center;
+    font: 12px sans-serif;
+	width:200px;
+    /*  pointer-events: none;	This line needs to be removed */
+}
+.tooltip h3,h4 {
+    text-align: left;
+	color:white;
+	font: 16px sans-serif;
+	font-family:'Lato' !important;
+	line-height: 23px
+}
+
 .panelTitle{
 		font-family:'Lato' !important;
-		font-size: 32px;
+		font-size: 28px;
 		letter-spacing:2px;
 }
 .titlePath{
@@ -67,6 +82,27 @@ body {
 	stroke:white;
 }
 
+.Experience{
+	fill:rgb(48, 121, 128);
+}
+
+.resetButton{
+	fill:white;
+}
+
+.resetLabel{
+	fill:white;
+	font-family:'Lato' !important;
+	font-size: 14px;
+	font-weight:bold;
+	text-anchor:end;
+	cursor:pointer;
+
+}
+
+.Relevance{
+	fill:rgb(48, 121, 128);
+}
 .checkboxLabel{
 	fill:white;
 	font-family:'Lato' !important;
@@ -74,6 +110,15 @@ body {
 	font-weight:500;
 	cursor:pointer
 } 
+
+.participantCount{
+	fill:white;
+	font-family:'Lato' !important;
+	font-size: 14px;
+	font-weight:500;
+} 
+
+
 
 .optionPanel{
 	padding-top:0px;
@@ -148,9 +193,19 @@ body {
 	font-size: 12px;
 }
 
+.outer{
+	fill:rgb(48, 121, 128);
+	stroke:rgb(48, 121, 128);
+}
+
+.inner{
+	fill:rgb(246, 243, 255);
+	stroke:rgb(246, 243, 255);
+}
+
 	.centerArc{
 		fill:white;
-		stroke: #808080;
+		stroke: black;
 		stroke-width: 1px;
 	  opacity:1  }
 

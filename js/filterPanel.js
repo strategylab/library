@@ -12,7 +12,7 @@ class filterPanel {
         this.filterQuestions = filterQuestions.filter(d=>d.Include == 'TRUE'); //filter out questions that are flagged as not include;
         this.margin = { top: 40, right: 20, bottom: 200, left: 20 };
         this.width = d3.select("#" + this.parentElement).node().clientWidth - this.margin.left - this.margin.right;
-        this.height = 160 //2000 - this.margin.top - this.margin.bottom;
+        this.height = 180 //2000 - this.margin.top - this.margin.bottom;
 
         this.wrangleData();
 
@@ -46,10 +46,10 @@ class filterPanel {
 
     filterData(questionId, option,include){
 
-        // console.log('filtering', questionId, option, include)
+        console.log( option, include)
+        //setting the flag for that option as filtered;
         let vis = this;
         vis.filterQuestions.map(q=>{
-            // console.log('q', q)
             if (q[qualtricsHeader] == questionId){
                 q.Options.map(o=>{
                     if (o.option == option){
@@ -62,12 +62,39 @@ class filterPanel {
         })
 
         surveyData.map(d=>{
-            if (d[questionId] == option){
-                d.selected = include;
-            }
+            let selected = true;
+            vis.filterQuestions.map(q=>{
+                let questionId = q[qualtricsHeader];
+                let answer = d[questionId];
+                let clicked = q.Options.filter(o=>o.option == answer)[0].clicked;
+                if (!clicked){
+                    selected = false;
+                }
+            })
+           
+                d.selected = selected;
+        
         })
 
         vis.updateCounts();
+        dataFiltered() //main function to recompute values for wedges
+    }
+
+    clearFilters(){
+
+        let vis = this;
+        vis.filterQuestions.map(q=>{
+                q.Options.map(o=>{
+                    o.clicked = true;
+                })
+        })
+
+        surveyData.map(d=>{           
+                d.selected = true;
+        })
+
+        vis.updateCounts();
+        dataFiltered() //main function to recompute values for wedges
     }
     
     updateCounts(){
@@ -92,7 +119,7 @@ class filterPanel {
         vis.selectedRespondents = surveyData.filter(d=>d.selected).length;
 
         d3.select('#numParticipants')
-        .text('(' + vis.selectedRespondents + ' participants)')
+        .text('' + vis.selectedRespondents + ' / ' + vis.allRespondents + ' participants')
 
         // console.log('filter Questions', vis.filterQuestions)
         // console.log('surveyData',surveyData)
@@ -131,7 +158,8 @@ class filterPanel {
             .attr('class', 'panelTitle')
             .attr('id', 'wellBeing')
             .append('text')
-            .text('WELL-BEING')
+            .text('BLACK VOICES')
+            // .text('WELL-BEING')
 
         let pathGroup = parentGroup.append('g')
             .attr("transform", "translate(-25,35)")
@@ -145,9 +173,10 @@ class filterPanel {
         pathGroup.append('g')
             .attr("transform", "translate(22,25)")
             .attr('class', 'panelTitle')
-            .attr('id', 'gapAnalysis')
+            // .attr('id', 'gapAnalysis')
             .append('text')
-            .text('GAP ANALYSIS')
+            // .text('GAP ANALYSIS')
+            .text('IN HEALTHCARE')
     }
 
     createResponseFilter() {
@@ -169,9 +198,11 @@ class filterPanel {
             .text('Response Filter')
 
             let currentExperience = responseFilter.append('g')
+            .attr('id','experience')
             // .attr("transform", "translate(0,10)")
 
             let mattersMost = responseFilter.append('g')
+            .attr('id','relevance')
             .attr("transform", "translate(0,80)")
 
             
@@ -182,16 +213,38 @@ class filterPanel {
             userFilter
             .append('text')
             .text('User Filter')
-            // .attr("transform", "translate(0,220)")
+
+            let reset = userFilter
+            .append('g')
+            // .attr("transform", "translate(0,5)")
+
+
+            reset
+            .append('rect')
+            .attr('class','resetButton')
+            .attr('x',0)
+            .attr('y',5)
+            .attr('width', vis.width)
+            .attr('height', 1)
+            // .attr("transform", "translate(0,20)")
+
+            reset
+            .append('text')
+            .attr('x',vis.width)
+            .text('Clear Filter')
+            .attr('class','resetLabel')
+            .on('click',d=>vis.clearFilters())
+
+
 
             userFilter
             .append('text')
-            .attr('class', 'checkboxLabel')
-            .text('(' + vis.selectedRespondents + ' participants)')
+            .attr('class', 'participantCount')
+            .text('' + vis.selectedRespondents + ' / ' + vis.allRespondents + ' participants')
             .attr('id', 'numParticipants')
-            .attr("x", 100)
+            .attr("x", 0)
+            .attr("y", 22)
 
-            let yTranslate = 40;
             vis.filterQuestions.map((f,i)=>{
 
                 let numOptions  = f.Options.length;
@@ -221,13 +274,13 @@ class filterPanel {
 
 
 
-        vis.createFilterAxis(currentExperience,'Current Experience','experience')
-        vis.createFilterAxis(mattersMost,'What matters most','relevance')
+        vis.createFilterAxis(currentExperience,'Current Experience','Experience',quantiles['Experience'])
+        vis.createFilterAxis(mattersMost,'What matters most','Relevance',quantiles['Relevance'])
 
 
     }
 
-    createFilterAxis(parentElement,label,id){
+    createFilterAxis(parentElement,label,set,quantile){
 
         let vis = this;
 
@@ -243,7 +296,7 @@ class filterPanel {
         .attr('x2', vis.width)
         .attr('y1',axisHeight)
         .attr('y2',axisHeight)
-        .attr('id',id)
+       
         .style('stroke', 'white')
         .style('stroke-width',2)
 
@@ -252,13 +305,13 @@ class filterPanel {
 
         let circleLabel = parentElement.append('text')
         .attr('class','handleText')
-        .attr('x',filterScale(25))
+        .attr('x',filterScale(quantile))
         .attr('y',axisHeight+30)
-        .text('25th percentile')
+        .text(quantile + 'th percentile')
 
         parentElement.append('circle')
         .attr('class','filterHandle')
-        .attr('cx',filterScale(25))
+        .attr('cx',filterScale(quantile))
         .attr('cy',axisHeight)
         .attr('r',10)
         // .on('click', function(event,d){
@@ -291,12 +344,16 @@ class filterPanel {
             if (percentile > 14 && percentile <85){
                 circleLabel.attr('x',x)
             } 
-           
+    
+        })
+        .on('end',function(event){
+            let range = filterScale.range();
 
-
-            
-
-        }))
+            let x = event.x > range[1] ? range[1] : (event.x < range[0] ? range[0] : event.x)
+            let percentile = filterScale.invert(x)
+            quantileChanged(set,percentile/100)
+        }
+        ))
         // .on("end",function(event,d){self.animateTransition()
         //     let otherCircle = d.id >1 ? d.id -2 : d.id + 2;
 
@@ -396,9 +453,13 @@ class filterPanel {
         .attr('height',checkBoxSize)  
 
         selectedBars.merge(enterSelection)
+        .transition()
+        .duration(1000)
         .attr('x',d=>-barScale(d.selected))
-        .attr('width',d=> barScale(d.selected))
         .attr('y',(d,i)=>-checkBoxSize/2)
+
+
+        .attr('width',d=> barScale(d.selected))
 
 
 

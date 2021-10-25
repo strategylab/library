@@ -1,13 +1,11 @@
 
 
-// Function to convert date objects to strings or reverse
-var dateFormatter = d3.timeFormat("%Y-%m-%d");
-var dateParser = d3.timeParse("%Y-%m-%d");
-
-
-
 let surveyData;
-let qualtricsHeader = 'Qualtrics Question ID'
+let qualtricsHeader = 'Qualtrics Question ID';
+
+let quantiles = {'Experience':80,'Relevance':80}
+
+let dataWedgeObj, filterPanelObj;
 // (1) Load data with promises
 
 function updateDisplay(){
@@ -28,6 +26,15 @@ let promises = [
 Promise.all(promises)
     .then( function(data){createVis(data)} )
     .catch( function (err){console.log(err)} );
+
+function quantileChanged(set,quantile){
+    quantiles[set]=quantile;
+    dataWedgeObj.recomputeQuantiles()
+}
+
+function dataFiltered(){
+    dataWedgeObj.recomputeQuantiles()
+}
 
 function createVis(data){
 
@@ -60,9 +67,11 @@ function createVis(data){
 
     let qualtricsHeader = 'Qualtrics Question ID'
 
+   
+    let surveyQuestions = data[0];
     let surveyResponses = data[1];
-
     let surveyUserQuestions = data[2];
+
     surveyUserQuestions.map(q=>{
         q['Options'] = q['Options'].split('\n')
     })
@@ -93,7 +102,19 @@ function createVis(data){
                  }
 
              }else if (k[1]!== '9') {
-                newResponse[k] = Math.round(d3.randomNormal(4, 1)());
+                 let question = surveyQuestions.filter(q=>q[qualtricsHeader] == k);
+                 if (question.length>0){
+                     
+                    if (question[0].Set == 'Experience'){
+                        // console.log('here')
+                        newResponse[k] = Math.round(d3.randomNormal(4, .5)());
+
+                    }else{
+                        newResponse[k] = Math.round(d3.randomNormal(2, .5)());
+
+                 }
+                }
+                // newResponse[k] = Math.round(d3.randomInt(1,5)());
              }
             
          })
@@ -102,8 +123,7 @@ function createVis(data){
 
      fakeData.map(d=>d.selected = true)
      surveyData = fakeData;
-     filteredDAta = surveyData;
 
-    new dataWedge('dataWedge',data[0])
-    new filterPanel('filterPanel',surveyUserQuestions)
+     dataWedgeObj = new dataWedge('dataWedge',surveyQuestions)
+    filterPanelObj = new filterPanel('filterPanel',surveyUserQuestions)
 }
