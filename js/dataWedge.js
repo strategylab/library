@@ -467,8 +467,9 @@ class dataWedge {
 
 
         dotSelection
-            .on('mouseover', (event, d) => {
+            .on('mouseover', function(event, d) {
 
+                d3.select(this).classed('hovered', true)
                 vis.tooltip
                     // .style("opacity", 1)
                     .style("visibility", "visible")
@@ -486,7 +487,10 @@ class dataWedge {
 
 
             })
-            .on('mouseout', () => {
+            .on('mouseout', function() {
+
+                d3.select(this).classed('hovered', false)
+
                 vis.tooltip
                 .style("visibility", "hidden")
 

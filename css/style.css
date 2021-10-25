@@ -197,6 +197,10 @@ body {
 
  }
 
+ .hovered{
+	 r:8px
+ }
+
  .histBar{
 	 fill:white;
 	 opacity:.7;
