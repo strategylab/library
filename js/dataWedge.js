@@ -68,8 +68,8 @@ class dataWedge {
 
                 // let values = surveyData.filter(s=>s.selected).map(s => s[q[qualtricsHeader]]).sort()
 
-                let values = surveyData.filter(s=>s.selected).map(s => s[q[qualtricsHeader]]).sort()
-                q.value = d3.quantile(values, quantiles[q.Set]/100)
+                let values = surveyData.filter(s => s.selected).map(s => s[q[qualtricsHeader]]).sort()
+                q.value = d3.quantile(values, quantiles[q.Set] / 100)
             })
 
             return wedgeObj
@@ -88,10 +88,22 @@ class dataWedge {
 
         let vis = this;
 
-       vis.tooltip = d3.select("body").append('div')
-        .attr('class', "tooltip")
-   
-        
+        vis.tooltip = d3.select("body").append('div')
+            .attr('class', "tooltip")
+
+        this.tooltip.append('div').attr('class', 'header')
+        let tooltipSVG = this.tooltip.append('div').attr('class', 'histDiv')
+            .append('svg').attr('class', 'histogram');
+
+        tooltipSVG.append('g').attr('class', 'x-axis')
+        tooltipSVG.append('g').attr('class', 'chart')
+
+
+
+
+
+
+
         // SVG drawing area
         vis.svg = d3.select("#" + vis.parentElement).select('svg')//d3.select("#" + vis.parentElement).append("svg")
             .attr("width", vis.width + vis.margin.left + vis.margin.right)
@@ -103,7 +115,7 @@ class dataWedge {
 
         var svg = d3.select("svg")
             .append("g")
-            .attr("transform", "translate(" + this.width / 2.5 + "," + this.height /1.8 + ")");
+            .attr("transform", "translate(" + this.width / 2.5 + "," + this.height / 1.8 + ")");
 
         let wedgeShapes = this.createWedges(wedgeStructure)
 
@@ -111,7 +123,7 @@ class dataWedge {
 
         let centerArc = d3.arc()
             .innerRadius(0)
-            .outerRadius(this.width/15) //+i*10
+            .outerRadius(this.width / 15) //+i*10
             .startAngle(0)
             .endAngle(2 * Math.PI)
 
@@ -279,27 +291,135 @@ class dataWedge {
         svg.append('g')
             .attr("class", "dots")
 
-        
-            this.updateVis();
+
+        this.updateVis();
     }
 
-    recomputeQuantiles(){
+    recomputeQuantiles() {
 
         // console.log('set', set, 'quantile', quantile)
         this.surveyQuestions.map(q => {
             // if (q.Set == set){
-                let values = surveyData.filter(s=>s.selected).map(s => s[q[qualtricsHeader]]).sort()
-                
-                let newValue = d3.quantile(values, quantiles[q.Set]/100);
-               
-                q.value = newValue;
+            let values = surveyData.filter(s => s.selected).map(s => s[q[qualtricsHeader]]).sort()
+
+            let newValue = d3.quantile(values, quantiles[q.Set] / 100);
+
+            q.value = newValue;
             // }
         })
 
         this.updateVis()
     }
 
-    updateVis(){
+
+    createHist(d, svg, width = 200, height = 200) {
+
+        svg.attr('width', width + 20).attr('height', height + 20)
+
+        let percentileLabel = quantiles[d.Set];
+        let values = surveyData.filter(s => s.selected).map(s => s[d[qualtricsHeader]]).sort()
+        let quantile = d3.quantile(values, quantiles[d.Set] / 100)
+
+        console.log( 'quantile',quantile)
+
+        // X axis: scale and draw:
+        // var x = d3.scaleLinear()
+        // .domain([0, 5])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
+        // .range([0, width]);
+
+        let x = d3.scaleBand()
+            .rangeRound([0, width]).paddingInner(0.4)
+            .domain([1,2,3,4,5])
+
+        let qScale = d3.scaleLinear()
+        .range([0,width])
+        .domain([.5,5.5]);
+
+
+
+        // Y axis: initialization
+        var y = d3.scaleLinear()
+            .range([height, 40]);
+
+
+        // set the parameters for the histogram
+        var histogram = d3.histogram()
+            .value(function (d) { return d; })   // I need to give the vector of value
+            .domain([1, 6])  // then the domain of the graphic
+            .thresholds(5); // then the numbers of bins
+
+        // And apply this function to data to get the bins
+        var bins = histogram(values);
+
+        // console.log('bins', bins)
+
+        y.domain([0, d3.max(bins, function (d) { return d.length; })]);   // d3.hist has to be called before the Y axis obviously
+
+
+            svg.select(".x-axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x));
+
+                let quantileMarker = svg.select(".chart").selectAll(".qMarker")
+                .data([quantile])
+        
+                quantileMarker
+                .enter()
+                .append("line") // Add a new rect for each new elements
+                .attr('class', 'qMarker')
+                .merge(quantileMarker) // get the already existing elements as well
+                .attr("x1", d=>qScale(d))
+                .attr("x2", d=>qScale(d))
+                .attr('y1',y.range()[0])
+                .attr('y2',0)
+            
+                // let quantileLabel = svg.select(".chart").selectAll(".qLabel")
+                // .data([quantile])
+        
+                // quantileLabel
+                // .enter()
+                // .append("text") // Add a new rect for each new elements
+                // .attr('class', 'qLabel')
+                // .merge(quantileLabel) // get the already existing elements as well
+                // .attr("x", d=>qScale(d)+2)
+                // .attr('y',10)
+                // .text( d=> d)
+        
+                
+
+        let bars = svg.select(".chart").selectAll(".histBar")
+            .data(bins)
+
+        bars
+            .enter()
+            .append("rect") // Add a new rect for each new elements
+            .attr('class', 'histBar')
+            .attr("x", 1)
+            .merge(bars) // get the already existing elements as well
+        
+            .attr("transform", function (d, i) {  return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
+            .attr("width", x.bandwidth())
+            .attr("height", function (d) { return height - y(d.length); })
+            // .style('fill',d=>{console.log(d.x0, quantile, d.x0 == quantile); return d.x0 == quantile? 'rgb(96, 230, 198)':''})
+
+
+    let labels = svg.select(".chart").selectAll(".histLabel")
+        .data(bins)
+
+        labels
+        .enter()
+        .append("text") // Add a new rect for each new elements
+        .attr('class', 'histLabel')
+        .merge(labels) // get the already existing elements as well
+        .text(d=>d.length> 0 ? d.length : '')
+        .attr("x", 1)
+        .attr("transform", function (d, i) { return "translate(" + (x(d.x0)+x.bandwidth()/2) + "," + (y(d.length)-5) + ")"; })
+       
+       
+
+
+    }
+    updateVis() {
 
         let vis = this;
 
@@ -312,12 +432,12 @@ class dataWedge {
             let scale = data.scale;
             let distanceAlongPath = scale(q.value);
             // console.log(distanceAlongPath)
-            let position; 
+            let position;
 
-            if (distanceAlongPath){ //There are at least some points in the dataset
+            if (distanceAlongPath) { //There are at least some points in the dataset
                 position = line.node().getPointAtLength(distanceAlongPath);
-            }else{ //all points have been filtered out
-                position={x:0,y:0}
+            } else { //all points have been filtered out
+                position = { x: 0, y: 0 }
             }
 
 
@@ -334,41 +454,47 @@ class dataWedge {
         let enter = dotSelection.enter()
             .append('circle')
             .attr('class', d => d.Set)
-        .classed('questionValues', true)
+            .classed('questionValues', true)
 
         dotSelection = dotSelection.merge(enter);
 
         dotSelection
-        .attr('r', 5)
+            .attr('r', 5)
             .transition()
             .duration(1000)
             .attr('cx', d => d.position.x)
             .attr('cy', d => d.position.y)
-           
+
 
         dotSelection
-            .on('mouseover', (event,d)=>{
+            .on('mouseover', (event, d) => {
 
                 vis.tooltip
-                // .style("opacity", 1)
-                .style("visibility", "visible")
+                    // .style("opacity", 1)
+                    .style("visibility", "visible")
 
-                .style("left", event.pageX + 20 + "px")
-                .style("top", event.pageY + "px")
-                .html(`
-                    <div style="border-radius: 5px; width:280px; background-color:#4a4a4a; padding: 10px">
+                    .style("left", event.pageX + 20 + "px")
+                    .style("top", event.pageY + "px")
+                    .select('.header')
+                    .html(`
                         <h3>${d.Question}<h3>
-                      
-                    </div>`);
-    
-            })
-            .on('mouseout',  ()=>{
-            vis.tooltip
-            .style("visibility", "hidden")
+                      `);
 
-            // .style("opacity", 0)
+
+                vis.createHist(d, vis.tooltip.select('svg'), 150, 80)
+                // vis.tooltip.select('svg').
+
+
             })
-           
+            .on('mouseout', () => {
+                vis.tooltip
+                .style("visibility", "hidden")
+
+                // .style("opacity", 0)
+            })
+
+
+
         let polygon = d3.select('.polygon')
         let outer = polygon.selectAll(".outer")
             // .data([lowerData.concat(upperData)]);
@@ -400,16 +526,16 @@ class dataWedge {
 
 
         d3.selectAll('.poly')
-        .attr("stroke-width", 2)
-        .attr('stroke-dasharray', 3)
-        .transition()
+            .attr("stroke-width", 2)
+            .attr('stroke-dasharray', 3)
+            .transition()
             .duration(1000)
             .attr("points", function (d) {
                 return d.map(function (d) {
                     return [d.position.x, d.position.y].join(",");
                 }).join(" ");
             })
-         
+
 
         // })
 
@@ -427,8 +553,8 @@ class dataWedge {
 
         // let shadowScale = d3.scaleSequential().range([-30,30,-30]).domain([0,Math.PI,2*Math.P]);
 
-        let innerRadius = this.width/15
-        let outerRadius = this.width/4.5;
+        let innerRadius = this.width / 15
+        let outerRadius = this.width / 4.5;
         let radiusInterval = (outerRadius - innerRadius) / numLayers;
 
 
