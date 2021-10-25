@@ -90,6 +90,7 @@ class dataWedge {
 
         vis.tooltip = d3.select("body").append('div')
             .attr('class', "tooltip")
+            .style("visibility", "hidden")
 
         this.tooltip.append('div').attr('class', 'header')
         let tooltipSVG = this.tooltip.append('div').attr('class', 'histDiv')
@@ -372,6 +373,11 @@ class dataWedge {
                 .attr("x2", d=>qScale(d))
                 .attr('y1',y.range()[0])
                 .attr('y2',0)
+
+                // .attr('y1',y.range()[0] - 5)
+                // .attr('y2',y.range()[0] +5)
+
+              
             
                 // let quantileLabel = svg.select(".chart").selectAll(".qLabel")
                 // .data([quantile])
@@ -416,6 +422,15 @@ class dataWedge {
         .attr("transform", function (d, i) { return "translate(" + (x(d.x0)+x.bandwidth()/2) + "," + (y(d.length)-5) + ")"; })
        
        
+        // quantileMarker
+        // .enter()
+        // .append("circle") // Add a new rect for each new elements
+        // .attr('class', 'qMarker')
+        // .merge(quantileMarker) // get the already existing elements as well
+        // .attr("cx", d=>qScale(d))
+        // .attr('cy',y.range()[0])
+        // .attr('r',8)
+
 
 
     }

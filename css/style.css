@@ -189,6 +189,11 @@ body {
 	 stroke-dasharray: 2px 2px;
  }
 
+/* 
+ .qMarker{
+	fill:rgb(48, 121, 128)
+} */
+
  .qLabel{
 	fill:white;
 	font-family:'Lato' !important;

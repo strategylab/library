@@ -107,10 +107,10 @@ function createVis(data){
                      
                     if (question[0].Set == 'Experience'){
                         // console.log('here')
-                        newResponse[k] = Math.round(d3.randomNormal(4, .5)());
+                        newResponse[k] = d3.randomInt(2,5)()//Math.round(d3.randomNormal(4, .5)());
 
                     }else{
-                        newResponse[k] = Math.round(d3.randomNormal(2, .5)());
+                        newResponse[k] = d3.randomInt(1,4)() //Math.round(d3.randomNormal(2, .5)());
 
                  }
                 }
