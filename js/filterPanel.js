@@ -10,11 +10,15 @@ class filterPanel {
     constructor(_parentElement, filterQuestions) {
         this.parentElement = _parentElement;
         this.filterQuestions = filterQuestions.filter(d=>d.Include == 'TRUE'); //filter out questions that are flagged as not include;
-        this.margin = { top: 40, right: 20, bottom: 200, left: 20 };
+        this.margin = { top: 40, right: 40, bottom: 200, left: 40 };
         this.width = d3.select("#" + this.parentElement).node().clientWidth - this.margin.left - this.margin.right;
+        this.pageHeight = d3.select("#" + this.parentElement).node().clientHeight;
+
         this.height = 180 //2000 - this.margin.top - this.margin.bottom;
 
         this.wrangleData();
+
+        console.log(this.margin,this.width)
 
         // setTimeout(() => { this.initVis();   // Update the visualization
         //    }, 0);
@@ -46,7 +50,7 @@ class filterPanel {
 
     filterData(questionId, option,include){
 
-        console.log( option, include)
+        // console.log( option, include)
         //setting the flag for that option as filtered;
         let vis = this;
         vis.filterQuestions.map(q=>{
@@ -151,7 +155,7 @@ class filterPanel {
 
         let parentGroup = vis.svg.append("g")
             .attr('id', 'titleGroup')
-            .attr("transform", "translate(" + (vis.margin.left+20) + "," + vis.margin.top + ")")
+            .attr("transform", "translate(" + (vis.margin.left) + "," + vis.margin.top + ")")
 
         parentGroup.append('g')
             .attr("transform", "translate(15,20)")
@@ -187,7 +191,7 @@ class filterPanel {
         console.log('topOffset is ', topOffset)
 
         let parentGroup = vis.svg.append("g")
-            .attr("transform", "translate(" + vis.margin.left + "," + topOffset + ")")
+            .attr("transform", "translate(" + vis.margin.left/2 + "," + topOffset + ")")
 
         let responseFilter = parentGroup.append('g')
             .attr("transform", "translate(0,20)")
@@ -256,12 +260,17 @@ class filterPanel {
             .attr("x", 0)
             .attr("y", 22)
 
+            let filterDivs = d3.select('#filterPanel')
+            .append('div')
+            .attr('class', 'filterDivs')
+            // .style('height',(this.pageHeight - 420))
+            
             vis.filterQuestions.map((f,i)=>{
 
                 let numOptions  = f.Options.length;
                 let svgHeight = numOptions * 25 + 30;
 
-                let roleFilter = d3.select('#filterPanel').append('div').attr('class', 'column is-full optionPanel')
+                let roleFilter = filterDivs.append('div').attr('class', 'column is-full optionPanel')
                 .append('svg').attr('height',svgHeight)
                 .append('g')
                 // let roleFilter = userFilter.append('g')
@@ -362,7 +371,7 @@ class filterPanel {
 
             let x = event.x > range[1] ? range[1] : (event.x < range[0] ? range[0] : event.x)
             let percentile = filterScale.invert(x)
-            quantileChanged(set,percentile/100)
+            quantileChanged(set,percentile)
         }
         ))
         // .on("end",function(event,d){self.animateTransition()

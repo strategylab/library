@@ -193,6 +193,13 @@ body {
 
   #filterPanel{
 	  background-color: #333132;
+	  /* height:100vh; */
+	  overflow:hidden;
+  }
+
+  #dataWedge{
+	height:100vh;
+	overflow:hidden;
   }
 .label{
 	font-family: 'Lato' !important;
@@ -215,10 +222,15 @@ body {
 	stroke:rgb(246, 243, 255);
 }
 
+.filterDivs{
+	overflow-y: scroll;
+	height:calc(100vh - 450px);
+}
+
 	.centerArc{
 		fill:white;
-		stroke: black;
-		stroke-width: 1px;
+		/* stroke: black;
+		stroke-width: 1px; */
 	  opacity:1  }
 
 .st122, .st127, .st114 {

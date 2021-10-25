@@ -12,11 +12,13 @@ class dataWedge {
         this.surveyQuestions = surveyQuestions.map(q => { q.id = q.Axis.replace(/\s/g, ''); return q });
         // this.filteredData = this.data;
         this.margin = { top: 20, right: 20, bottom: 200, left: 50 };
-        this.width = d3.select("#" + this.parentElement).node().clientWidth + 100 - this.margin.left - this.margin.right;
+        this.width = d3.select("#" + this.parentElement).node().clientWidth + 200 - this.margin.left - this.margin.right;
         this.height = 1000 - this.margin.top - this.margin.bottom;
         this.numLayers = 5;
 
         this.wrangleData();
+
+        console.log(this.width)
 
         console.log('survey data is ', surveyData)
 
@@ -63,19 +65,18 @@ class dataWedge {
 
             wedgeQuestions.map(q => {
                 //compute average value for question based on quantile filter. 
-                let values = surveyData.filter(s=>s.selected).map(s => s[q[qualtricsHeader]]).sort()
-                q.value = d3.quantile(values, quantiles[q.Set])
 
-                // console.log('values are ', values)
-                // console.log('quantile 0.8 is',q.value)
-                // wedgeObj.axis[q[axisHeader]].questions.push(q)
+                // let values = surveyData.filter(s=>s.selected).map(s => s[q[qualtricsHeader]]).sort()
+
+                let values = surveyData.filter(s=>s.selected).map(s => s[q[qualtricsHeader]]).sort()
+                q.value = d3.quantile(values, quantiles[q.Set]/100)
             })
 
             return wedgeObj
         })
 
-        console.log('wedgeStructure is ', this.wedgeStructure)
-        console.log(surveyQuestions)
+        console.log('surveyQuestions ', surveyQuestions)
+        // console.log('surveyData',surveyData)
         this.initVis()
 
     }
@@ -102,7 +103,7 @@ class dataWedge {
 
         var svg = d3.select("svg")
             .append("g")
-            .attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")");
+            .attr("transform", "translate(" + this.width / 2.5 + "," + this.height /1.8 + ")");
 
         let wedgeShapes = this.createWedges(wedgeStructure)
 
@@ -110,7 +111,7 @@ class dataWedge {
 
         let centerArc = d3.arc()
             .innerRadius(0)
-            .outerRadius(50) //+i*10
+            .outerRadius(this.width/15) //+i*10
             .startAngle(0)
             .endAngle(2 * Math.PI)
 
@@ -289,10 +290,12 @@ class dataWedge {
             // if (q.Set == set){
                 let values = surveyData.filter(s=>s.selected).map(s => s[q[qualtricsHeader]]).sort()
                 
-                let newValue = d3.quantile(values, quantiles[q.Set]);
+                let newValue = d3.quantile(values, quantiles[q.Set]/100);
+               
                 q.value = newValue;
             // }
         })
+
         this.updateVis()
     }
 
@@ -308,7 +311,15 @@ class dataWedge {
             let data = line.data()[0];
             let scale = data.scale;
             let distanceAlongPath = scale(q.value);
-            let position = line.node().getPointAtLength(distanceAlongPath);
+            // console.log(distanceAlongPath)
+            let position; 
+
+            if (distanceAlongPath){ //There are at least some points in the dataset
+                position = line.node().getPointAtLength(distanceAlongPath);
+            }else{ //all points have been filtered out
+                position={x:0,y:0}
+            }
+
 
 
             q.position = position;
@@ -339,7 +350,9 @@ class dataWedge {
             .on('mouseover', (event,d)=>{
 
                 vis.tooltip
-                .style("opacity", 1)
+                // .style("opacity", 1)
+                .style("visibility", "visible")
+
                 .style("left", event.pageX + 20 + "px")
                 .style("top", event.pageY + "px")
                 .html(`
@@ -351,7 +364,9 @@ class dataWedge {
             })
             .on('mouseout',  ()=>{
             vis.tooltip
-            .style("opacity", 0)
+            .style("visibility", "hidden")
+
+            // .style("opacity", 0)
             })
            
         let polygon = d3.select('.polygon')
@@ -412,8 +427,8 @@ class dataWedge {
 
         // let shadowScale = d3.scaleSequential().range([-30,30,-30]).domain([0,Math.PI,2*Math.P]);
 
-        let innerRadius = 40
-        let outerRadius = 200
+        let innerRadius = this.width/15
+        let outerRadius = this.width/4.5;
         let radiusInterval = (outerRadius - innerRadius) / numLayers;
 
 

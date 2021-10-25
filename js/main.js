@@ -3,7 +3,7 @@
 let surveyData;
 let qualtricsHeader = 'Qualtrics Question ID';
 
-let quantiles = {'Experience':80,'Relevance':80}
+let quantiles = {'Experience':70,'Relevance':65}
 
 let dataWedgeObj, filterPanelObj;
 // (1) Load data with promises
