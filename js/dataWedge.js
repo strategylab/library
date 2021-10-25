@@ -387,7 +387,6 @@ class dataWedge {
         d3.selectAll('.poly')
         .attr("stroke-width", 2)
         .attr('stroke-dasharray', 3)
-        .style('opacity', .5)
         .transition()
             .duration(1000)
             .attr("points", function (d) {

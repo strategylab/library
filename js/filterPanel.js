@@ -196,6 +196,16 @@ class filterPanel {
             responseFilter
             .append('text')
             .text('Response Filter')
+            .attr('class','filterTitle')
+
+            responseFilter
+            .append('rect')
+            .attr('class','resetButton')
+            .attr('x',0)
+            .attr('y',5)
+            .attr('width', vis.width)
+            .attr('height', 1)
+
 
             let currentExperience = responseFilter.append('g')
             .attr('id','experience')
@@ -213,6 +223,7 @@ class filterPanel {
             userFilter
             .append('text')
             .text('User Filter')
+            .attr('class','filterTitle')
 
             let reset = userFilter
             .append('g')
