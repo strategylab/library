@@ -315,7 +315,9 @@ class dataWedge {
 
     createHist(d, svg, width = 200, height = 200) {
 
-        svg.attr('width', width + 20).attr('height', height + 20)
+        svg.attr('width', width + 20).attr('height', height + 50)
+
+        let padding = width*0.2
 
         let percentileLabel = quantiles[d.Set];
         let values = surveyData.filter(s => s.selected).map(s => s[d[qualtricsHeader]]).sort()
@@ -329,11 +331,11 @@ class dataWedge {
         // .range([0, width]);
 
         let x = d3.scaleBand()
-            .rangeRound([0, width]).paddingInner(0.4)
+            .rangeRound([padding, width-padding]).paddingInner(0.4)
             .domain([1,2,3,4,5])
 
         let qScale = d3.scaleLinear()
-        .range([0,width])
+        .range([padding,width-padding])
         .domain([.5,5.5]);
 
 
@@ -360,6 +362,22 @@ class dataWedge {
             svg.select(".x-axis")
                 .attr("transform", "translate(0," + height + ")")
                 .call(d3.axisBottom(x));
+
+
+            
+                let axisLabels = svg.select(".chart").selectAll(".axisLabel")
+                .data([{label:'Disagree','position':'start'},{label:'Agree','position':'end'}])
+
+        
+                axisLabels
+                .enter()
+                .append("text") // Add a new rect for each new elements
+                .attr('class', 'axisLabel')
+                .merge(axisLabels) // get the already existing elements as well
+                .attr("x", d=>d.position == 'start'? qScale.range()[0]: qScale.range()[1])
+                .attr('text-anchor','middle')
+                .attr('y',y.range()[0]+35)
+                .text( d=> d.label)
 
                 let quantileMarker = svg.select(".chart").selectAll(".qMarker")
                 .data([quantile])
@@ -497,7 +515,7 @@ class dataWedge {
                       `);
 
 
-                vis.createHist(d, vis.tooltip.select('svg'), 150, 80)
+                vis.createHist(d, vis.tooltip.select('svg'), 260, 60)
                 // vis.tooltip.select('svg').
 
 
@@ -509,7 +527,6 @@ class dataWedge {
                 vis.tooltip
                 .style("visibility", "hidden")
 
-                // .style("opacity", 0)
             })
 
 
