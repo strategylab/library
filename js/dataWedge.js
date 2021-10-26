@@ -206,7 +206,7 @@ class dataWedge {
                 let pathLength = d3.select(this).node().getTotalLength()
 
                 p.scale = d3.scaleLinear()
-                    .domain([5, 1])
+                    .domain([8, 1])
                     .range([pathLength * 0.1, pathLength * 0.9])
 
                 // p.test = 'carolna';
@@ -332,11 +332,11 @@ class dataWedge {
 
         let x = d3.scaleBand()
             .rangeRound([padding, width-padding]).paddingInner(0.4)
-            .domain([1,2,3,4,5])
+            .domain([1,2,3,4,5,6,7,8])
 
         let qScale = d3.scaleLinear()
         .range([padding,width-padding])
-        .domain([.5,5.5]);
+        .domain([.5,8.5]);
 
 
 
@@ -348,8 +348,8 @@ class dataWedge {
         // set the parameters for the histogram
         var histogram = d3.histogram()
             .value(function (d) { return d; })   // I need to give the vector of value
-            .domain([1, 6])  // then the domain of the graphic
-            .thresholds(5); // then the numbers of bins
+            .domain([1, 9])  // then the domain of the graphic
+            .thresholds(8); // then the numbers of bins
 
         // And apply this function to data to get the bins
         var bins = histogram(values);
@@ -397,17 +397,17 @@ class dataWedge {
 
               
             
-                // let quantileLabel = svg.select(".chart").selectAll(".qLabel")
-                // .data([quantile])
+                let quantileLabel = svg.select(".chart").selectAll(".qLabel")
+                .data([quantile])
         
-                // quantileLabel
-                // .enter()
-                // .append("text") // Add a new rect for each new elements
-                // .attr('class', 'qLabel')
-                // .merge(quantileLabel) // get the already existing elements as well
-                // .attr("x", d=>qScale(d)+2)
-                // .attr('y',10)
-                // .text( d=> d)
+                quantileLabel
+                .enter()
+                .append("text") // Add a new rect for each new elements
+                .attr('class', 'qLabel')
+                .merge(quantileLabel) // get the already existing elements as well
+                .attr("x", d=>qScale(d)+4)
+                .attr('y',12)
+                .text( d=> Math.round(percentileLabel) + '%')
         
                 
 
@@ -503,15 +503,16 @@ class dataWedge {
             .on('mouseover', function(event, d) {
 
                 d3.select(this).classed('hovered', true)
-                vis.tooltip
+                let t = vis.tooltip
                     // .style("opacity", 1)
                     .style("visibility", "visible")
 
                     .style("left", event.pageX + 20 + "px")
                     .style("top", event.pageY + "px")
-                    .select('.header')
+                    .select('.header')             
                     .html(`
-                        <h3>${d.Question}<h3>
+                         <h2>${d.Set == 'Relevance' ? 'What matters most' : 'Current experience' }</h2>
+                        <h3>${d.Question}</h3>
                       `);
 
 
@@ -532,33 +533,37 @@ class dataWedge {
 
 
         let polygon = d3.select('.polygon')
-        let outer = polygon.selectAll(".outer")
-            // .data([lowerData.concat(upperData)]);
-            .data([this.surveyQuestions.filter(q => q.Set == 'Experience')]);
 
+    
+       
 
-        let outerEnter = outer.enter().append("polygon");
-
-        outer.exit().remove();
-
-        outer = outerEnter.merge(outer);
-
-        outer
-            .attr('class', 'poly outer');
-
-        let inner = polygon.selectAll(".inner")
+        let relevance = polygon.selectAll(".Relevance")
             // .data([lowerData.concat(upperData)]);
             .data([this.surveyQuestions.filter(q => q.Set == 'Relevance')]);
 
 
-        let innerEnter = inner.enter().append("polygon");
+        let relevanceEnter = relevance.enter().append("polygon");
 
-        inner.exit().remove();
+        relevance.exit().remove();
 
-        inner = innerEnter.merge(inner);
+        relevance = relevanceEnter.merge(relevance);
 
-        inner
-            .attr('class', ' poly inner');
+        relevance
+            .attr('class', ' poly Relevance');
+
+            let experience = polygon.selectAll(".Experience")
+            // .data([lowerData.concat(upperData)]);
+            .data([this.surveyQuestions.filter(q => q.Set == 'Experience')]);
+
+
+        let experienceEnter = experience.enter().append("polygon");
+
+        experience.exit().remove();
+
+        experience = experienceEnter.merge(experience);
+
+        experience
+            .attr('class', 'poly Experience');
 
 
         d3.selectAll('.poly')

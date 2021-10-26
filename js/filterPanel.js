@@ -162,8 +162,8 @@ class filterPanel {
             .attr('class', 'panelTitle')
             .attr('id', 'wellBeing')
             .append('text')
-            .text('BLACK VOICES')
-            // .text('WELL-BEING')
+            // .text('ASPECT HEALTH')
+            .text('WELL-BEING')
 
         let pathGroup = parentGroup.append('g')
             .attr("transform", "translate(-25,35)")
@@ -180,7 +180,10 @@ class filterPanel {
             // .attr('id', 'gapAnalysis')
             .append('text')
             // .text('GAP ANALYSIS')
-            .text('IN HEALTHCARE')
+            // .text('IN HEALTHCARE')
+            .text('AT ASPECT HEALTH')
+            .style('letter-spacing',1)
+            .style('font-size',26)
     }
 
     createResponseFilter() {
@@ -278,12 +281,26 @@ class filterPanel {
 
                 // console.log('f', f[qualtricsHeader].replace(/\./g,''))
                 let optionGroup = roleFilter.append('g')
-                .attr("transform", "translate(" + 70 + ",20)")
+                .attr("transform", "translate(" + 90 + ",20)")
                 .attr('id',f[qualtricsHeader].replace(/\./g,''))
         
-                optionGroup.append("text")
-                .attr('class','filterLabel')
+                let header = optionGroup.append("text")
+                .attr('class','filterLabel selectAll')
                 .text(f.Label)  
+
+
+        //set the click behavior of the header of this group. 
+             header
+            .on('click',function(){
+                let toggle = d3.select(this).classed('selectAll');
+                d3.select(this).classed('selectAll',!toggle)
+
+                console.log('setting selectAll to ', !toggle)
+                f.Options.map(d=>{
+                    vis.filterData(f[qualtricsHeader],d.option,!toggle);
+                })
+            
+            })
 
                 vis.createUserFilter(optionGroup,f)
 
@@ -409,12 +426,13 @@ class filterPanel {
         let numOptions = userData.Options.length;
 
         let checkBoxScale = d3.scaleLinear().range([25,(numOptions+1)*25]).domain([0,numOptions])
-        let barScale = d3.scaleLinear().range([0,xOffset]).domain([0,20])
+        let barScale = d3.scaleLinear().range([0,xOffset]).domain([0,54])
         
 
         let optionData = userData.Options.map(o=>{
             return {id: userData[qualtricsHeader], label:o.option, count:o.count, selected:o.selected, clicked:o.clicked}
         })
+
 
         // console.log('optionData is ', optionData)
 
@@ -429,10 +447,7 @@ class filterPanel {
         .attr("transform",(d,i)=>"translate(0," + checkBoxScale(i) + ")")
         // .classed('clicked',d=>d.clicked)
         .on('click',function(event,d){
-
-            let include = !d.clicked
-            // console.log('filtering ', d.label, include)
-            vis.filterData(d.id,d.label,include);
+            vis.filterData(d.id,d.label,!d.clicked);
         })
             
 
@@ -448,7 +463,8 @@ class filterPanel {
         .attr('x', 5);
 
         optionsLabels.merge(enterSelection)
-        .text(d=>d.label)  
+        .text(d=>d.label) 
+        .classed('exclude',d=>!d.clicked)
   
 
 

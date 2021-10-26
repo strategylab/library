@@ -16,7 +16,8 @@ body {
 	color:white;
 	font: 16px sans-serif;
 	font-family:'Lato' !important;
-	line-height: 23px
+	line-height: 23px;
+	padding-top:5px
 }
 
 .panelTitle{
@@ -76,15 +77,16 @@ body {
 	cursor:pointer
 } 
 
+.checkboxLabel.exclude{
+	fill:rgb(144, 144, 144);
+}
+
 .optionBars{
 	cursor:pointer;
 	fill:#333132;
 	stroke:white;
 }
 
-.Experience{
-	fill:rgb(48, 121, 128);
-}
 
 .resetButton{
 	fill:white;
@@ -101,9 +103,15 @@ body {
 
 }
 
+
+/* .Experience{
+	fill:rgb(48, 121, 128);
+	
+}
+
 .Relevance{
 	fill:rgb(48, 121, 128);
-}
+} */
 
 .filterTitle{
 	fill:white;
@@ -195,10 +203,10 @@ body {
 } */
 
  .qLabel{
-	fill:white;
+	fill:rgb(96, 230, 198);;
 	font-family:'Lato' !important;
-	font-size: 14px;
-	font-weight:500;
+	font-size: 12px;
+	font-weight:700;
 
  }
 
@@ -212,8 +220,9 @@ body {
  }
 
  .header{
-	 border-bottom: 1px solid white;
-	 padding-bottom:5px
+	 border-bottom: 1px solid #b7b7b7;
+	 padding-bottom:5px;
+
  }
   .tooltip {
     background-color: #4a4a4a;
@@ -257,12 +266,17 @@ body {
 	font-size: 12px;
 }
 
-.outer{
+.Relevance{
 	fill:rgb(48, 121, 128);
 	stroke:rgb(48, 121, 128);
 }
 
-.inner{
+circle.questionValues{
+	fill:rgb(48, 121, 128);
+	stroke:rgb(48, 121, 128);
+}
+
+.Experience{
 	fill:rgb(246, 243, 255);
 	stroke:rgb(246, 243, 255);
 }
@@ -304,10 +318,13 @@ h1 {
 	font-weight: 500;
 }
 h2 {
-	color: #94a97a;
-	font-size: 24px;
-	margin-top: 10px;
-	margin-bottom: 30px;
+	color: white;
+	font-family: 'LATO';
+    font-size: 18px;
+    font-weight: bold;
+	text-align:left;
+	border-bottom: 1px solid #b7b7b7;
+	padding-bottom:5px
 }
 
 .axis line,
