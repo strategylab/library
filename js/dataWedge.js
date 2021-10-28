@@ -16,6 +16,8 @@ class dataWedge {
         this.height = 1000 - this.margin.top - this.margin.bottom;
         this.numLayers = 5;
 
+        this.ratingScale = [1,5]
+
         this.wrangleData();
 
         console.log(this.width)
@@ -206,7 +208,7 @@ class dataWedge {
                 let pathLength = d3.select(this).node().getTotalLength()
 
                 p.scale = d3.scaleLinear()
-                    .domain([8, 1])
+                    .domain([5, 1])
                     .range([pathLength * 0.1, pathLength * 0.9])
 
                 // p.test = 'carolna';
@@ -332,11 +334,11 @@ class dataWedge {
 
         let x = d3.scaleBand()
             .rangeRound([padding, width-padding]).paddingInner(0.4)
-            .domain([1,2,3,4,5,6,7,8])
+            .domain([1,2,3,4,5])
 
         let qScale = d3.scaleLinear()
         .range([padding,width-padding])
-        .domain([.5,8.5]);
+        .domain([.5,5.5]);
 
 
 
@@ -348,8 +350,8 @@ class dataWedge {
         // set the parameters for the histogram
         var histogram = d3.histogram()
             .value(function (d) { return d; })   // I need to give the vector of value
-            .domain([1, 9])  // then the domain of the graphic
-            .thresholds(8); // then the numbers of bins
+            .domain([1, 6])  // then the domain of the graphic
+            .thresholds(5); // then the numbers of bins
 
         // And apply this function to data to get the bins
         var bins = histogram(values);

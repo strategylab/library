@@ -162,8 +162,8 @@ class filterPanel {
             .attr('class', 'panelTitle')
             .attr('id', 'wellBeing')
             .append('text')
-            // .text('ASPECT HEALTH')
-            .text('WELL-BEING')
+            .text('BLACK VOICES')
+            // .text('WELL-BEING')
 
         let pathGroup = parentGroup.append('g')
             .attr("transform", "translate(-25,35)")
@@ -180,10 +180,12 @@ class filterPanel {
             // .attr('id', 'gapAnalysis')
             .append('text')
             // .text('GAP ANALYSIS')
-            // .text('IN HEALTHCARE')
-            .text('AT ASPECT HEALTH')
-            .style('letter-spacing',1)
-            .style('font-size',26)
+            .text('IN HEALTHCARE')
+            .style('letter-spacing',2)
+            .style('font-size',29)
+            // .text('AT ASPECT HEALTH')
+            // .style('letter-spacing',1)
+            // .style('font-size',26)
     }
 
     createResponseFilter() {
