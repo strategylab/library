@@ -26,7 +26,9 @@ let promises = [
     // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTP_RG-pJHJWjk3QaT16f4Io7IlHUbsYF3eB5h8NorScEEN5xKF_AWv9RCQfCO_S-NrlRlwf3qe4XJa/pub?gid=1274511277&single=true&output=csv"),
     // d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vTf156ERY9s_Zc-mPw0el_GJg8xxkOauMVhNI2nQZK_atnS7axIFirm0fsOG-3MO0_G386ZnCdXMUxU/pub?gid=1289359036&single=true&output=csv'),
     //survey userQuestions sheet
-    d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSugTmsTRgVq3LDdIv1-suHzbU_0UPk--9c2UPQZoo2TQuXETAjO8C6XGmVesiCYSrC8wBNySXTGWl0/pub?gid=0&single=true&output=csv"),
+    //mayo placeholders
+    d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSAdmG4zQ939F1h_pLwhtJo1Z0iQzcaTIrCG4TpFdtpWrfDYevsYgMRlFv7iLo_1UWMJwT757NL-Iis/pub?output=csv"),
+    // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSugTmsTRgVq3LDdIv1-suHzbU_0UPk--9c2UPQZoo2TQuXETAjO8C6XGmVesiCYSrC8wBNySXTGWl0/pub?gid=0&single=true&output=csv"),
     // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vT6eL0p9cqUXRtlRoxJB-8bM1ahIOqu_f0_KLtcVDCPgkvrXTT4hairRHJxA-cjxMf38Fnc7jQjfWE4/pub?gid=0&single=true&output=csv")
     // d3.csv("data/Aspect+Health+-+Care+Team+Member+Experience_DRAFT_September+23,+2021_09.07.csv")
 ];
