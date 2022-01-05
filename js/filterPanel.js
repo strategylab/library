@@ -158,11 +158,12 @@ class filterPanel {
             .attr("transform", "translate(" + (vis.margin.left) + "," + vis.margin.top + ")")
 
         parentGroup.append('g')
-            .attr("transform", "translate(15,20)")
+            .attr("transform", "translate(73,20)")
             .attr('class', 'panelTitle')
             .attr('id', 'wellBeing')
             .append('text')
-            .text('BLACK VOICES')
+            .text('MAYO')
+            .style('font-weight',600)
             // .text('WELL-BEING')
 
         let pathGroup = parentGroup.append('g')
@@ -175,12 +176,14 @@ class filterPanel {
             .attr('d', 'M11.11,14.07c0,0,72.32-2.95,97.36,0s50.05-0.02,75.66-1.31c29.06-1.47,77.51,4.38,96.98,3.4')
 
         pathGroup.append('g')
-            .attr("transform", "translate(22,25)")
+            .attr("transform", "translate(90,25)")
             .attr('class', 'panelTitle')
             // .attr('id', 'gapAnalysis')
             .append('text')
             // .text('GAP ANALYSIS')
-            .text('IN HEALTHCARE')
+            .text('CLINIC')
+            .style('font-weight',600)
+
             .style('letter-spacing',2)
             .style('font-size',29)
             // .text('AT ASPECT HEALTH')

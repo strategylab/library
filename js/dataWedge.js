@@ -53,6 +53,7 @@ class dataWedge {
         let surveyQuestions = this.surveyQuestions
         // surveyQuestions.map((d,i)=>d[qualtricsHeader]= i);
 
+        console.log('survey questions are ', this.surveyQuestions)
         let wedges = new Set(surveyQuestions.map(d => d[wedgeHeader]));
 
         this.wedgeStructure = Array.from(wedges).map(wedge => {
@@ -69,7 +70,7 @@ class dataWedge {
                 //compute average value for question based on quantile filter. 
 
                 // let values = surveyData.filter(s=>s.selected).map(s => s[q[qualtricsHeader]]).sort()
-
+                // console.log('sData', surveyData)
                 let values = surveyData.filter(s => s.selected).map(s => s[q[qualtricsHeader]]).sort()
                 q.value = d3.quantile(values, quantiles[q.Set] / 100)
             })
@@ -132,6 +133,7 @@ class dataWedge {
 
         let colorScale = d3.scaleOrdinal().range(['#c5c5c9', '#cdcdcf', '#d4d4d5', '#d9d9db', '#e7e7e8']).domain([4, 3, 2, 1, 0])
 
+        console.log('wedgeShapes', wedgeShapes)
         let rotateGroups = svg.selectAll('.wedgeGroup').data(wedgeShapes)
             .enter().append('g')
             // .attr('class', 'rotate')
@@ -211,7 +213,8 @@ class dataWedge {
                     .domain([5, 1])
                     .range([pathLength * 0.1, pathLength * 0.9])
 
-                // p.test = 'carolna';
+                    console.log('setting p.scale')
+                p.test = 'carolina';
             })
         // .on('click', (event,d)=>console.log('data for this line is ', d));
 
@@ -460,10 +463,12 @@ class dataWedge {
 
         //compute location for each dot; 
         this.surveyQuestions.map(q => {
-            // console.log(q.id)
+            
 
             let line = d3.select('#' + q.id);
+            // console.log('#' + q.id, line.size())
             let data = line.data()[0];
+            // console.log('data', line.data(), data.scale)
             let scale = data.scale;
             let distanceAlongPath = scale(q.value);
             // console.log(distanceAlongPath)
