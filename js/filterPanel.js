@@ -158,11 +158,11 @@ class filterPanel {
             .attr("transform", "translate(" + (vis.margin.left) + "," + vis.margin.top + ")")
 
         parentGroup.append('g')
-            .attr("transform", "translate(73,20)")
+            .attr("transform", "translate(39,20)")
             .attr('class', 'panelTitle')
             .attr('id', 'wellBeing')
             .append('text')
-            .text('MAYO')
+            .text('WELLNESS')
             .style('font-weight',600)
             // .text('WELL-BEING')
 
@@ -181,7 +181,7 @@ class filterPanel {
             // .attr('id', 'gapAnalysis')
             .append('text')
             // .text('GAP ANALYSIS')
-            .text('CLINIC')
+            .text('STUDY')
             .style('font-weight',600)
 
             .style('letter-spacing',2)
