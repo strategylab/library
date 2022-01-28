@@ -431,7 +431,7 @@ class filterPanel {
         let numOptions = userData.Options.length;
 
         let checkBoxScale = d3.scaleLinear().range([25,(numOptions+1)*25]).domain([0,numOptions])
-        let barScale = d3.scaleLinear().range([0,xOffset]).domain([0,54])
+        let barScale = d3.scaleLinear().range([0,xOffset]).domain([0,800])
         
 
         let optionData = userData.Options.map(o=>{
