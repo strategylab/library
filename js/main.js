@@ -48,8 +48,10 @@ function createVis(data) {
     let qualtricsHeader = 'Qualtrics Question ID'
 
 
-    let surveyQuestions = data[0];
-   
+    let surveyQuestions = data[0].filter(d=>d.Include.toLowerCase() == 'true');
+
+    console.log('survey Questions', surveyQuestions)
+    
 
     // console.log('surveyResponsesRaw', surveyResponsesRaw[0])
     surveyQuestions.map(q => {
@@ -63,7 +65,7 @@ function createVis(data) {
     let surveyUserQuestions = data[2].filter(q => q.Include == 'TRUE');
 
 
-    console.log('allData', data)
+    // console.log('allData', data)
 
 
     surveyUserQuestions.map(q => {
