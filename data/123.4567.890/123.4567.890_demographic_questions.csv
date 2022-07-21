@@ -1,0 +1,155 @@
+Qualtrics Question ID,Label,Question,Options,Include
+Q2,Work,"Prior to the COVID-19 pandemic, which best described your work situation?","I worked in an office environment all of the time
+I worked in an office environment most of the time
+I worked in an office environment some of the time
+I never worked in an office environment",TRUE
+Q3,Industry,Which industry do you currently work in?,"Agriculture (e.g. Farming, Forestry)
+Consumer Goods (e.g. Commercial Goods, Fashion & Beauty, Food & Beverage, Automotive, Personal Electronics)
+Design (e.g. Architecture, Interior Design, Graphic Design, Industrial Design, Product Design, UX, Service Design)
+Education (e.g. Primary Education, Secondary Education, Post-graduate Education)
+Energy (e.g. Gas/Oil, Mining, Utilities, Alternative Energy)
+Financial Services (e.g. Banking, Insurance, FinTech, Private Equity)
+Foundations / Associations / Organizations (e.g. Non-profit, NGO)
+Government / Defense (e.g. Government Agencies, Defense Contractors, Intelligence, Federal Civilian)
+Healthcare (e.g. Medical, Mental Health, Outpatient Care)
+Hospitality (e.g. Hotel, Leisure, Travel)
+Industrial (e.g. Manufacturing, Construction, Engineering, etc.)
+Legal (e.g. Lawyers, Attorneys, Paralegals, Other legal service providers)
+Management Advisory (e.g. Accounting, Consulting, Business Services, Real Estate, Development)
+Media (e.g. Advertising, PR, Music, Publishing, Broadcasting, Entertainment, Film, Television, Creative)
+Sciences (e.g. Pharma, Biotech, Life Sciences, Forensics & Diagnostics, Medical Hardware & Robotics)
+Technology (e.g. Internet. Hardware, Software, Telecommunications, eCommerce)
+Other (please specify)",TRUE
+Q4,Role,Which of the following best describes your current role?,"Executive Leadership
+Partner/Vice President
+Director
+Manager
+Professional Staff
+Technical Staff
+Administrative or Support Staff",TRUE
+Q5,In-Office,How many days of the week do you currently work in the office and/or work remotely?,"Full time (5 days) working remotely
+4 days working remotely, 1 day in the office
+3 days working remotely, 2 days in the office
+2 days working remotely, 3 days in the office
+1 day working remotely, 4 days in the office
+Full-time (5 days) in the office",TRUE
+Q22,Age - Numeric,Age - Numeric,,FALSE
+Q23,Age - Ranges,Age - Ranges,"18-24
+25-34
+35-44
+45-54
+55-99",TRUE
+Q24,Gender,Gender,"Male
+Female",TRUE
+Q25,Accomodation,Accomodation,"Living with my parents
+Rented apartment
+Rented house
+Owned apartment
+Owned house
+Other
+Prefer not to say",TRUE
+Q26,Income,Income,"$0 - $14,999
+$15,000 - $24,999
+$25,000 - $49,999
+$50,000 - $79,999
+$80,000 - $99,999
+$100,000 - $149,999
+$150,000 - $199,999
+$200,000 or more",TRUE
+Q27,Marital Status,Marital Status,"Single / Never married
+Engaged
+Domestic partnership / Living with partner
+Married
+Separated
+Divorced
+Widowed
+Prefer not to say",TRUE
+Q28,Race / Ethnicity,Race / Ethnicity,"American Indian or Alaska Native
+Asian
+Black or African American
+Hispanic or Latino
+Native Hawaiian or Pacific Islander
+White
+Other",TRUE
+Q29,Occupation,Occupation,"Studies
+Unemployed
+Part-time work
+Full-time work
+Own buisness / Self-employed / Freelance
+Active military service
+Homemaker
+Parental leave
+Leave of absence
+Retired
+Other type of paid work
+Unable to work
+Prefer not to say",TRUE
+Q30,Education,Education,"None completed
+Primary School
+Secondary School
+High school/Tertiary/Tech. College
+University/Higher Education
+Postgraduate Education
+Prefer not to say",TRUE
+Q31,States and Territories,States and Territories,"Arkansas
+Alabama
+Alaska
+American Samoa
+Arizona
+California
+Colorado
+Connecticut
+Delaware
+District of Columbia
+Florida
+Georgia
+Guam
+Hawaii
+Idaho
+Illinois
+Indiana
+Iowa
+Kansas
+Kentucky
+Louisiana
+Maine
+Maryland
+Massachusetts
+Michigan
+Minnesota
+Mississippi
+Missouri
+Montana
+Nebraska
+Nevada
+New Hampshire
+New Jersey
+New Mexico
+New York
+North Carolina
+North Dakota
+Northern Mariana Islands
+Ohio
+Oklahoma
+Oregon
+Palau
+Pennsylvania
+Puerto Rico
+Rhode Island
+South Carolina
+South Dakota
+Tennessee
+Texas
+Utah
+Vermont
+Virgin Islands
+Virginia
+Washington
+West Virginia
+Wisconsin
+Wyoming
+",TRUE
+Q32,Region,Region,"Midwest
+Northeast
+South
+West",TRUE

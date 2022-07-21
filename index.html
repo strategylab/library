@@ -24,13 +24,58 @@
 
 	<!-- Custom CSS code -->
 	<link rel="stylesheet" href="css/style.css">
+
+	<script src="https://d3js.org/d3.v6.min.js"></script>
+	<script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+
+	
+
+	<!-- Visualization objects -->
+	<script src="js/dataWedge.js"></script>
+	<script src="js/filterPanel.js"></script>
+
+		  	<!-- Load data, create visualizations -->
+			  <script src="js/main.js"></script>
+
+
+
+	<!-- Start Single Page Apps for GitHub Pages -->
+    <script type="text/javascript">
+		// Single Page Apps for GitHub Pages
+		// MIT License
+		// https://github.com/rafgraph/spa-github-pages
+		// This script checks to see if a redirect is present in the query string,
+		// converts it back into the correct url and adds it to the
+		// browser's history using window.history.replaceState(...),
+		// which won't cause the browser to attempt to load the new url.
+		// When the single page app is loaded further down in this file,
+		// the correct url will be waiting in the browser's history for
+		// the single page app to route accordingly.
+		(function(l) {
+			console.log('url is ', l)
+		  if (l.search[1] === '/' ) {
+			var decoded = l.search.slice(1).split('&').map(function(s) { 
+			  return s.replace(/~and~/g, '&')
+			}).join('?');
+			window.history.replaceState(null, null,
+				l.pathname.slice(0, -1) + decoded + l.hash
+			);
+		  }
+		}(window.location))
+	  </script>
+
+
+	  <!-- End Single Page Apps for GitHub Pages -->
+  
 </head>
 
 <body>
+	<div id="projectTitle"></div>
 
 	<div class="container">
 		<div class="columns">
 			<div class="column is-9">
+			
 				<div id="dataWedge">
 					<svg>
 						<defs>
@@ -50,19 +95,16 @@
 		</div>
 	</div>
 
+	<script>
+
+		console.log(window.location.href)
+	</script>
+
+
 	<!-- d3 -->
 	<!-- <script type="text/javascript" src="js/bulma-accordion.min.js"></script> -->
-	<script src="https://d3js.org/d3.v6.min.js"></script>
-	<script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
 
-	
-
-	<!-- Visualization objects -->
-	<script src="js/dataWedge.js"></script>
-	<script src="js/filterPanel.js"></script>
-
-	<!-- Load data, create visualizations -->
-	<script src="js/main.js"></script>
+	<!-- <script src="js/test.js"></script> -->
 </body>
 
 </html>

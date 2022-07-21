@@ -10,7 +10,7 @@ class filterPanel {
     constructor(_parentElement, filterQuestions) {
         this.parentElement = _parentElement;
         this.filterQuestions = filterQuestions.filter(d=>d.Include == 'TRUE'); //filter out questions that are flagged as not include;
-        this.margin = { top: 40, right: 40, bottom: 200, left: 40 };
+        this.margin = { top: 40, right: 40, bottom: 120, left: 40 };
         this.width = d3.select("#" + this.parentElement).node().clientWidth - this.margin.left - this.margin.right;
         this.pageHeight = d3.select("#" + this.parentElement).node().clientHeight;
 
@@ -148,7 +148,7 @@ class filterPanel {
             .attr("width", vis.width + vis.margin.left + vis.margin.right)
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom);
 
-        vis.createTitle()
+        // vis.createTitle()
 
         vis.createResponseFilter();
 
@@ -203,7 +203,7 @@ class filterPanel {
 
         let vis = this;
 
-        let topOffset = 150 // d3.select("#titleGroup").node().clientWidth
+        let topOffset = 50 // d3.select("#titleGroup").node().clientWidth
         console.log('topOffset is ', topOffset)
 
         let parentGroup = vis.svg.append("g")

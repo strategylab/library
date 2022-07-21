@@ -1,0 +1,69 @@
+Qualtrics Question ID,Include,Wedge,Axis,Set,Question
+Q6.1,TRUE,Social,Self,Agreement,I feel I can be myself at work
+Q6.2,TRUE,Social,Relationship,Agreement,I have a good relationship with my team
+Q6.3,TRUE,Social,Respect,Agreement,"At work, people are always treated with respect"
+Q7.1,TRUE,Social,Self,Importance,Feeling that you can be yourself at work
+Q7.2,TRUE,Social,Relationship,Importance,Having a good relationship with your team
+Q7.3,TRUE,Social,Respect,Importance,"At work, people always being treated with respect"
+Q8.1,TRUE,Emotional ,Speak Up,Agreement,I feel it is safe for me to speak up at work
+Q8.2,TRUE,Emotional ,Care,Agreement,Someone at work seems to care about me as a person
+Q8.3,TRUE,Emotional ,Community,Agreement,I feel a strong sense of community and belonging at work
+Q9.1,TRUE,Emotional ,Speak Up,Importance,Feeling it is safe for you to speak up at work
+Q9.2,TRUE,Emotional ,Care,Importance,Having someone at work who seems to care about you as a person
+Q9.3,TRUE,Emotional ,Community,Importance,Feeling a strong sense of community and belonging at work
+Q10.1,TRUE,Professional,Expertise,Agreement,"At work, I have the opportunity to do what I do best every day"
+Q10.2,TRUE,Professional,Having a voice,Agreement,I have a say in setting my goals and tasks at work
+Q10.3,TRUE,Professional,Opinions,Agreement,I feel my opinions are valued at work
+Q11.1,TRUE,Professional,Expertise,Importance,Having the opportunity to do what you do best every day
+Q11.2,TRUE,Professional,Having a voice,Importance,Having a say in setting your goals and tasks at work
+Q11.3,TRUE,Professional,Opinions,Importance,Feeling that your opinions are valued at work
+Q12.1,TRUE,Intellectual,Trust,Agreement,I trust my direct manager
+Q12.2,FALSE,Intellectual,Disagreements,Agreement,I feel I can disagree with my direct manager
+Q12.3,TRUE,Intellectual,New ideas,Agreement,I am encouraged to try out new ideas and ways of doing things
+Q12.4,TRUE,Intellectual,Mistakes,Agreement,I feel comfortable admitting to my mistakes at work
+Q13.1,TRUE,Intellectual,Trust,Importance,Trusting your direct manager
+Q13.2,FALSE,Intellectual,Disagreements,Importance,Feeling that you can disagree with your direct manager
+Q13.3,TRUE,Intellectual,New ideas,Importance,Being encouraged to try out new ideas and ways of doing things
+Q13.4,TRUE,Intellectual,Mistakes,Importance,Feeling comfortable admitting to your mistakes at work
+Q14.1,FALSE,Purpose,Org Values,Agreement,I believe in what my organization stands for and its values
+Q14.2,FALSE,Purpose,Pride,Agreement,I am proud to tell others that I am part of this organization
+Q14.3,FALSE,Purpose,Extra time and energy,Agreement,I am willing to put in extra time and energy for my company beyond my job description
+Q15.1,FALSE,Purpose,Org Values,Importance,Believing in what your organization stands for and its values
+Q15.2,FALSE,Purpose,Pride,Importance,Feeling proud to tell others that you are part of your organization
+Q15.3,FALSE,Purpose,Extra time and energy,Importance,Being willing to put in extra time and energy for your company beyond your job description
+Q16.1,TRUE,Org Culture,External messaging,Agreement,My company's external messaging on values and mission is consistent with the company's internal processes and culture
+Q16.2,TRUE,Org Culture,Equal opportunity,Agreement,I have the equal opportunity for advancement and promotion at my company as my colleagues do
+Q16.3,TRUE,Org Culture,Work-life balance,Agreement,I am able to maintain a healthy balance between work and personal commitments
+Q16.4,TRUE,Org Culture,Finances,Agreement,My organization gives me the resources to help me balance my personal resources and finances
+Q17.1,TRUE,Org Culture,External messaging,Importance,Your company's external messaging on values and mission being consistent with the company's internal processes and culture
+Q17.2,TRUE,Org Culture,Equal opportunity,Importance,Having the equal opportunity for advancement and promotion at your company as your colleagues do
+Q17.3,TRUE,Org Culture,Work-life balance,Importance,Being able to maintain a healthy balance between work and personal commitments
+Q17.4,TRUE,Org Culture,Finances,Importance,Your organization giving you the resources to balance your personal resources and finances
+Q18.1,TRUE,Physical at Office,Decompress - Office,Agreement,I am able to find opportunities to decompress during the workday when working from the office
+Q18.2,TRUE,Physical at Office,Physically active - Office,Agreement,I am able to find opportunities to be physically active during the workday when working from the office
+Q18.3,TRUE,Physical at Office,Food - Office,Agreement,I have food options that support my well-being when working from the office
+Q18.4,TRUE,Spatial at Office,Focus - Office,Agreement,I am able to find space to focus in the office any time I need it
+Q18.5,TRUE,Spatial at Office,Collaborations - Office,Agreement,I am able to seamlessly collaborate with my team from the office any time I need to
+Q18.6,TRUE,Spatial at Office,Outdoor access - Office,Agreement,"I have direct access to the outdoors, nature and/or live plants at the office"
+Q18.7,FALSE,Spatial at Office,Experience - Office,Agreement,The space where I typically work from in the office offers a great experience
+Q19.1,TRUE,Physical at Office,Decompress - Office,Importance,Being able to find opportunities to decompress during the workday when working from the office
+Q19.2,TRUE,Physical at Office,Physically active - Office,Importance,Being able to find opportunities to be physically active during the workday when working from the office
+Q19.3,TRUE,Physical at Office,Food - Office,Importance,Having food options that support your well-being when working from the office
+Q19.4,TRUE,Spatial at Office,Focus - Office,Importance,Being able to find space to focus in the office any time you need it
+Q19.5,TRUE,Spatial at Office,Collaborations - Office,Importance,Being able to seamlessly collaborate with your team from the office any time you need to
+Q19.6,TRUE,Spatial at Office,Outdoor access - Office,Importance,"Having direct access to the outdoors, nature and/or live plants at the office"
+Q19.7,FALSE,Spatial at Office,Experience - Office,Importance,Working from a space in the office that offers a great experience
+Q20.1,TRUE,Physical at Home,Decompress - Home,Agreement,I am able to find opportunities to decompress during the workday when working from home
+Q20.2,TRUE,Physical at Home,Physically active - Home,Agreement,I am able to find opportunities to be physically active during the workday when working from home
+Q20.3,TRUE,Physical at Home,Food - Home,Agreement,I have food options that support my well-being when working from home
+Q20.4,TRUE,Spatial at Home,Focus - Home,Agreement,I am able to find space to focus at home any time I need it
+Q20.5,TRUE,Spatial at Home,Collaborations - Home,Agreement,I am able to seamlessly collaborate with my team from home any time I need to
+Q20.6,TRUE,Spatial at Home,Outdoor access - Home,Agreement,"I have direct access to the outdoors, nature and/or live plants at home"
+Q20.7,FALSE,Spatial at Home,Experience - Home,Agreement,The space where I work from at home offers a great experience
+Q21.1,TRUE,Physical at Home,Decompress - Home,Importance,Being able to find opportunities to decompress during the workday when working from home
+Q21.2,TRUE,Physical at Home,Physically active - Home,Importance,Being able to find opportunities to be physically active during the workday when working from home
+Q21.3,TRUE,Physical at Home,Food - Home,Importance,Having food options that support your well-being when working from home
+Q21.4,TRUE,Spatial at Home,Focus - Home,Importance,Being able to find space to focus at home any time you need it
+Q21.5,TRUE,Spatial at Home,Collaborations - Home,Importance,Being able to seamlessly collaborate with your team from home any time you need to
+Q21.6,TRUE,Spatial at Home,Outdoor access - Home,Importance,"Having direct access to the outdoors, nature and/or live plants at home"
+Q21.7,FALSE,Spatial at Home,Experience - Home,Importance,Working from a space at home that offers a great experience

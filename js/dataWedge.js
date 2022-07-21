@@ -103,19 +103,20 @@ class dataWedge {
         tooltipSVG.append('g').attr('class', 'chart')
 
 
-
-
-
-
-
         // SVG drawing area
         vis.svg = d3.select("#" + vis.parentElement).select('svg')//d3.select("#" + vis.parentElement).append("svg")
             .attr("width", vis.width + vis.margin.left + vis.margin.right)
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom);
 
 
-        vis.g = vis.svg.append("g")
-            .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
+        d3.select('#projectTitle').append('p').text('Wellness Survey')
+        // vis.g = vis.svg.append("g")
+        //     .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")")
+        //     .attr('class', 'title')
+        //     .append('text')
+        //     .attr('x',200)
+        //     .attr('y', 200)
+        //     .text('Test Title')
 
         var svg = d3.select("svg")
             .append("g")
