@@ -28,8 +28,22 @@ if (params.length>1){
     project = '123.4567.890'
 }
 
+let surveyQuestionsFile, demographicQuestionsFile, surveyanswersFile;
 
-console.log(tool,project)
+ //set up google spreadsheets for MIT project specifically
+if (project == '11.7771.000'){
+    surveyQuestionsFile ="https://docs.google.com/spreadsheets/d/e/2PACX-1vRQ4X_mbqUE9ImUAOulTO0TXnVkkD4wiR93ljBlpWAH_8gDS4qA4P_KiMqj0oAQrlQdc44tEvdDVOhg/pub?gid=0&single=true&output=csv"
+   demographicQuestionsFile = "https://docs.google.com/spreadsheets/d/e/2PACX-1vREL7L2HrjHkyuInXpudHtrbuFByL2n2VFhavhVWcUVpyAz8JA8IA44FQ9Py_JntUvzJN0-9F8oM4Br/pub?gid=0&single=true&output=csv"
+   surveyanswersFile =  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQLvjQ9Md7CCH-U0EKrGXYddO_BBQrGhO5oKLZy63w3UsOX56uePGSoPUESXr_U8BGHzZpbX5QGL2V7/pub?gid=1735325600&single=true&output=csv";
+
+
+} else {
+   surveyQuestionsFile = "data/" +project + "/" + project + "_survey_questions.csv";
+   demographicQuestionsFile = "data/" +project + "/" + project + "_demographic_questions.csv"
+   surveyanswersFile = "data/" +project + "/" + project + "_demographic_questions.csv"
+}
+
+// console.log(tool,project)
 // project = '123.4567.890'; //string to be parsed from 
 
 console.log('project is ', project)
@@ -37,15 +51,13 @@ console.log('project is ', project)
 let promises = [
     //survey questions sheet
     // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQsJiLDVYvs6ANKNHpNFqbsJmvJOiBx4ptFawL998_cP0r1IcsIQXodK8W1YzHa__t6ZRkcqc3OSNqm/pub?gid=0&single=true&output=csv"),
-    d3.csv("data/" +project + "/" + project + "_survey_questions.csv"),
-
+    d3.csv(surveyQuestionsFile),
     //survey userQuestions sheet
     // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vS4TlQT4j9tS6slrWZobAdBX886SVvCo0tdNyOznVrCgs-DmqUhwInIHOgCp5kp6GyWTAvRcTBtt9l3/pub?gid=538591639&single=true&output=csv"),
-    d3.csv("data/" +project + "/" + project + "_demographic_questions.csv"),
-
+    d3.csv(demographicQuestionsFile),
     //survey responses sheet
     // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTainYDF5QResqhPR1QNHBtMPeqrKaf8FOHOlFm00HchbI9ZY5oA_JKdGmLH0weiEhuzwiA-okJQP1L/pub?gid=1321206642&single=true&output=csv")
-    d3.csv("data/" +project + "/" + project + "_responses.csv"),
+    d3.csv(surveyanswersFile),
 
 ];
 
