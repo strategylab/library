@@ -109,7 +109,7 @@ class dataWedge {
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom);
 
 
-        d3.select('#projectTitle').append('p').text('Wellness Survey')
+        d3.select('#projectTitle').append('p').text(projectName)
         // vis.g = vis.svg.append("g")
         //     .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")")
         //     .attr('class', 'title')
