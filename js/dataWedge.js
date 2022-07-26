@@ -45,7 +45,6 @@ class dataWedge {
         // let axisHeader = 'Axis'
         // let setHeader = 'Set Name'
 
-        
         console.log('survey questions', this.surveyQuestions)
         this.surveyQuestions = this.surveyQuestions.filter(d => d[axisHeader] && d[setHeader]); //filter out questions without an assigned axis or set
         // let surveyResponses =this.surveyResponses;
@@ -307,7 +306,7 @@ class dataWedge {
             // if (q.Set == set){
             let values = surveyData.filter(s => s.selected).map(s => s[q[qualtricsHeader]]).sort()
 
-            let newValue = d3.quantile(values, quantiles[q.Set] / 100);
+            let newValue = d3.quantile(values, quantiles[q[setHeader]] / 100);
 
             q.value = newValue;
             // }
@@ -323,9 +322,9 @@ class dataWedge {
 
         let padding = width*0.2
 
-        let percentileLabel = quantiles[d.Set];
+        let percentileLabel = quantiles[d[setHeader]];
         let values = surveyData.filter(s => s.selected).map(s => s[d[qualtricsHeader]]).sort()
-        let quantile = d3.quantile(values, quantiles[d.Set] / 100)
+        let quantile = d3.quantile(values, quantiles[d[setHeader]] / 100)
 
         console.log( 'quantile',quantile)
 
@@ -492,7 +491,7 @@ class dataWedge {
 
         let enter = dotSelection.enter()
             .append('circle')
-            .attr('class', d => d.Set)
+            .attr('class', d => d[setHeader])
             .classed('questionValues', true)
 
         dotSelection = dotSelection.merge(enter);
