@@ -31,7 +31,7 @@ if (params.length>1){
 let surveyQuestionsFile, demographicQuestionsFile, surveyanswersFile;
 
  //set up google spreadsheets for MIT project specifically
-if (project == '11.7771.000'){
+if (project == 'sandbox'){
     surveyQuestionsFile ="https://docs.google.com/spreadsheets/d/e/2PACX-1vRQ4X_mbqUE9ImUAOulTO0TXnVkkD4wiR93ljBlpWAH_8gDS4qA4P_KiMqj0oAQrlQdc44tEvdDVOhg/pub?gid=0&single=true&output=csv"
    demographicQuestionsFile = "https://docs.google.com/spreadsheets/d/e/2PACX-1vREL7L2HrjHkyuInXpudHtrbuFByL2n2VFhavhVWcUVpyAz8JA8IA44FQ9Py_JntUvzJN0-9F8oM4Br/pub?gid=0&single=true&output=csv"
    surveyanswersFile =  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQLvjQ9Md7CCH-U0EKrGXYddO_BBQrGhO5oKLZy63w3UsOX56uePGSoPUESXr_U8BGHzZpbX5QGL2V7/pub?gid=1735325600&single=true&output=csv";
@@ -43,7 +43,7 @@ if (project == '11.7771.000'){
    demographicQuestionsFile = "data/" +project + "/" + project + "_demographic_questions.csv"
    surveyanswersFile = "data/" +project + "/" + project + "_demographic_questions.csv"
 
-   projectName = 'Wellness Survey'
+   projectName = 'Wellness Survey' //need to update to read from questions.csv
 }
 
 // console.log(tool,project)
