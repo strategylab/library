@@ -20,8 +20,6 @@ class dataWedge {
 
         this.wrangleData();
 
-        console.log(this.width)
-
         console.log('survey data is ', surveyData)
 
 
@@ -43,10 +41,12 @@ class dataWedge {
     wrangleData() {
 
         //create array of JSON objects from csv. 
-        let wedgeHeader = 'Wedge';
-        let axisHeader = 'Axis'
-        let setHeader = 'Set'
+        // let wedgeHeader = 'Wedge';
+        // let axisHeader = 'Axis'
+        // let setHeader = 'Set Name'
 
+        
+        console.log('survey questions', this.surveyQuestions)
         this.surveyQuestions = this.surveyQuestions.filter(d => d[axisHeader] && d[setHeader]); //filter out questions without an assigned axis or set
         // let surveyResponses =this.surveyResponses;
 
@@ -55,7 +55,8 @@ class dataWedge {
 
         console.log('survey questions are ', this.surveyQuestions)
         let wedges = new Set(surveyQuestions.map(d => d[wedgeHeader]));
-
+        //  return;
+        
         this.wedgeStructure = Array.from(wedges).map(wedge => {
             let wedgeObj = { label: wedge, id: wedge.replace(/\s/g, ''), axis: {} }
 
@@ -72,7 +73,7 @@ class dataWedge {
                 // let values = surveyData.filter(s=>s.selected).map(s => s[q[qualtricsHeader]]).sort()
                 // console.log('sData', surveyData)
                 let values = surveyData.filter(s => s.selected).map(s => s[q[qualtricsHeader]]).sort()
-                q.value = d3.quantile(values, quantiles[q.Set] / 100)
+                q.value = d3.quantile(values, quantiles[q[setHeader]] / 100)
             })
 
             return wedgeObj
@@ -213,9 +214,6 @@ class dataWedge {
                 p.scale = d3.scaleLinear()
                     .domain([5, 1])
                     .range([pathLength * 0.1, pathLength * 0.9])
-
-                    console.log('setting p.scale')
-                p.test = 'carolina';
             })
         // .on('click', (event,d)=>console.log('data for this line is ', d));
 
@@ -519,7 +517,7 @@ class dataWedge {
                     .style("top", event.pageY + "px")
                     .select('.header')             
                     .html(`
-                         <h2>${d.Set == 'Relevance' ? 'What matters most' : 'Current experience' }</h2>
+                         <h2>${d[setHeader] == 'Relevance' ? 'What matters most' : 'Current experience' }</h2>
                         <h3>${d.Question}</h3>
                       `);
 
@@ -547,7 +545,7 @@ class dataWedge {
 
         let relevance = polygon.selectAll(".Relevance")
             // .data([lowerData.concat(upperData)]);
-            .data([this.surveyQuestions.filter(q => q.Set == 'Relevance')]);
+            .data([this.surveyQuestions.filter(q => q[setHeader] == 'Relevance')]);
 
 
         let relevanceEnter = relevance.enter().append("polygon");
@@ -561,7 +559,7 @@ class dataWedge {
 
             let experience = polygon.selectAll(".Experience")
             // .data([lowerData.concat(upperData)]);
-            .data([this.surveyQuestions.filter(q => q.Set == 'Experience')]);
+            .data([this.surveyQuestions.filter(q => q[setHeader] == 'Experience')]);
 
 
         let experienceEnter = experience.enter().append("polygon");

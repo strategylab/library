@@ -4,6 +4,10 @@ let surveyData;
 let qualtricsHeader = 'Qualtrics Question ID';
 let projectName;
 
+let wedgeHeader = 'Wedge';
+let axisHeader = 'Axis'
+let setHeader = 'Set Name'
+
 
 let quantiles = { 'Experience': 50, 'Relevance': 50 }
 let setLabels = { 'Importance': 'Relevance', 'Agreement': 'Experience' }
@@ -25,7 +29,7 @@ console.log('params', params)
 if (params.length>1){
     [tool,project] = params[1].split('/')
 } else {
-    project = '123.4567.890'
+    project = '000.0000.000'
 }
 
 let surveyQuestionsFile, demographicQuestionsFile, surveyanswersFile;
@@ -41,7 +45,7 @@ if (project == 'sandbox'){
 } else {
    surveyQuestionsFile = "data/" +project + "/" + project + "_survey_questions.csv";
    demographicQuestionsFile = "data/" +project + "/" + project + "_demographic_questions.csv"
-   surveyanswersFile = "data/" +project + "/" + project + "_demographic_questions.csv"
+   surveyanswersFile = "data/" +project + "/" + project + "_responses.csv"
 
    projectName = 'Wellness Survey' //need to update to read from questions.csv
 }
@@ -65,7 +69,7 @@ let promises = [
 ];
 
 Promise.all(promises)
-    .then(function (data) { createVis(data) })
+    .then(function (data) { createVis(data) }) //createVis(data)
     .catch(function (err) { console.log(err) });
 
 function quantileChanged(set, quantile) {
@@ -91,7 +95,7 @@ console.log(data)
 
     // console.log('surveyResponsesRaw', surveyResponsesRaw[0])
     surveyQuestions.map(q => {
-        q.Set = setLabels[q.Set]
+        q[setHeader] = setLabels[q[setHeader]]
         //for each surveyQuestion, change the value in data to numeric:
         data[2].map(d => d[q[qualtricsHeader]] = parseInt(d[q[qualtricsHeader]]))
     }
