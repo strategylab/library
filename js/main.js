@@ -9,7 +9,7 @@ let axisHeader = 'Axis'
 let setHeader = 'Set Name'
 
 
-let quantiles = { 'Experience': 50, 'Relevance': 50 }
+let quantiles = { 'Experience': 25, 'Relevance': 75 }
 let setLabels = { 'Importance': 'Relevance', 'Agreement': 'Experience' }
 
 let dataWedgeObj, filterPanelObj;
