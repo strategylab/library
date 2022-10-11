@@ -65,7 +65,7 @@ class filterPanel {
 
         })
 
-        console.log(vis.filterQuestions)
+        // console.log(vis.filterQuestions)
 
         surveyData.map(d=>{
             let selected = true;
@@ -73,10 +73,13 @@ class filterPanel {
                 let questionId = q[qualtricsHeader];
                 let answer = d[questionId];
                 
+                // console.log(q.Options)
+                // console.log(questionId, answer)
                 if (answer == '#NULL!'){
                     selected = false;
                 }else {
-                        let clicked = q.Options.filter(o=>o.option == answer)[0].clicked;
+                    // console.log(q.Options.filter(o=>o.option == answer))
+                        let clicked = q.Options.filter(o=>o.option == answer)[0] && q.Options.filter(o=>o.option == answer)[0].clicked;
                     if (!clicked){
                         selected = false;
                     }

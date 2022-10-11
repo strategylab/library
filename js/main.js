@@ -47,7 +47,7 @@ if (project == 'sandbox'){
    demographicQuestionsFile = "data/" +project + "/" + project + "_demographic_questions.csv"
    surveyanswersFile = "data/" +project + "/" + project + "_responses.csv"
 
-   projectName = 'Wellness Survey' //need to update to read from questions.csv
+   projectName = 'Gensler Wellness Survey' //need to update to read from questions.csv
 }
 
 // console.log(tool,project)
@@ -85,7 +85,7 @@ function dataFiltered() {
 function createVis(data) {
 
 
-    let qualtricsHeader = 'Qualtrics Question ID'
+    // let qualtricsHeader = 'Qualtrics Question ID'
 console.log(data)
     console.log('preFilter questions', data[0])
     let surveyQuestions = data[0].filter(d=>d.Include.toLowerCase() == 'true');
@@ -96,8 +96,12 @@ console.log(data)
     // console.log('surveyResponsesRaw', surveyResponsesRaw[0])
     surveyQuestions.map(q => {
         q[setHeader] = setLabels[q[setHeader]]
+   
+        
         //for each surveyQuestion, change the value in data to numeric:
-        data[2].map(d => d[q[qualtricsHeader]] = parseInt(d[q[qualtricsHeader]]))
+        data[2].map(d => {
+             d[q[qualtricsHeader]] = parseInt(d[q[qualtricsHeader]])
+            })
     }
     )
 

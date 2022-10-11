@@ -1,0 +1,45 @@
+Qualtrics Question ID,Label,Question,Options,Include
+Q79,Office,What Gensler office do you identify as your primary office location?,"Berlin
+Birmingham
+Chicago
+London
+Munich
+New York
+Paris
+San Francisco",TRUE
+Q11,Role,Which of the following best describes your role?,"Firmwide Hub & Office Leadership 
+Shared Services (HR, IT, Finance, Legal, Project Coordinators, etc)
+Project Design Management 
+Project Design (Architecture / Interiors / Urban)
+Project Technical Support (Realization / DT)
+Consulting (Real Estate Service, Strategy & Sustainability)
+DXD, Brand, Graphics
+Other",TRUE
+Q12,Gensler Tenure,How long have you been working at Gensler?,"0-2 years
+3-5 years
+6-10 years
+More than 10 years",TRUE
+Q74,Industry Tenure,How many years have you been in the AEC Industry?,"0-5 years
+6-10 years
+11-15 years
+16-20 years
+20+ years",TRUE
+Q77,Gensler Title,What is your title or level of appointment?,"Untitled
+Associate
+Senior Associate
+Principal",TRUE
+Q75,Gender Identity,What is your gender or gender identity?,"Woman
+Man
+Prefer not to say",TRUE
+Q76,In-Office,How much time do you spend working from the office versus working from home?,"I'm at the office 1 day a week
+I'm at the office 2-3 days a week
+I'm at the office 4-5 days a week
+I'm fully remote",TRUE
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
