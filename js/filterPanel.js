@@ -5,6 +5,8 @@
  * @param _data						-- the actual data: perDayData 
  */
 
+                     
+
 class filterPanel {
 
     constructor(_parentElement, filterQuestions) {
@@ -24,6 +26,7 @@ class filterPanel {
         //    }, 0);
 
     }
+    
 
 
     wrangleData() {
@@ -32,12 +35,11 @@ class filterPanel {
 
         vis.filterQuestions.map(q=>{
             q.Options = q.Options.map(o=>{
-                // surveyData
-                let count = surveyData.filter(d=>d[q[qualtricsHeader]]==o).length;
-                let selected = surveyData.filter(d=>d[q[qualtricsHeader]]==o && d.selected).length;
-                return {option:o,count, selected, clicked:true}
+                //create structure for counts
+                return {option:o ,count:0, selected:true, clicked:true}
 
             })
+           
 
         })
         
@@ -46,11 +48,14 @@ class filterPanel {
     
         vis.updateCounts()
         vis.initVis()
+                console.log(' vis' , vis.filterQuestions[2].Options[0])
+
+
     }
 
-    filterData(questionId, option,include){
 
-        // console.log( option, include)
+
+    filterData(questionId, option,include){
         //setting the flag for that option as filtered;
         let vis = this;
         vis.filterQuestions.map(q=>{
@@ -61,39 +66,52 @@ class filterPanel {
                     }
                 })
             }
-            
-
         })
 
         // console.log(vis.filterQuestions)
+
 
         surveyData.map(d=>{
             let selected = true;
             vis.filterQuestions.map(q=>{
                 let questionId = q[qualtricsHeader];
-                let answer = d[questionId];
+                let answer = removeWhiteSpace(d[questionId]); //remove white space from answer;
+                // console.log(' answer' , answer)
+
+                // console.log(questionId, answer)
                 
                 // console.log(q.Options)
                 // console.log(questionId, answer)
                 if (answer == '#NULL!'){
                     selected = false;
                 }else {
-                    // console.log(q.Options.filter(o=>o.option == answer))
-                        let clicked = q.Options.filter(o=>o.option == answer)[0] && q.Options.filter(o=>o.option == answer)[0].clicked;
+                    // console.log(q.Options, q.Options.filter(o=>o.option == answer))
+                    // let clicked = q.Options.filter(o=>o.option == answer)[0].clicked
+   
+                        let matchAnswer = q.Options.filter(o=>removeWhiteSpace(o.option) == answer);
+                        let clicked = matchAnswer.length == 0 || matchAnswer[0].clicked;
                     if (!clicked){
+
+                        console.log(' filtered out' , answer)
+                        console.log(d)
                         selected = false;
-                    }
+                    } 
+                    // else{
+                    //     console.log(' kept' ,questionId, answer)
+                    // }
                 }
                 
             })
            
                 d.selected = selected;
+                // console.log(d[questionId], d.selected)
         
         })
 
         vis.updateCounts();
         dataFiltered() //main function to recompute values for wedges
     }
+
 
     clearFilters(){
 
@@ -114,18 +132,21 @@ class filterPanel {
     
     updateCounts(){
         let vis = this;
-        // console.log(vis.filterQuestions)
+   
+
         vis.filterQuestions.map(q=>{
             q.Options.map(o=>{
-                // surveyData
-                o.count = surveyData.filter(d=>d[q[qualtricsHeader]]==o.option).length;
-                o.selected = surveyData.filter(d=>d[q[qualtricsHeader]]==o.option && d.selected).length;
+                let option = removeWhiteSpace(o.option);
+                o.count = surveyData.filter(d=>{  return removeWhiteSpace(d[q[qualtricsHeader]]) == option}).length;
+                o.selected = surveyData.filter(d=>removeWhiteSpace(d[q[qualtricsHeader]]) == option && d.selected).length;
             })
-
+           
         })
 
+
+    
          vis.filterQuestions.map((f,i)=>{
-            //  console.log(f);
+             console.log(f);
                 let optionGroup = d3.select('#' + f[qualtricsHeader].replace(/\./g,''))
                 vis.createUserFilter(optionGroup,f)
              
@@ -311,7 +332,8 @@ class filterPanel {
                 let toggle = d3.select(this).classed('selectAll');
                 d3.select(this).classed('selectAll',!toggle)
 
-                console.log('setting selectAll to ', !toggle)
+                console.log('setting selectAll for ' , f[qualtricsHeader] , ' , to ', !toggle)
+                
                 f.Options.map(d=>{
                     vis.filterData(f[qualtricsHeader],d.option,!toggle);
                 })

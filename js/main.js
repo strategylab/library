@@ -19,6 +19,11 @@ function updateDisplay() {
     // console.log('updated data is ', surveyData)
 }
 
+//function to remove whitespace from string to ease matching  
+let removeWhiteSpace = function(str){
+    return str.replace(/[^a-zA-Z0-9]/g, "")           
+}
+
 
 console.log(window.location.href)
 let params = window.location.href.split('?/');
@@ -78,7 +83,7 @@ function quantileChanged(set, quantile) {
 }
 
 function dataFiltered() {
-    console.log('data filtered')
+    // console.log('data filtered')
     dataWedgeObj.recomputeQuantiles()
 }
 
@@ -86,7 +91,7 @@ function createVis(data) {
 
 
     // let qualtricsHeader = 'Qualtrics Question ID'
-console.log(data)
+// console.log(data)
     console.log('preFilter questions', data[0])
     let surveyQuestions = data[0].filter(d=>d.Include.toLowerCase() == 'true');
 
