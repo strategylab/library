@@ -68,7 +68,6 @@ class filterPanel {
             }
         })
 
-        // console.log(vis.filterQuestions)
 
 
         surveyData.map(d=>{
@@ -76,35 +75,21 @@ class filterPanel {
             vis.filterQuestions.map(q=>{
                 let questionId = q[qualtricsHeader];
                 let answer = removeWhiteSpace(d[questionId]); //remove white space from answer;
-                // console.log(' answer' , answer)
 
-                // console.log(questionId, answer)
-                
-                // console.log(q.Options)
-                // console.log(questionId, answer)
                 if (answer == '#NULL!'){
                     selected = false;
-                }else {
-                    // console.log(q.Options, q.Options.filter(o=>o.option == answer))
-                    // let clicked = q.Options.filter(o=>o.option == answer)[0].clicked
-   
+                }else {   
                         let matchAnswer = q.Options.filter(o=>removeWhiteSpace(o.option) == answer);
-                        let clicked = matchAnswer.length == 0 || matchAnswer[0].clicked;
+                        let clicked = matchAnswer.length == 0 || matchAnswer[0].clicked; //ignore answers that don't match any of the options, consider them selected 
                     if (!clicked){
-
-                        console.log(' filtered out' , answer)
-                        console.log(d)
                         selected = false;
                     } 
-                    // else{
-                    //     console.log(' kept' ,questionId, answer)
-                    // }
+
                 }
                 
             })
            
                 d.selected = selected;
-                // console.log(d[questionId], d.selected)
         
         })
 
@@ -156,10 +141,6 @@ class filterPanel {
 
         d3.select('#numParticipants')
         .text('' + vis.selectedRespondents + ' / ' + vis.allRespondents + ' participants')
-
-        // console.log('filter Questions', vis.filterQuestions)
-        // console.log('surveyData',surveyData)
-
     }
 
 
