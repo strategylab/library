@@ -131,7 +131,6 @@ class filterPanel {
 
     
          vis.filterQuestions.map((f,i)=>{
-             console.log(f);
                 let optionGroup = d3.select('#' + f[qualtricsHeader].replace(/\./g,''))
                 vis.createUserFilter(optionGroup,f)
              
