@@ -1,10 +1,10 @@
-Qualtrics Question ID,Label,Question,Options,Include
+﻿Qualtrics Question ID,Label,Question,Options,Include
 Q79,Office,What Gensler office do you identify as your primary office location?,"Berlin
 Birmingham
 Chicago
 London
-Munich
 New York
+Newport Beach
 Paris
 San Francisco",TRUE
 Q11,Role,Which of the following best describes your role?,"Firmwide Hub & Office Leadership 
@@ -35,11 +35,3 @@ Q76,In-Office,How much time do you spend working from the office versus working 
 I'm at the office 2-3 days a week
 I'm at the office 4-5 days a week
 I'm fully remote",TRUE
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,

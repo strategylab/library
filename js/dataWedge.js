@@ -20,7 +20,7 @@ class dataWedge {
 
         this.wrangleData();
 
-        console.log('survey data is ', surveyData)
+        // console.log('survey data is ', surveyData)
 
 
         // setTimeout(() => { this.initVis();   // Update the visualization
@@ -45,7 +45,7 @@ class dataWedge {
         // let axisHeader = 'Axis'
         // let setHeader = 'Set Name'
 
-        console.log('survey questions', this.surveyQuestions)
+        // console.log('survey questions', this.surveyQuestions)
         this.surveyQuestions = this.surveyQuestions.filter(d => d[axisHeader] && d[setHeader]); //filter out questions without an assigned axis or set
         // let surveyResponses =this.surveyResponses;
 
@@ -615,7 +615,8 @@ class dataWedge {
             let lineInterval = interval / (numLines + 1);
 
 
-            let id = d.label.replace(/\s/g, '')
+            let id = removeWhiteSpace(d.label)
+            console.log(' id' , id)
             let startAngle = i * interval - Math.PI / 2 //start the wedges on the left
             let endAngle = (i + 1) * interval - Math.PI / 2;
             let quadrant = startAngle > 80 * Math.PI / 180 ? 'lower' : 'upper'
@@ -707,7 +708,7 @@ class dataWedge {
                     .startAngle(startLine)
                     .endAngle(endLine)
 
-
+                console.log(' q' , q.id)
 
                 wedgeGroup.lines.push(
                     {
