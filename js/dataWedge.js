@@ -9,7 +9,8 @@ class dataWedge {
 
     constructor(_parentElement, surveyQuestions) {
         this.parentElement = _parentElement;
-        this.surveyQuestions = surveyQuestions.map(q => { q.id = q.Axis.replace(/\s/g, ''); return q });
+        surveyQuestions.map(q=>console.log('axis', this.sanitizeId(q.Axis)))
+        this.surveyQuestions = surveyQuestions.map(q => { q.id = this.sanitizeId(q.Axis); return q });
         // this.filteredData = this.data;
         this.margin = { top: 20, right: 20, bottom: 200, left: 50 };
         this.width = d3.select("#" + this.parentElement).node().clientWidth + 200 - this.margin.left - this.margin.right;
@@ -29,6 +30,9 @@ class dataWedge {
     }
 
 
+    sanitizeId(str){
+        return str.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s/g, '')
+    }
     /*
     * Initialize visualization (static content, e.g. SVG area or axes)
     */
@@ -57,13 +61,13 @@ class dataWedge {
         //  return;
         
         this.wedgeStructure = Array.from(wedges).map(wedge => {
-            let wedgeObj = { label: wedge, id: wedge.replace(/\s/g, ''), axis: {} }
+            let wedgeObj = { label: wedge, id: this.sanitizeId(wedge), axis: {} }
 
             let wedgeQuestions = surveyQuestions.filter(d => d[wedgeHeader] == wedge);
             let axisNames = new Set(wedgeQuestions.map(d => d[axisHeader]))
 
             Array.from(axisNames).map(axis => {
-                wedgeObj.axis[axis] = { questions: [], label: axis, id: axis.replace(/\s/g, '') };
+                wedgeObj.axis[axis] = { questions: [], label: axis, id:this.sanitizeId(axis) };
             })
 
             wedgeQuestions.map(q => {
