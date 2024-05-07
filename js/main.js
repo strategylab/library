@@ -15,6 +15,9 @@ let setLabels = { 'Importance': 'Relevance', 'Agreement': 'Experience' }
 let dataWedgeObj, filterPanelObj;
 // (1) Load data with promises
 
+
+
+
 function updateDisplay() {
     // console.log('updated data is ', surveyData)
 }
