@@ -52,7 +52,7 @@ if (project == 'sandbox'){
    demographicQuestionsFile = "data/" +project + "/" + project + "_demographic_questions.csv"
    surveyanswersFile = "data/" +project + "/" + project + "_responses.csv"
 
-   projectName = 'Gensler Wellness Survey' //need to update to read from questions.csv
+   projectName = 'BPL' //need to update to read from questions.csv
 }
 
 // console.log(tool,project)
