@@ -10,7 +10,9 @@ let setHeader = 'Set Name'
 
 
 let quantiles = { 'Experience': 25, 'Relevance': 75 }
-let setLabels = { 'Importance': 'Relevance', 'Agreement': 'Experience' }
+// let setLabels = { 'Importance': 'Relevance', 'Agreement': 'Experience' }
+let setLabels = { 'Importance': 'Relevance', 'Meets Community Needs': 'Experience' }
+
 
 let dataWedgeObj, filterPanelObj;
 // (1) Load data with promises

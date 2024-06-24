@@ -10,7 +10,7 @@ class dataWedge {
     constructor(_parentElement, surveyQuestions) {
         this.parentElement = _parentElement;
         surveyQuestions.map(q=>console.log('axis', this.sanitizeId(q.Axis)))
-        this.surveyQuestions = surveyQuestions.map(q => { q.id = this.sanitizeId(q.Axis); return q });
+        this.surveyQuestions = surveyQuestions.map(q => { q.id = this.sanitizeId(q.Axis); q.wedgeId = this.sanitizeId(q.Wedge); return q });
         // this.filteredData = this.data;
         this.margin = { top: 20, right: 20, bottom: 200, left: 50 };
         this.width = d3.select("#" + this.parentElement).node().clientWidth + 200 - this.margin.left - this.margin.right;
@@ -465,11 +465,12 @@ class dataWedge {
 
         //compute location for each dot; 
         this.surveyQuestions.map(q => {
-            
-
-            let line = d3.select('#' + q.id);
+            console.log(' question is ' , q)
+            //select parent wedge then line so that the axis labels don't have to be unique' 
+            let line = d3.select('#' + q.wedgeId + 'Group').select('#' + q.id);
             // console.log('#' + q.id, line.size())
-            let data = line.data()[0];
+            let data = line.data()[0].lines[0];
+            console.log(' data is ' , data)
             // console.log('data', line.data(), data.scale)
             let scale = data.scale;
             let distanceAlongPath = scale(q.value);
@@ -518,7 +519,7 @@ class dataWedge {
 
                     .style("left", event.pageX + 20 + "px")
                     .style("top", event.pageY + "px")
-                    .select('.header')             
+                    .select('.header')        
                     .html(`
                          <h2>${d[setHeader] == 'Relevance' ? 'What matters most' : 'Current experience' }</h2>
                         <h3>${d.Question}</h3>
@@ -620,7 +621,7 @@ class dataWedge {
 
 
             let id = removeWhiteSpace(d.label)
-            console.log(' id' , id)
+            // console.log(' id' , id)
             let startAngle = i * interval - Math.PI / 2 //start the wedges on the left
             let endAngle = (i + 1) * interval - Math.PI / 2;
             let quadrant = startAngle > 80 * Math.PI / 180 ? 'lower' : 'upper'

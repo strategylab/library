@@ -1,13 +1,13 @@
 Qualtrics Question ID,Include,Wedge,Axis,Set Name,Question,Project Name,SetLabel,SetName
-QID28_1,TRUE,Cultural Advocate,A,Importance,How important is this role for the communities you serve?,BPL Staff Survey,Current Experience,Meets Community Needs
-QID28_2,TRUE,Life-Long Learning Partner,A,Importance,How important is this role for the communities you serve?,,Highest Impact,Importance
-QID28_3,TRUE,Growth Catalyst,A,Importance,How important is this role for the communities you serve?,,,
-QID28_4,TRUE,Trusted Resouce,A,Importance,How important is this role for the communities you serve?,,,
-QID28_5,TRUE,Welcoming Destination,A,Importance,How important is this role for the communities you serve?,,,
-QID28_6,TRUE,Community Connector,A,Importance,How important is this role for the communities you serve?,,,
-QID41_1,TRUE,Cultural Advocate,A,Meets Community Needs,How well does your location/department currently play this role for the communities you serve?,,,
-QID41_2,TRUE,Life-Long Learning Partner,A,Meets Community Needs,How well does your location/department currently play this role for the communities you serve?,,,
-QID41_3,TRUE,Growth Catalyst,A,Meets Community Needs,How well does your location/department currently play this role for the communities you serve?,,,
-QID41_4,TRUE,Trusted Resouce,A,Meets Community Needs,How well does your location/department currently play this role for the communities you serve?,,,
-QID41_5,TRUE,Welcoming Destination,A,Meets Community Needs,How well does your location/department currently play this role for the communities you serve?,,,
-QID41_6,TRUE,Community Connector,A,Meets Community Needs,How well does your location/department currently play this role for the communities you serve?,,,
+QID28_1,TRUE,Cultural Advocate,Role,Importance,How important is this role for the communities you serve?,BPL Staff Survey,Current Experience,Meets Community Needs
+QID28_2,TRUE,Life-Long Learning Partner,Role,Importance,How important is this role for the communities you serve?,,Highest Impact,Importance
+QID28_3,TRUE,Growth Catalyst,Role,Importance,How important is this role for the communities you serve?,,,
+QID28_4,TRUE,Trusted Resouce,Role,Importance,How important is this role for the communities you serve?,,,
+QID28_5,TRUE,Welcoming Destination,Role,Importance,How important is this role for the communities you serve?,,,
+QID28_6,TRUE,Community Connector,Role,Importance,How important is this role for the communities you serve?,,,
+QID41_1,TRUE,Cultural Advocate,Role,Meets Community Needs,How well does your location/department currently play this role for the communities you serve?,,,
+QID41_2,TRUE,Life-Long Learning Partner,Role,Meets Community Needs,How well does your location/department currently play this role for the communities you serve?,,,
+QID41_3,TRUE,Growth Catalyst,Role,Meets Community Needs,How well does your location/department currently play this role for the communities you serve?,,,
+QID41_4,TRUE,Trusted Resouce,Role,Meets Community Needs,How well does your location/department currently play this role for the communities you serve?,,,
+QID41_5,TRUE,Welcoming Destination,Role,Meets Community Needs,How well does your location/department currently play this role for the communities you serve?,,,
+QID41_6,TRUE,Community Connector,Role,Meets Community Needs,How well does your location/department currently play this role for the communities you serve?,,,
