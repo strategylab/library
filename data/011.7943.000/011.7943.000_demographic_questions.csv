@@ -25,14 +25,16 @@ South End
 Uphams Corner 
 West End 
 West Roxbury ",TRUE
-QID39,Department at Central,What is your department? ,"Youth Services (Teen Central, Children's Library, Outreach, etc.) 
+QID39,Department at Central,What is your department?Â ,"Youth Services (Teen Central, Children's Library, Outreach, etc.) 
 Adult Library Services (KBLIC, Community Learning, Community History, Programs, Tech Central, etc.) 
 Central Services (Research Services, Interlibrary Loan, Circulation/Borrower Services/Delivery Desk, Visitor Experience) 
 Library Services (Administration, Welcome Services, Volunteer Coordination, Training) 
 Collections (Collection Development, Reader Services, Research and Special Collections, Digital and Online Services, Cataloging & Processing) 
 Communications, IT, AV 
 Facilities, Shipping, Events, Security, Project Management, HR, Business & Accounting 
-President's Office ",TRUE
+President's Office 
+LMEC
+The Associates / Special Collections",TRUE
 QID34,Tenure,How long have you been with BPL?,"Less than 1 year 
 1 to 2 years 
 3 to 4 years 
