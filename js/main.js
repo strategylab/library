@@ -162,9 +162,11 @@ function createVis(data) {
 
     surveyData.splice(0, 2);
 
+    surveyData = surveyData.filter(d=>d.ID);
+
     //  surveyData = surveyResponses;
 
-    console.log('surveyData is ', surveyData)
+    console.log('surveyData 1 is ', surveyData)
 
     dataWedgeObj = new dataWedge('dataWedge', surveyQuestions)
     filterPanelObj = new filterPanel('filterPanel', surveyUserQuestions)

@@ -45,6 +45,7 @@ class filterPanel {
         
         // count how many people took the survey and answered each of the options; 
         vis.allRespondents = surveyData.length;
+        // console.log(surveyData)
     
         vis.updateCounts()
         vis.initVis()
